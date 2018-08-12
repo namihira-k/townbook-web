@@ -1,14 +1,14 @@
-package jp.co.namihira.townbookweb.controller.view.eventinfo;
+package jp.co.namihira.townbookweb.controller.view.eventline;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class EventInfoController {
+public class EventLineController {
         
-    @GetMapping("/eventinfo")
+    @GetMapping("/eventline")
     public String get() {
-        return "eventinfo/body";
+        return "eventline/body";
     }
     
 }
