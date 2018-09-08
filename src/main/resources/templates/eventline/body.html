@@ -1,21 +1,11 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{common/layout}">
 
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Townbook</title>
-  
-  <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  
-  <!-- Compiled and minified CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" rel="stylesheet">
-
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-  
-  <style type="text/css">
+<head>  
+  <style type="text/css" layout:fragment="style">
     .event-spot .name {
       text-align: right;
     }
@@ -23,88 +13,37 @@
       border-left: thin solid black;
     }
   </style>  
-  
 </head>
 
 <body>
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" th:href="@{/welcome}" class="brand-logo">Logo</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
 
-      <ul id="nav-mobile" class="sidenav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
-
-  <div class="container">
-    <h1>Event Line</h1>
-    <h3><i class="medium material-icons">train</i>経由駅</h3>
-	  <ul>
-	    <li>
-  	    <div class="row event-spot">
-  	     <div class="col s3 name">つくば</div>
-  	     <div class="col s9 value">まつりつくば</div>    
-  	    </div>
-	    </li>
-      <li>
-        <div class="row  event-spot">
-         <div class="col s3 name">秋葉原</div>
-         <div class="col s9 value">
-           <ul>
-             <li>イベントA</li>
-             <li>イベントB</li>
-             <li>イベントC</li>
-           </ul>
-         </div>
-        </div>
-      </li>
-	  </ul>  
+  <div layout:fragment="content">
+	  <div class="container">
+	    <h1>Event Line</h1>
+	    <h3><i class="medium material-icons">train</i>経由駅</h3>
+	    <ul>
+	      <li>
+	        <div class="row event-spot">
+	         <div class="col s3 name">つくば</div>
+	         <div class="col s9 value">まつりつくば</div>    
+	        </div>
+	      </li>
+	      <li>
+	        <div class="row  event-spot">
+	         <div class="col s3 name">秋葉原</div>
+	         <div class="col s9 value">
+	           <ul>
+	             <li>イベントA</li>
+	             <li>イベントB</li>
+	             <li>イベントC</li>
+	           </ul>
+	         </div>
+	        </div>
+	      </li>
+	    </ul>  
+	  </div>
   </div>
   
-  <footer class="page-footer orange">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Company Bio</h5>
-          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
-
-
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
-      </div>
-    </div>
-  </footer>
-
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
-
 </body>
 
 </html>
