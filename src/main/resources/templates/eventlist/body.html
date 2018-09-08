@@ -4,7 +4,7 @@
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Townbook</title>
+  <title>Yorimichi</title>
    
   
   <!--Import Google Icon Font-->
@@ -20,7 +20,7 @@
 
 <body>
   <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" th:href="@{/welcome}" class="brand-logo">Logo</a>
+    <div class="nav-wrapper container"><a id="logo-container" th:href="@{/welcome}" class="brand-logo">Yorimichi</a>
       <ul class="right hide-on-med-and-down">
         <li><a href="#">Navbar Link</a></li>
       </ul>
@@ -33,28 +33,28 @@
   </nav>
 
   <div class="container">
-		<h1>Event Information</h1>
-		<div class="card-panel">
-		<h2>Elon Musk's Speech</h2>
-		<ul>
-		  <li>
-		    <label>Where</label>
-		    <p>Akihabara, Tokyo</p>
-		  </li>
-		  <li>
-		    <label>When</label>
-		    <p>2018/08/01 11:00 - 12:00</p>
-		  </li>
-		  <li>
-		    <label>Who</label>
-		    <p>Elon Musk</p>
-		   </li>
-		   <li>
-		     <label>What</label>
-		     <p>Speech</p>
-		   </li>
-		 </ul>
-		</div>
+		<h1>イベント一覧</h1>
+		<table class="striped">
+	    <thead>
+	      <tr>
+	        <th>イベント名</th>
+	        <th>場所</th>
+	        <th>イベント内容</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>まつりつくば</td>
+	        <td>つくば駅</td>
+	        <td>まつり</td>
+	      </tr>
+	      <tr>
+	        <td>イベントA</td>
+	        <td>秋葉原駅</td>
+	        <td>イベントします</td>
+	      </tr>
+	    </tbody>
+    </table>
   </div>
   
   <footer class="page-footer orange">
