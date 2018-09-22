@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{common/layout}">
+
+<head>
+</head>
+
+<body>
+  
+  <div layout:fragment="content">
+	  <div class="container">
+			<h1>イベント登録</h1>
+      <form id="eventadd" action="post">
+  			<div class="input-field">
+          <input id="name" type="text" class="validate" v-model="event.name">
+          <label for="name">イベント名</label>
+        </div>
+        <div class="input-field">
+          <input id="date" class="datepicker" type="text" v-model="event.date">
+          <label for="date">日にち</label>
+        </div>
+        <div class="input-field">
+          <input id="start_date" class="timepicker" type="text" v-model="event.start_time">
+          <label for="start_time">開始時刻</label>
+        </div>
+        <div class="input-field">
+          <input id="end_time" type="text" class="timepicker" v-model="event.end_time">
+          <label for="end_time">終了時刻</label>
+        </div>
+        <button class="btn waves-effect waves-light" v-on:click.prevent="post">登録する<i class="material-icons right">send</i>
+        </button>
+      </form>
+	  </div>
+  </div>
+
+  <div layout:fragment="javascript">
+    <script th:src="@{/js/eventadd/script.js}"></script> 
+  </div>
+  
+</body>
+
+</html>
