@@ -21,7 +21,7 @@
         <div class="row">
 		      <div class="col s6">
             <label for="prefecture">都道府県</label>
-		        <select id="prefecture" class="browser-default" v-model="prefecture.code">
+		        <select id="prefecture" class="browser-default" v-model="prefecture.code" v-on:change="getStations">
    		        <option value="" disabled selected>都道府県を選んでください</option>
 		          <option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
 				    </select>
@@ -29,9 +29,9 @@
 		      <div class="col s6">
             <label for="station">最寄り駅</label>
 		        <select id="station" class="browser-default" v-model="event.stationCode">
-		          <option value="">Choose your option</option>
-		          <option value="1">Option 1</option>
-		        </select>
+		          <option value="" disabled selected>最寄り駅を選んでください</option>
+              <option v-for="s in stations" v-bind:value="s.code">{{ s.name }}</option>
+            </select>
 		      </div>
 	      </div>
         <div class="input-field">

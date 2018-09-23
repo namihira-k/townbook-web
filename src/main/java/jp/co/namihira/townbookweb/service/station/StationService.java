@@ -12,16 +12,15 @@ import jp.co.namihira.townbookweb.client.ekispert.ResultSet;
 import jp.co.namihira.townbookweb.dto.StationDto;
 
 @Service
-public class StationServive {
-
+public class StationService {
 
 	@Autowired
 	private EkispertClient ekispertClient;
-	
-	public List<StationDto> getStations() {
-		final ResultSet resultSet = ekispertClient.getStations();
-		return toStationDtos(resultSet.getPoints());
-	}
+		
+	public List<StationDto> getStations(final int prefectureCode) {
+		final ResultSet result = ekispertClient.getStations(prefectureCode);
+		return toStationDtos(result.getPoints());
+	}	
 	
 	private List<StationDto> toStationDtos(final List<Point> points) {
 		final List<StationDto> stationDtos = points.stream()
@@ -29,6 +28,5 @@ public class StationServive {
 				                                   .collect(Collectors.toList());
 		return stationDtos;
 	}
-	
 	
 }
