@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import org.springframework.context.MessageSource;
 
+import jp.co.namihira.townbookweb.dto.PrefectureDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -67,6 +68,10 @@ public enum PrefectureEnum {
 
     public String getDisplayname(final MessageSource messageSource, final Locale locale){
         return messageSource.getMessage("prefecture." + getId(), null, locale);
+    }
+    
+    public PrefectureDto toPrefectureDto(final MessageSource messageSource, final Locale locale) {
+    	return new PrefectureDto(code, getDisplayname(messageSource, locale));
     }
 	
 

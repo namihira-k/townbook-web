@@ -1,23 +1,33 @@
 new Vue({
   el: '#eventadd',
-  data: {
-	event: {
-	  name: '',
-	  date: '',
-	  start_time: '',
-	  end_time: '',
-	}
-
+  data () {
+		return {
+			event: {
+		    name: '',
+			  date: '',
+			  stationCode: '',
+			  startTime: '',
+			  endTime: '',
+			},
+			prefecture: {
+				code: '',
+			},
+			prefectures: [],
+			stations: [],
+		};
   },
+  
+  mounted () {
+    axios.get('/townbook/api/prefectures')
+         .then(res => { this.prefectures = res.data.results; });
+  },
+  
   methods: {
     post: function () {
   	  axios.post('/townbook/api/events', this.event)
-	  .then(function (response) {
-	    console.log(response);
-	  })
-	  .catch(function (error) {
-	    console.log(error);
-	  });
-    }
+	         .then(response => {
+	           console.log(response);
+	          });
+    }   
   }
 })

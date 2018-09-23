@@ -13,14 +13,10 @@ public class EventDto {
 
 	public String name;
 	
-	@JsonProperty("date")
-	public LocalDate dateTime;
+	public LocalDate date;
 	
-	@JsonProperty("start_time")
 	public String startTime;
 
-	@JsonProperty("end_time")
 	public String endTime;
 
-	
 }
