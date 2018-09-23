@@ -11,23 +11,47 @@
   
   <div layout:fragment="content">
 	  <div class="container">
-			<h1>イベント登録</h1>
+			<h3>イベント登録</h3>
       <form id="eventadd" action="post">
   			<div class="input-field">
           <input id="name" type="text" class="validate" v-model="event.name">
           <label for="name">イベント名</label>
         </div>
+        <h4>場所</h4>
+        <div class="row">
+		      <div class="col s6">
+            <label for="prefecture">都道府県</label>
+		        <select id="prefecture" class="browser-default" v-model="prefecture.code">
+   		        <option value="" disabled selected>都道府県を選んでください</option>
+		          <option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
+				    </select>
+		      </div>
+		      <div class="col s6">
+            <label for="station">最寄り駅</label>
+		        <select id="station" class="browser-default" v-model="event.stationCode">
+		          <option value="">Choose your option</option>
+		          <option value="1">Option 1</option>
+		        </select>
+		      </div>
+	      </div>
+        <div class="input-field">
+          <input id="place" type="text" class="validate" v-model="event.place">
+          <label for="place">場所</label>
+        </div>
+        <h4>日時</h4>
         <div class="input-field">
           <input id="date" class="datepicker" type="text" v-model="event.date">
           <label for="date">日にち</label>
         </div>
-        <div class="input-field">
-          <input id="start_date" class="timepicker" type="text" v-model="event.start_time">
-          <label for="start_time">開始時刻</label>
-        </div>
-        <div class="input-field">
-          <input id="end_time" type="text" class="timepicker" v-model="event.end_time">
-          <label for="end_time">終了時刻</label>
+        <div class="row">
+	        <div class="input-field col s6">
+	          <input id="startDate" class="timepicker" type="text" v-model="event.startTime">
+	          <label for="startTime">開始時刻</label>
+	        </div>
+	        <div class="input-field col s6">
+	          <input id="endTime" type="text" class="timepicker" v-model="event.endTime">
+	          <label for="endTime">終了時刻</label>
+	        </div>
         </div>
         <button class="btn waves-effect waves-light" v-on:click.prevent="post">登録する<i class="material-icons right">send</i>
         </button>
