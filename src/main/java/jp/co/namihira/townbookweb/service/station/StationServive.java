@@ -1,25 +1,34 @@
 package jp.co.namihira.townbookweb.service.station;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
+import jp.co.namihira.townbookweb.client.ekispert.EkispertClient;
+import jp.co.namihira.townbookweb.client.ekispert.Point;
+import jp.co.namihira.townbookweb.client.ekispert.ResultSet;
 import jp.co.namihira.townbookweb.dto.StationDto;
-import jp.co.namihira.townbookweb.dto.StationLineDto;
 
 @Service
 public class StationServive {
 
-	
-    private static final String URL = "http://www.ekidata.jp/api/l/{lineCode}.xml";
 
-    private RestTemplate restTemplate = new RestTemplate();
+	@Autowired
+	private EkispertClient ekispertClient;
 	
 	public List<StationDto> getStations() {
-		StationLineDto line = restTemplate.getForObject(URL, StationLineDto.class, 11302);
-		
-		return line.getStation_l();
+		final ResultSet resultSet = ekispertClient.getStations();
+		return toStationDtos(resultSet.getPoints());
 	}
+	
+	private List<StationDto> toStationDtos(final List<Point> points) {
+		final List<StationDto> stationDtos = points.stream()
+				                                   .map(p -> new StationDto(p.getStation().getCode(), p.getStation().getName()))
+				                                   .collect(Collectors.toList());
+		return stationDtos;
+	}
+	
 	
 }
