@@ -1,12 +1,13 @@
 package jp.co.namihira.townbookweb.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class StationDto {
 
-	private int station_cd;
-	private int station_g_cd;
-	private String station_name;
+	private int code;
+	private String name;
 	
 }
