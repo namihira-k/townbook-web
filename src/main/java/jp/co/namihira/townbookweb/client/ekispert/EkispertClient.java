@@ -13,9 +13,10 @@ public class EkispertClient {
     private static final String URL_API = "https://api.ekispert.jp/v1/json/station?key={accessKey}";
 
     private RestTemplate restTemplate = new RestTemplate();
-
-    public ResultSet getStations() {
-		final EkispertResponse response = restTemplate.getForObject(URL_API, EkispertResponse.class, accessKey);
+    
+    public ResultSet getStations(final int prefectureCode) {
+    	final String url = URL_API + "&prefectureCode={prefectureCode}";
+		final EkispertResponse response = restTemplate.getForObject(url, EkispertResponse.class, accessKey, prefectureCode);
 		return response.getResultSet();
     }
 	

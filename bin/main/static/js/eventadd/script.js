@@ -23,11 +23,20 @@ new Vue({
   },
   
   methods: {
-    post: function () {
+    post () {
   	  axios.post('/townbook/api/events', this.event)
 	         .then(response => {
 	           console.log(response);
 	          });
-    }   
+    },
+    
+    getStations () {
+    	axios.get('/townbook/api/stations', {
+        params: {
+          prefectureCode: this.prefecture.code
+        }
+      }).then(res => { this.stations = res.data.results; });
+    }
+  
   }
 })
