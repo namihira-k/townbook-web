@@ -1,22 +1,28 @@
 package jp.co.namihira.townbookweb.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name = "events_test")
 @Data
 @NoArgsConstructor
 public class EventDto {
 
-	public String name;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public Integer id;
 	
-	public LocalDate date;
-	
-	public String startTime;
+	public LocalDateTime startDateTime;
 
-	public String endTime;
+	public LocalDateTime endDateTime;
 
 }
