@@ -20,8 +20,18 @@
 
   <script type="text/javascript">
     $(function(){
-	    $('.datepicker').datepicker();
-	    $('.timepicker').timepicker();
+	    $('.datepicker').datepicker({
+	    	format: 'yyyy-mm-dd',
+	    	defaultDate: Date.now,
+        showClearBtn: true
+	    });
+	    
+	    $('.timepicker').timepicker({
+	    	defaultTime: '12:00',
+	    	twelveHour: false,
+	    	showClearBtn: true
+	    });
+	    
 	    $('select').formSelect();
     });
   </script>
