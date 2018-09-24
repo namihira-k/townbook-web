@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,8 +23,10 @@ public class EventDto {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Integer id;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	public LocalDateTime startDateTime;
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	public LocalDateTime endDateTime;
 
 }
