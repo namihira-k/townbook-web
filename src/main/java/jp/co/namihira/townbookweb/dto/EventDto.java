@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "events_test")
+@Table(name = "events")
 @Data
 @NoArgsConstructor
 public class EventDto {
@@ -22,6 +22,12 @@ public class EventDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Integer id;
+
+	public String name;
+	
+	public String place;
+	
+	public String stationCode;
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	public LocalDateTime startDateTime;
