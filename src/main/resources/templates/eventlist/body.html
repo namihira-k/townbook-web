@@ -51,14 +51,19 @@
 		      </div>
 		      <div class="row">
 		        <div class="col s12 m4" v-for="event in events">
-		          <div class="card-panel hoverable">
+		          <!--  <div class="card-panel hoverable">  -->
+              <div class="card">
 		            <div class="card-content">
-		              <span class="card-title">{{ event.name }}</span>
+		              <span class="card-title activator">{{ event.name }}<i class="material-icons right">more_vert</i></span>
+		              <p>xxxxxxxxxx</p>
+		              <p>xxxxxxxxxx</p>
 		              <p>xxxxxxxxxx</p>
 		            </div>
-		            <div class="card-action">
-		              <a href="#">詳しくみる</a>
-		            </div>
+								<div class="card-reveal">
+									<span class="card-title grey-text text-darken-4">{{ event.name }}<i class="material-icons right">close</i></span>
+                  <p>{{ event.stationCode }} </p>
+									<p>{{ event.startDateTime }} - {{ event.endDateTime }}</p>
+								</div>
 		          </div>
 		        </div>
 		      </div>
