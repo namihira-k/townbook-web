@@ -3,6 +3,7 @@ new Vue({
   data () {
 		return {
 			events: [],
+			fromDate: '',
 			prefectureCode: '',
 			stationCode: '',
 			prefectures: [],
@@ -28,9 +29,12 @@ new Vue({
     },
     
     getEvents () {
+    	this.fromDate = M.Datepicker.getInstance($('#startDate')).el.value;
+    	
     	axios.get('/townbook/api/events', {
         params: {
-          stationCode: this.stationCode
+          stationCode: this.stationCode,
+          fromDate: this.fromDate
         }
       }).then(res => { this.events = res.data.results; });
     }  	
