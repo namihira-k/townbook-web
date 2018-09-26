@@ -1,8 +1,12 @@
 package jp.co.namihira.townbookweb.controller.api.event;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,8 +35,15 @@ public class EventApiController extends AbstractApiController {
     }
 	
 	@GetMapping(BASE_PATH)
-	public AppApiListResponse getList(@RequestParam(defaultValue = "") String stationCode) {
-		final List<EventDto> events = eventService.getEventList(stationCode);
+	public AppApiListResponse getList(
+			@RequestParam(defaultValue = "") String stationCode,
+			@RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate fromDate) {
+		if (fromDate == null) {
+			fromDate = LocalDate.now();
+		}
+		final LocalDateTime from = LocalDateTime.of(fromDate, LocalTime.MIDNIGHT);		
+		
+		final List<EventDto> events = eventService.getEventList(stationCode, from);
 		return new AppApiListResponse(events);
 	};
 	

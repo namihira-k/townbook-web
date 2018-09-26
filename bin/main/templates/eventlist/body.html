@@ -11,49 +11,58 @@
   <div layout:fragment="content">
 	  <div class="container">
 			<h4>イベント一覧</h4>
-			<div class="card">
-				<div class="card-content">
-	        <h5>検索</h5>
-	        <div class="row">
-	          <div class="col s6">
-	            <label for="prefecture">都道府県</label>
-	            <select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="getStations">
-	              <option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
-	            </select>
-	          </div>
-	          <div class="col s6">
-	            <label for="station">最寄り駅</label>
-	            <select id="station" class="browser-default" v-model="stationCode">
-	              <option v-for="s in stations" v-bind:value="s.code">{{ s.name }}</option>
-	            </select>
-	          </div>
-	        </div>
-	        <div class="center-align">
-            <button class="btn waves-effect waves-light center" v-on:click.prevent="getEvents">絞り込む<i class="material-icons right">search</i>
-	        </div>
-				</div>
-			</div>
-			
-			<div class="row" v-if="!events.length">
-			  <div class="col s10 offset-s1">
-			    <div class="card-panel red lighten-5">
-			      <span>イベント情報はありません</span>
-			    </div>
-			  </div>
-			</div>
-						
 			<div class="row">
-				<div class="col s12 m4" v-for="event in events">
-					<div class="card-panel hoverable">
-						<div class="card-content">
-						  <span class="card-title">{{ event.name }}</span>
-						  <p>xxxxxxxxxx</p>
-						</div>
-						<div class="card-action">
-						  <a href="#">詳しくみる</a>
-						</div>
-					</div>
-        </div>        
+				<div class="col s3">
+		      <div class="card">
+		        <div class="card-content">
+		          <h5>検索</h5>
+	            <h6>日にち</h6>
+	            <div class="input-field">
+	              <input id="startDate" class="datepicker" type="text">
+	              <label for="startDate">開催日</label>
+	            </div>
+	            <h6>場所</h6>
+              <label for="prefecture">都道府県</label>
+              <div class="input-field">
+	              <select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="getStations">
+	                <option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
+	              </select>
+              </div>
+              <label for="station">最寄り駅</label>
+              <div class="input-field">
+	              <select id="station" class="browser-default" v-model="stationCode">
+	                <option v-for="s in stations" v-bind:value="s.code">{{ s.name }}</option>
+	              </select>
+              </div>
+		          <div class="center-align">
+		            <button class="btn waves-effect waves-light center" v-on:click.prevent="getEvents">絞り込む<i class="material-icons right">search</i>
+		          </div>
+		        </div>
+		      </div>
+				</div>
+				
+	      <div class="col s9">
+		      <div class="row" v-if="!events.length">
+		        <div class="col s10 offset-s1">
+		          <div class="card-panel red lighten-5">
+		            <span>イベント情報はありません</span>
+		          </div>
+		        </div>
+		      </div>
+		      <div class="row">
+		        <div class="col s12 m4" v-for="event in events">
+		          <div class="card-panel hoverable">
+		            <div class="card-content">
+		              <span class="card-title">{{ event.name }}</span>
+		              <p>xxxxxxxxxx</p>
+		            </div>
+		            <div class="card-action">
+		              <a href="#">詳しくみる</a>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+	      </div>
 			</div>
 	  </div>
   </div>
