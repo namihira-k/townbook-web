@@ -11,9 +11,32 @@
   <div layout:fragment="content">
 	  <div class="container">
 			<h4>イベント一覧</h4>
+			<div class="card">
+				<div class="card-content">
+	        <h5>検索</h5>
+	        <div class="row">
+	          <div class="col s6">
+	            <label for="prefecture">都道府県</label>
+	            <select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="getStations">
+	              <option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
+	            </select>
+	          </div>
+	          <div class="col s6">
+	            <label for="station">最寄り駅</label>
+	            <select id="station" class="browser-default" v-model="stationCode">
+	              <option v-for="s in stations" v-bind:value="s.code">{{ s.name }}</option>
+	            </select>
+	          </div>
+	        </div>
+	        <div class="center-align">
+            <button class="btn waves-effect waves-light center" v-on:click.prevent="getEvents">絞り込む<i class="material-icons right">search</i>
+	        </div>
+				</div>
+			</div>
+			
 			<div class="row">
 				<div class="col s12 m4" v-for="event in events">
-					<div class="card">
+					<div class="card-panel hoverable">
 						<div class="card-content">
 						  <span class="card-title">{{ event.name }}</span>
 						  <p>xxxxxxxxxx</p>
