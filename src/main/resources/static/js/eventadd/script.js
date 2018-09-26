@@ -15,7 +15,7 @@ new Vue({
 			stations: [],
 		};
   },
-  mounted () {  	
+  mounted () {
     axios.get('/townbook/api/prefectures')
          .then(res => { this.prefectures = res.data.results; });    
   },

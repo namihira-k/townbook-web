@@ -19,9 +19,13 @@ public class EventService {
 		return eventDao.save(event);
 	}
 	
-	public List<EventDto> getEventList() {
-		final Iterable<EventDto> results = eventDao.findAll();		
-		return CommonUtil.toList(results);
+	public List<EventDto> getEventList(final String stationCode) {
+		if (CommonUtil.isEmpty(stationCode)) {
+			final Iterable<EventDto> results = eventDao.findAll();
+			return CommonUtil.toList(results);			
+		}
+		
+		return eventDao.findByStationCode(stationCode);
 	}
 		
 }

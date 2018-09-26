@@ -15,7 +15,7 @@ import jp.co.namihira.townbookweb.service.station.StationService;
 @RestController
 public class StationApiController extends AbstractApiController {
 
-	private static final String BASE_PATH = "/station";
+	private static final String BASE_PATH = "/stations";
 	
 	@Autowired
 	private StationService stationService;
