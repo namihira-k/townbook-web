@@ -10,9 +10,9 @@
 <body>
   
   <div layout:fragment="content">
-	  <div class="container">
-			<h3>イベント登録</h3>
-      <form id="eventadd" action="post">
+	  <div class="container row">
+      <form class="col s12" id="eventadd" action="post">
+        <h3>イベント登録</h3>
   			<div class="input-field">
           <input id="name" type="text" class="validate" v-model="event.name">
           <label for="name">イベント名</label>
