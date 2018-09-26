@@ -18,6 +18,7 @@
 *.zip
 *.tar.gz
 *.rar
+*.csv
 .gradle
 /build/
 /bin/
@@ -35,4 +36,3 @@ hs_err_pid*
 .settings
 .springBeans
 .sts4-cache
-
