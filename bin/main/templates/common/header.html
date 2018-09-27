@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>Yorimichi</title>
    
-  
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   
@@ -20,18 +19,22 @@
 
 <body>
   <div th:fragment="header">
-    <div class="navbar-fixe">
-	    <nav class="light-blue lighten-1" role="navigation">
-	      <div class="nav-wrapper container">
-	        <a id="logo-container" th:href="@{/view/welcome}" class="brand-logo">Yorimichi</a>
-	        <ul class="right hide-on-med-and-down">
-            <li><a th:href="@{/view/welcome}">ホーム</a></li>
-	          <li><a th:href="@{/view/eventlist}">イベント一覧</a></li>
-	          <li><a th:href="@{/view/eventadd}">イベント登録</a></li>
-	        </ul>	    
-	      </div>
-	    </nav>
-    </div>
+	  <nav class="light-blue lighten-1" role="navigation">
+	    <div class="nav-wrapper container">
+	      <a th:href="@{/view/welcome}" class="brand-logo">Yorimichi</a>
+	      <ul class="right hide-on-med-and-down">
+	         <li><a th:href="@{/view/welcome}">ホーム</a></li>
+	        <li><a th:href="@{/view/eventlist}">イベント一覧</a></li>
+	        <li><a th:href="@{/view/eventadd}">イベント登録</a></li>
+	      </ul>
+				<ul id="slide-out" class="sidenav">
+				  <li><a th:href="@{/view/welcome}">ホーム</a></li>
+				  <li><a th:href="@{/view/eventlist}">イベント一覧</a></li>
+				  <li><a th:href="@{/view/eventadd}">イベント登録</a></li>
+				</ul>
+				<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+	    </div>
+	  </nav>
   </div>
 </body>
 
