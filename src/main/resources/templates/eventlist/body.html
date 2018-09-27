@@ -12,7 +12,7 @@
 	  <div class="container">
 			<h4>イベント一覧</h4>
 			<div class="row">
-				<div class="col s3">
+				<div class="col s12 m3">
 		      <div class="card">
 		        <div class="card-content">
 		          <h5>検索</h5>
@@ -35,13 +35,13 @@
 	              </select>
               </div>
 		          <div class="center-align">
-		            <button class="btn waves-effect waves-light center" v-on:click.prevent="getEvents">絞り込む<i class="material-icons right">search</i>
+		            <button class="btn waves-effect waves-light center" v-on:click.prevent="getEvents">絞り込む<i class="material-icons right">search</i></button>
 		          </div>
 		        </div>
 		      </div>
 				</div>
 				
-	      <div class="col s9">
+	      <div class="col s12 m9">
 		      <div class="row" v-if="!events.length">
 		        <div class="col s10 offset-s1">
 		          <div class="card-panel red lighten-5">
