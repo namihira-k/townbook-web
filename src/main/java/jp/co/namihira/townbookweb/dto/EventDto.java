@@ -28,7 +28,7 @@ public class EventDto {
 	public String place;
 	
 	public String stationCode;
-	
+		
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	public LocalDateTime startDateTime;
 
