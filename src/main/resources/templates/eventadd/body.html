@@ -12,12 +12,12 @@
   <div layout:fragment="content">
 	  <div class="container row">
       <form class="col s12" id="eventadd" action="post">
-        <h3>イベント登録</h3>
+        <h4>イベント登録</h4>
   			<div class="input-field">
           <input id="name" type="text" class="validate" v-model="event.name">
           <label for="name">イベント名</label>
         </div>
-        <h4>場所</h4>
+        <h5>場所</h5>
         <div class="row">
 		      <div class="col s6">
             <label for="prefecture">都道府県</label>
@@ -38,7 +38,7 @@
           <input id="place" type="text" class="validate" v-model="event.place">
           <label for="place">場所</label>
         </div>
-        <h4>開始日時</h4>
+        <h5>開始日時</h5>
         <div class="row">
 	        <div class="input-field col s6">
 	          <input id="startDate" class="datepicker" type="text">
@@ -49,7 +49,7 @@
 	          <label for="startTime">開始時刻</label>
 	        </div>
 	      </div>
-	      <h4>終了日時</h4>
+	      <h5>終了日時</h5>
 	      <div class="row">
           <div class="input-field col s6">
             <input id="endDate" class="datepicker" type="text">
