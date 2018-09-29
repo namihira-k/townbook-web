@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import jp.co.namihira.townbookweb.controller.api.AbstractApiController;
 import jp.co.namihira.townbookweb.controller.api.AppApiListResponse;
 import jp.co.namihira.townbookweb.dto.EventDto;
+import jp.co.namihira.townbookweb.dto.StationDto;
 import jp.co.namihira.townbookweb.service.event.EventService;
+import jp.co.namihira.townbookweb.service.station.StationService;
 
 @RestController
 public class EventApiController extends AbstractApiController {
@@ -28,6 +32,9 @@ public class EventApiController extends AbstractApiController {
 	@Autowired
 	private EventService eventService;
 		
+	@Autowired
+	private StationService stationService;
+	
 	@PostMapping(BASE_PATH)
 	@ResponseStatus(HttpStatus.CREATED)
 	public EventDto post(@RequestBody EventDto eventDto) {
@@ -44,6 +51,16 @@ public class EventApiController extends AbstractApiController {
 		final LocalDateTime from = LocalDateTime.of(fromDate, LocalTime.MIDNIGHT);		
 		
 		final List<EventDto> events = eventService.getEventList(stationCode, from);
+
+		final List<String> codes = events.stream()
+				                         .map(e -> e.getStationCode())
+				                         .collect(Collectors.toList());		
+		final List<StationDto> stations = stationService.getStationsbyCode(codes);
+		events.stream().forEach(e -> {
+			Optional<StationDto> dto = StationService.getByCode(e.getStationCode(), stations);
+			dto.ifPresent(d -> e.setStationName(d.getName()));
+		});
+		
 		return new AppApiListResponse(events);
 	};
 	
