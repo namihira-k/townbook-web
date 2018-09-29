@@ -14,10 +14,16 @@ public class EkispertClient {
 
     private RestTemplate restTemplate = new RestTemplate();
     
-    public ResultSet getStations(final int prefectureCode) {
+    public ResultListSet getStations(final int prefectureCode) {
     	final String url = URL_API + "&prefectureCode={prefectureCode}";
-		final EkispertResponse response = restTemplate.getForObject(url, EkispertResponse.class, accessKey, prefectureCode);
-		return response.getResultSet();
+		final EkispertListResponse response = restTemplate.getForObject(url, EkispertListResponse.class, accessKey, prefectureCode);
+		return response.getResultListSet();
     }
-	
+    
+    public ResultSet getStation(final String stationCode) {
+    	final String url = URL_API + "&code={stationCode}";
+		final EkispertResponse response = restTemplate.getForObject(url, EkispertResponse.class, accessKey, stationCode);
+		return response.getResultSet();
+	}
+
 }

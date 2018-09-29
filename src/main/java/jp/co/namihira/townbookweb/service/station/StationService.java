@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 
 import jp.co.namihira.townbookweb.client.ekispert.EkispertClient;
 import jp.co.namihira.townbookweb.client.ekispert.Point;
-import jp.co.namihira.townbookweb.client.ekispert.ResultSet;
+import jp.co.namihira.townbookweb.client.ekispert.ResultListSet;
+import jp.co.namihira.townbookweb.client.ekispert.Station;
 import jp.co.namihira.townbookweb.dto.StationDto;
 
 @Service
@@ -18,7 +19,7 @@ public class StationService {
 	private EkispertClient ekispertClient;
 		
 	public List<StationDto> getStations(final int prefectureCode) {
-		final ResultSet result = ekispertClient.getStations(prefectureCode);
+		final ResultListSet result = ekispertClient.getStations(prefectureCode);
 		return toStationDtos(result.getPoints());
 	}	
 	
@@ -27,6 +28,11 @@ public class StationService {
 				                                   .map(p -> new StationDto(p.getStation().getCode(), p.getStation().getName()))
 				                                   .collect(Collectors.toList());
 		return stationDtos;
+	}
+	
+	public static StationDto toStationDto(final Point point) {
+		final Station station = point.getStation();
+		return new StationDto(station.getCode(), station.getName());
 	}
 	
 }

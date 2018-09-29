@@ -1,13 +1,18 @@
 package jp.co.namihira.townbookweb.client.ekispert;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
 @Data
-public class ResultSet {
+public class ResultListSet {
+
+	private String max;
+	private String offset;
 
 	@JsonProperty("Point")
-	private Point point;
+	private List<Point> points;
 	
 }

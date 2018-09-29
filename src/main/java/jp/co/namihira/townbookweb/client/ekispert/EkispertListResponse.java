@@ -5,11 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class Station {
+public class EkispertListResponse {
 
-	private String code;
-	
-	@JsonProperty("Name")
-	private String name;
+	@JsonProperty("ResultSet")
+	private ResultListSet resultListSet;
 	
 }
