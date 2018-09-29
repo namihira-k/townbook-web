@@ -1,6 +1,7 @@
 package jp.co.namihira.townbookweb.service.station;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import jp.co.namihira.townbookweb.client.ekispert.EkispertClient;
 import jp.co.namihira.townbookweb.client.ekispert.Point;
 import jp.co.namihira.townbookweb.client.ekispert.ResultListSet;
 import jp.co.namihira.townbookweb.client.ekispert.Station;
+import jp.co.namihira.townbookweb.dao.StationDao;
 import jp.co.namihira.townbookweb.dto.StationDto;
 
 @Service
@@ -17,11 +19,30 @@ public class StationService {
 
 	@Autowired
 	private EkispertClient ekispertClient;
+	
+	@Autowired
+	private StationDao stationDao;
 		
 	public List<StationDto> getStations(final int prefectureCode) {
 		final ResultListSet result = ekispertClient.getStations(prefectureCode);
 		return toStationDtos(result.getPoints());
 	}	
+
+	public List<StationDto> getStationsbyCode(final List<String> codes) {
+		return stationDao.findByCodeIn(codes);
+	}
+	
+	
+	public static StationDto toStationDto(final Point point) {
+		final Station station = point.getStation();
+		return new StationDto(station.getCode(), station.getName());
+	}
+	
+	public static Optional<StationDto> getByCode(final String code, final List<StationDto> stationDtos) {
+		return stationDtos.stream()
+				          .filter(s -> s.getCode().equals(code))
+				          .findFirst();
+	}
 	
 	private List<StationDto> toStationDtos(final List<Point> points) {
 		final List<StationDto> stationDtos = points.stream()
@@ -30,9 +51,5 @@ public class StationService {
 		return stationDtos;
 	}
 	
-	public static StationDto toStationDto(final Point point) {
-		final Station station = point.getStation();
-		return new StationDto(station.getCode(), station.getName());
-	}
 	
 }

@@ -8,12 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "stations")
 @Data
-@RequiredArgsConstructor
 public class StationDto {
 	
 	@Id
@@ -21,7 +19,15 @@ public class StationDto {
 	public Integer id;
 	
 	@Column(unique = true)
-	private final String code;
-	private final String name;
+	private String code;
 	
+	private String name;
+
+	public StationDto() {};
+	
+	public StationDto(final String code, final String name) {
+		this.code = code;
+		this.name = name;
+	};
+
 }

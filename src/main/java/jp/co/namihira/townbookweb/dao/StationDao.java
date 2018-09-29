@@ -1,5 +1,7 @@
 package jp.co.namihira.townbookweb.dao;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +11,7 @@ import jp.co.namihira.townbookweb.dto.StationDto;
 public interface StationDao extends CrudRepository<StationDto, Integer>  {
 
 	public boolean existsByCode(final String code);
+	
+	public List<StationDto> findByCodeIn(List<String> codes);
 	
 }

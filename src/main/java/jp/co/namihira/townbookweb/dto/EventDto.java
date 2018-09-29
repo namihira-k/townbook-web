@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -30,7 +31,10 @@ public class EventDto {
 	public String place;
 	
 	public String stationCode;
-		
+	
+	@Transient
+	public String stationName;
+
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	public LocalDateTime startDateTime;
 
