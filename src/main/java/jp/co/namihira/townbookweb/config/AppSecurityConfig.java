@@ -23,6 +23,9 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .logout()
                 .permitAll();
+        
+        http.csrf()
+            .ignoringAntMatchers("/**");   
     }
 
 	@Autowired
