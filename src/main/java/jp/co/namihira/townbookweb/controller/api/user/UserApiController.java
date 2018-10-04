@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import jp.co.namihira.townbookweb.consts.AuthorityEnum;
 import jp.co.namihira.townbookweb.controller.api.AbstractApiController;
 import jp.co.namihira.townbookweb.dto.UserDto;
 import jp.co.namihira.townbookweb.service.user.UserService;
@@ -22,6 +23,7 @@ public class UserApiController extends AbstractApiController {
 	@PostMapping(BASE_PATH)
 	@ResponseStatus(HttpStatus.CREATED)
 	public UserDto post(@RequestBody UserDto userDto) {
+		userDto.setAuthority(AuthorityEnum.USER);
 		return userService.save(userDto);
     }
 
