@@ -7,10 +7,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import jp.co.namihira.townbookweb.handler.AuthFailureHandler;
+
 @Configuration
 @EnableWebSecurity
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
-		
+
+	@Autowired
+	private AuthFailureHandler authFailureHandler;
+	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -18,14 +23,15 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/view/eventadd").hasRole("USER")
                 .and()
             .formLogin()
+                .loginProcessingUrl("/api/login")
                 .loginPage("/view/login")
                 .failureUrl("/view/login?error")
+                .failureHandler(authFailureHandler)
                 .and()
             .logout()
                 .permitAll();
         
-        http.csrf()
-            .ignoringAntMatchers("/**");   
+        http.csrf().disable();
     }
 
 	@Autowired
