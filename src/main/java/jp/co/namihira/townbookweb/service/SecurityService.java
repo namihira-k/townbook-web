@@ -8,8 +8,11 @@ public class SecurityService {
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
-	public String encrypt(final String raw) {
-		return passwordEncoder.encode(raw);
+	public String encrypt(final String str) {
+		return passwordEncoder.encode(str);
 	}
 	
+	public BCryptPasswordEncoder getPasswordEncoder() {
+		return passwordEncoder;
+	}
 }

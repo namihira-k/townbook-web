@@ -6,13 +6,26 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import jp.co.namihira.townbookweb.handler.AuthFailureHandler;
+import jp.co.namihira.townbookweb.handler.AuthSuccessHandler;
+import jp.co.namihira.townbookweb.service.SecurityService;
+import jp.co.namihira.townbookweb.service.UserAuthService;
 
 @Configuration
 @EnableWebSecurity
 public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	private UserAuthService userAuthService;
+	
+	@Autowired
+	private SecurityService securityService;
+	
+	@Autowired
+	private AuthSuccessHandler authSuccessHandler;
+	
 	@Autowired
 	private AuthFailureHandler authFailureHandler;
 	
@@ -20,25 +33,30 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/", "/api/**", "/view/**", "/js/**", "/error").permitAll()
-//                .antMatchers("/view/eventadd").hasRole("USER")
+                .anyRequest().authenticated()
                 .and()
             .formLogin()
                 .loginProcessingUrl("/api/login")
                 .loginPage("/view/login")
-                .failureUrl("/view/login?error")
+                .usernameParameter("userId")
+                .passwordParameter("password")
+                .successHandler(authSuccessHandler)
                 .failureHandler(authFailureHandler)
                 .and()
             .logout()
-                .permitAll();
+	            .logoutRequestMatcher(new AntPathRequestMatcher("/api/logout"))
+	            .logoutSuccessUrl("/view/welcome")
+	            .deleteCookies("JSESSIONID")
+	            .invalidateHttpSession(true)
+	            .permitAll();
         
         http.csrf().disable();
     }
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth
-			.inMemoryAuthentication()
-				.withUser("user").password("password").roles("USER");
+	    auth.userDetailsService(userAuthService)
+	        .passwordEncoder(securityService.getPasswordEncoder());
 	}    
 
 }
