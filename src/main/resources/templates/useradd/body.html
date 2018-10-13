@@ -52,7 +52,22 @@
         </div>
       </form>
 	  </div>
+	  	  
+	  <!-- Modal Structure -->
+	  <div id="modal" class="modal">
+	    <div class="modal-content">
+	      <h4 class="teal-text text-lighten-2"><i class="material-icons">check</i>登録しました</h4>
+	      <h5>ユーザ名</h5>
+	      <p>{{ user.userId }}</p>	      
+        <h5>パスワード</h5>
+        <p>{{ user.password }}</p> 
+	    </div>
+	    <div class="modal-footer">
+	      <a th:href="@{/view/welcome}" class="modal-close waves-effect waves-green btn-flat">OK</a>
+	    </div>
+	  </div>
   </div>
+
 
   <div layout:fragment="javascript">
     <script th:src="@{/js/useradd/script.js}"></script> 
