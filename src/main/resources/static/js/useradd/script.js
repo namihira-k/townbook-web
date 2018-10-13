@@ -20,7 +20,7 @@ new Vue({
     post () {
     	axios.post('/townbook/api/users', this.user)
 	         .then(res => {
-	           console.log(res);
+	        	 M.Modal.getInstance($('#modal')).open();
 	          });
     },
 
