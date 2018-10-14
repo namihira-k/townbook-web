@@ -18,7 +18,9 @@ public class UserService {
 	
 	public UserDto save(final UserDto userDto) {
 		final String password = userDto.getPassword();
-		userDto.setPassword(securityService.encrypt(password));
+		if (password != null) {
+			userDto.setPassword(securityService.encrypt(password));			
+		}
 		return userDao.save(userDto);
 	}
 	
