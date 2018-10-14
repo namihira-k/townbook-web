@@ -11,7 +11,7 @@
   
   <div layout:fragment="content">
 	  <div class="container row">
-      <form class="col s12" id="eventadd" action="post">
+      <form class="col s12 m8 offset-m2" id="eventadd" action="post">
         <h4>イベント登録</h4>
   			<div class="input-field">
           <input id="name" type="text" class="validate" v-model="event.name">
@@ -36,7 +36,7 @@
 	      </div>
         <div class="input-field">
           <input id="place" type="text" class="validate" v-model="event.place">
-          <label for="place">場所</label>
+          <label for="place">建物 / 会場</label>
         </div>
         <h5>開始日時</h5>
         <div class="row">
