@@ -15,8 +15,14 @@
         <h4>ユーザー登録</h4>
         <p>ユーザー登録をしなくてもイベントは検索できます。ユーザー登録をすると以下のことができます。</p>
 				<ul class="browser-default">
-  				<li>イベントを登録できる</li>
+  				<li>イベントを登録できる（イベントを宣伝してみませんか？）</li>
 				</ul>
+				<div class="progress"  v-if="isProcess">
+				  <div class="indeterminate"></div>
+				</div>								
+        <div class="card-panel red lighten-5" v-if="isError">
+          <span>ユーザー登録に失敗しました</span>
+        </div>
 				<div class="row">
 				  <div class="col s6 offset-s3">
 				    <div class="card">

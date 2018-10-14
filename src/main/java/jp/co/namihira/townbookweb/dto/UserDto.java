@@ -42,12 +42,12 @@ public class UserDto implements UserDetails {
 	public String password;
 
 	@Column(nullable = false)
-	public int prefectureCode;
+	public Integer prefectureCode;
 	
 	@Column(nullable = false)
 	public String email;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	@Enumerated(EnumType.STRING)
 	private AuthorityEnum authority;
 	
