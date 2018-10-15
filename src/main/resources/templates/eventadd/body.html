@@ -13,6 +13,9 @@
 	  <div class="container row">
       <form class="col s12 m8 offset-m2" id="eventadd" action="post">
         <h4>イベント登録</h4>
+        <div class="card-panel red lighten-5 red-text" v-if="isError">
+          <span>イベント登録に失敗しました</span>
+        </div>
   			<div class="input-field">
           <input id="name" type="text" class="validate" v-model="event.name">
           <label for="name">イベント名</label>
@@ -60,6 +63,13 @@
             <label for="endTime">終了時刻</label>
           </div>
 	      </div>
+				<h5>詳細</h5>
+				<div class="row">
+					<div class="input-field col s12">
+						<textarea id="content" class="materialize-textarea" data-length="2024" v-model="event.content"></textarea>
+						<label for="content">自由記述（改行できます）</label>
+					</div>
+				</div>
         <button class="btn waves-effect waves-light" v-on:click.prevent="post">登録する<i class="material-icons right">send</i>
         </button>
       </form>
@@ -68,6 +78,9 @@
 
   <div layout:fragment="javascript">
     <script th:src="@{/js/eventadd/script.js}"></script> 
+    <script type="text/javascript">
+      $('textarea#content').characterCounter();
+    </script>    
   </div>
   
 </body>

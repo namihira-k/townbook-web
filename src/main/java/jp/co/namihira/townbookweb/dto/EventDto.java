@@ -41,4 +41,6 @@ public class EventDto {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	public LocalDateTime endDateTime;
 
+	public String content;
+	
 }

@@ -7,12 +7,14 @@ new Vue({
 			  stationCode: '',
 			  startDateTime: '', 
 			  endDateTime: '',
+			  content: '',
 			},
 			prefecture: {
 				code: '',
 			},
 			prefectures: [],
 			stations: [],
+			isError: false,
 		};
   },
   mounted () {
@@ -26,7 +28,11 @@ new Vue({
     	axios.post('/townbook/api/events', this.event)
 	         .then(res => {
 	           console.log(res);
-	          });
+	          })
+			     .catch(error => {
+			     	 this.isError = true;
+			       $("html,body").animate({scrollTop:0},"slow");
+			     })
     },
     
     getStations () {
