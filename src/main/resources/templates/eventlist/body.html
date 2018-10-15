@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
       layout:decorate="~{common/layout}">
 
-<head>  
+<head>
 </head>
 
 <body>
@@ -61,7 +61,7 @@
                 </div>
 								<div class="card-reveal light-blue lighten-1 white-text">
 									<span class="card-title">{{ event.name }}<i class="material-icons right">close</i></span>
-									<p>xxxxxx</p>
+									<p>{{ event.content }}</p>
 								</div>
 		          </div>
 		        </div>
@@ -74,7 +74,6 @@
   <div layout:fragment="javascript">
     <script th:src="@{/js/eventlist/script.js}"></script> 
   </div>
-
 
 </body>
 
