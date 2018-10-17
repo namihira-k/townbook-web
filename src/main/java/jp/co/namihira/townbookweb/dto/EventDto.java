@@ -12,14 +12,16 @@ import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "events")
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
-public class EventDto {
+public class EventDto extends AbstractDto {
 
 	@Id
 	@SequenceGenerator(name="event_seq", initialValue=1000)

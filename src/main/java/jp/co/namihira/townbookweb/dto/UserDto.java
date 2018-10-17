@@ -19,14 +19,16 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jp.co.namihira.townbookweb.consts.AuthorityEnum;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
-public class UserDto implements UserDetails {
+public class UserDto extends AbstractDto implements UserDetails  {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -60,9 +62,14 @@ public class UserDto implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return null;
+		return userId;
 	}
 
+	@Override
+	public String getPassword() {
+		return password;
+	}
+	
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;

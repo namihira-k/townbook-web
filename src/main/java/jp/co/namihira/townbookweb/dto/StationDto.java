@@ -7,12 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 
 @Entity
 @Table(name = "stations")
-@Data
-public class StationDto {
+@Setter
+@Getter
+public class StationDto extends AbstractDto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
