@@ -16,7 +16,7 @@ new Vue({
          .then(res => { this.prefectures = res.data.results; });    
   	
   	axios.get('/townbook/api/events')
-         .then(res => { this.events = res.data.results; });    
+         .then(res => { this.events = res.data.results; });
   },
   
   methods: {
