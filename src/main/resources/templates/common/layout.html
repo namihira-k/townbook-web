@@ -27,10 +27,11 @@
     $(function(){
 	    $('.datepicker').datepicker({
 	    	format: 'yyyy-mm-dd',
-      	defaultDate: Date.now,
+	    	defaultDate: new Date(),
+	    	setDefaultDate: true,
         showClearBtn: true,
 	    });
-	 
+	    	    
 	    $('.timepicker').timepicker({
 	    	defaultTime: '12:00',
 	    	twelveHour: false,
