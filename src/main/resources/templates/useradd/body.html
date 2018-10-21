@@ -42,12 +42,12 @@
 	                <span class="helper-text" data-error="NG" data-success="OK"></span>
 	              </div>
 	              <label for="prefecture">都道府県</label>
-	              <div class="input-field">
+								<div class="input-field">
 	                <select id="prefecture" class="browser-default" v-model="user.prefectureCode">
 	                  <option value="" disabled selected>都道府県を選んでください</option>
 	                  <option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
 	                </select>
-	              </div>
+								</div>
 	              <div class="center-align">
 	                <button class="btn waves-effect waves-light" v-on:click.prevent="post">登録する<i class="material-icons right">send</i>
 	                </button>

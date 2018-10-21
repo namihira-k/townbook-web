@@ -4,7 +4,7 @@ new Vue({
 		return {
 			events: [],
 			fromDate: '',
-			prefectureCode: '',
+			prefectureCode: 13, //Tokyo
 			stationCode: '',
 			prefectures: [],
 			stations: [],
