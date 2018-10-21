@@ -14,14 +14,14 @@ new Vue({
 		};
   },
   mounted () {
-  	axios.get('/townbook/api/prefectures')
+  	axios.get('/yorimichi/api/prefectures')
          .then(res => { this.prefectures = res.data.results; });    
   },
   methods: {
     post () {
       $("html,body").animate({scrollTop:0}, "slow");
     	this.isProcess = true;
-    	axios.post('/townbook/api/users', this.user)
+    	axios.post('/yorimichi/api/users', this.user)
 	         .then(res => {
 	        	 M.Modal.getInstance($('#modal')).open();
 	         })
