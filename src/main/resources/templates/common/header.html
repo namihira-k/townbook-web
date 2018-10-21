@@ -25,18 +25,10 @@
 	      <ul class="right hide-on-med-and-down">
 	         <li><a th:href="@{/view/welcome}">ホーム</a></li>
 	        <li><a th:href="@{/view/eventlist}">イベント一覧</a></li>
-	        <li><a th:href="@{/view/eventadd}" sec:authorize="hasAuthority('USER')">イベント登録</a></li>
-          <li><a th:href="@{/view/useradd}" sec:authorize="!hasAuthority('USER')">ユーザ登録</a></li>
-          <li><a th:href="@{/view/login}" sec:authorize="!hasAuthority('USER')">ログイン</a></li>
-          <li><a th:href="@{/api/logout}" sec:authorize="hasAuthority('USER')">ログアウト</a></li>
 	      </ul>
 				<ul id="slide-out" class="sidenav">
 				  <li><a th:href="@{/view/welcome}">ホーム</a></li>
 				  <li><a th:href="@{/view/eventlist}">イベント一覧</a></li>
-				  <li><a th:href="@{/view/eventadd}" sec:authorize="hasAuthority('USER')">イベント登録</a></li>
-          <li><a th:href="@{/view/useradd}" sec:authorize="!hasAuthority('USER')">ユーザ登録</a></li>
-          <li><a th:href="@{/view/login}" sec:authorize="!hasAuthority('USER')">ログイン</a></li>
-          <li><a th:href="@{/api/logout}" sec:authorize="hasAuthority('USER')">ログアウト</a></li>
 				</ul>
 				<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 	    </div>
