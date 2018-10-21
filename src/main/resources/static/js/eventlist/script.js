@@ -15,6 +15,12 @@ new Vue({
     axios.get('/townbook/api/prefectures')
          .then(res => { this.prefectures = res.data.results; });    
   	
+   	axios.get('/townbook/api/stations', {
+			      params: {
+			        prefectureCode: this.prefectureCode
+			      }})
+			   .then(res => { this.stations = res.data.results; });
+    
   	axios.get('/townbook/api/events')
          .then(res => { this.events = res.data.results; });
   },
