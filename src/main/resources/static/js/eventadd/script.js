@@ -18,10 +18,10 @@ new Vue({
 		};
   },
   mounted () {
-    axios.get('/townbook/api/prefectures')
+    axios.get('/yorimichi/api/prefectures')
          .then(res => { this.prefectures = res.data.results; });
     
-  	axios.get('/townbook/api/lines', {
+  	axios.get('/yorimichi/api/lines', {
       params: {
         prefectureCode: this.prefectureCode
       }
@@ -32,7 +32,7 @@ new Vue({
   methods: {
     post () {
     	this._buildDateTime();    	
-    	axios.post('/townbook/api/events', this.event)
+    	axios.post('/yorimichi/api/events', this.event)
 	         .then(res => {
 	           console.log(res);
 	          })
@@ -44,7 +44,7 @@ new Vue({
     
     
     getLines () {
-    	axios.get('/townbook/api/lines', {
+    	axios.get('/yorimichi/api/lines', {
         params: {
           prefectureCode: this.prefectureCode
         }
@@ -53,7 +53,7 @@ new Vue({
 
     
     getStations () {
-    	axios.get('/townbook/api/stations', {
+    	axios.get('/yorimichi/api/stations', {
         params: {
         	lineCode: this.lineCode
         }

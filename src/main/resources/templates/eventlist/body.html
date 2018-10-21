@@ -15,10 +15,10 @@
     			<h4><i class="material-icons small">event</i>イベント一覧</h4>
         </div>
 				<div class="col s12 m3">
-		      <div class="card">
+		      <div class="card cyan lighten-5">
 		        <div class="card-content">
 	            <h6>開催日（以降）</h6>
-	            <div class="input-field">
+	            <div class="input-field white">
 	              <input id="startDate" class="datepicker" type="text">
 	            </div>
               <div class="center-align"><i class="material-icons">add</i></div>
@@ -51,7 +51,7 @@
 		      </div>
 				</div>
 				
-	      <div class="col s12 m9">
+	      <div id="eventlist" class="col s12 m9">
 		      <div class="row" v-if="!events.length">
 		        <div class="col s12">
               <div class="progress" v-if="isProcess">

@@ -16,16 +16,16 @@ new Vue({
   },
 
   mounted () {
-    axios.get('/townbook/api/prefectures')
+    axios.get('/yorimichi/api/prefectures')
          .then(res => { this.prefectures = res.data.results; });    
   	
-  	axios.get('/townbook/api/lines', {
+  	axios.get('/yorimichi/api/lines', {
 			      params: {
 			        prefectureCode: this.prefectureCode
 			      }})
 			   .then(res => { this.lines = res.data.results; });
    	
-  	axios.get('/townbook/api/events', {
+  	axios.get('/yorimichi/api/events', {
 				    params: {
 				    	prefectureCode: this.prefectureCode
 				    }})
@@ -34,7 +34,7 @@ new Vue({
   
   methods: {
     getLines () {
-    	axios.get('/townbook/api/lines', {
+    	axios.get('/yorimichi/api/lines', {
         params: {
           prefectureCode: this.prefectureCode
         }
@@ -42,7 +42,7 @@ new Vue({
     },
   	
   	getStations () {
-    	axios.get('/townbook/api/stations', {
+    	axios.get('/yorimichi/api/stations', {
         params: {
           prefectureCode: this.prefectureCode,        	
         	lineCode: this.lineCode
@@ -51,11 +51,12 @@ new Vue({
     },
     
     getEvents () {
-      $("html,body").animate({scrollTop:0},"slow");
+    	var el = $('#eventlist').offset().top;
+      $("html,body").animate({scrollTop:el}, "slow");
     	this.isProcess = true;
     	
     	this.fromDate = M.Datepicker.getInstance($('#startDate')).el.value;    	
-    	axios.get('/townbook/api/events', {
+    	axios.get('/yorimichi/api/events', {
 			        params: {
 			          prefectureCode: this.prefectureCode,        	
 			          stationCode: this.stationCode,
