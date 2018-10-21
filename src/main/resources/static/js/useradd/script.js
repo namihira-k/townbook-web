@@ -6,7 +6,7 @@ new Vue({
 		    userId: null,
 			  password: null,
 			  email: null, 
-			  prefectureCode: null,
+			  prefectureCode: '',
 			},
 			prefectures: [],
 			isProcess: false,
