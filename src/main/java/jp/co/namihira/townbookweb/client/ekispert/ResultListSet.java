@@ -15,4 +15,8 @@ public class ResultListSet {
 	@JsonProperty("Point")
 	private List<Point> points;
 	
+	@JsonProperty("Line")
+	private List<Line> lines;
+	
+	
 }

@@ -5,12 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class Point {
+public class Line {
 
-	@JsonProperty("Prefecture")
-	private Prefecture prefecture;
+	private String code;
 	
-	@JsonProperty("Station")
-	private Station station;	
-	
+	@JsonProperty("Name")
+	private String name;
 }

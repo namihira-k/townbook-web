@@ -24,13 +24,22 @@
 	            <h6>場所</h6>
               <label for="prefecture">都道府県</label>
               <div class="input-field">
-	              <select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="getStations">
+	              <select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="getLines">
 	                <option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
 	              </select>
               </div>
+              <div class="center-align"><i class="material-icons">keyboard_arrow_down</i></div>
+              <label for="prefecture">路線</label>
+              <div class="input-field">
+                <select id="line" class="browser-default" v-model="lineCode" v-on:change="getStations" v-bind:disabled="prefectureCode == ''">
+                  <option value="" disabled selected>(未設定)</option>                
+                  <option v-for="line in lines" v-bind:value="line.code">{{ line.name }}</option>
+                </select>
+              </div>
+              <div class="center-align"><i class="material-icons">keyboard_arrow_down</i></div>
               <label for="station">最寄り駅</label>
               <div class="input-field">
-	              <select id="station" class="browser-default" v-model="stationCode">
+	              <select id="station" class="browser-default" v-model="stationCode" v-bind:disabled="lineCode == ''">
                   <option value="" disabled selected>(未設定)</option>
 	                <option v-for="s in stations" v-bind:value="s.code">{{ s.name }}</option>
 	              </select>
