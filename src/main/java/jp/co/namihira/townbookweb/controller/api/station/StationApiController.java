@@ -21,8 +21,10 @@ public class StationApiController extends AbstractApiController {
 	private StationService stationService;
     
 	@GetMapping(BASE_PATH)
-	public AppApiListResponse get(@RequestParam String lineCode) {
-		final List<StationDto> stationDtos = stationService.getStations(lineCode);
+	public AppApiListResponse get(
+			@RequestParam(defaultValue = "") String prefectureCode,
+			@RequestParam(defaultValue = "") String lineCode) {
+		final List<StationDto> stationDtos = stationService.getStations(prefectureCode, lineCode);
         return new AppApiListResponse(stationDtos);
     }
 
