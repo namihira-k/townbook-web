@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.namihira.townbookweb.client.ekispert.EkispertClient;
+import jp.co.namihira.townbookweb.client.ekispert.Line;
 import jp.co.namihira.townbookweb.client.ekispert.Point;
 import jp.co.namihira.townbookweb.client.ekispert.ResultListSet;
 import jp.co.namihira.townbookweb.client.ekispert.Station;
 import jp.co.namihira.townbookweb.dao.StationDao;
+import jp.co.namihira.townbookweb.dto.LineDto;
 import jp.co.namihira.townbookweb.dto.StationDto;
 
 @Service
@@ -22,12 +24,18 @@ public class StationService {
 	
 	@Autowired
 	private StationDao stationDao;
-		
-	public List<StationDto> getStations(final int prefectureCode) {
-		final ResultListSet result = ekispertClient.getStations(prefectureCode);
+	
+	public List<LineDto> getLines(final int prefectureCode) {
+		final ResultListSet result = ekispertClient.getLines(prefectureCode);
+		return toLineDtos(result.getLines());
+	}
+	
+	public List<StationDto> getStations(final String lineCode) {
+		final ResultListSet result = ekispertClient.getStations(lineCode);
 		return toStationDtos(result.getPoints());
 	}	
-
+	
+	
 	public List<StationDto> getStationsbyCode(final List<String> codes) {
 		return stationDao.findByCodeIn(codes);
 	}
@@ -43,6 +51,13 @@ public class StationService {
 				          .filter(s -> s.getCode().equals(code))
 				          .findFirst();
 	}
+
+	private List<LineDto> toLineDtos(final List<Line> lines) {
+		final List<LineDto> dtos = lines.stream()
+                                        .map(line -> new LineDto(line.getCode(), line.getName()))
+                                        .collect(Collectors.toList());
+        return dtos;
+	}
 	
 	private List<StationDto> toStationDtos(final List<Point> points) {
 		final List<StationDto> stationDtos = points.stream()
@@ -50,6 +65,5 @@ public class StationService {
 				                                   .collect(Collectors.toList());
 		return stationDtos;
 	}
-	
 	
 }
