@@ -42,11 +42,11 @@ new Vue({
   	getStations () {
     	axios.get('/townbook/api/stations', {
         params: {
+          prefectureCode: this.prefectureCode,        	
         	lineCode: this.lineCode
         }
       }).then(res => { this.stations = res.data.results; });
     },
-    
     
     getEvents () {
     	this.fromDate = M.Datepicker.getInstance($('#startDate')).el.value;

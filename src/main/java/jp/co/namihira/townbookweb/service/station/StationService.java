@@ -15,6 +15,7 @@ import jp.co.namihira.townbookweb.client.ekispert.Station;
 import jp.co.namihira.townbookweb.dao.StationDao;
 import jp.co.namihira.townbookweb.dto.LineDto;
 import jp.co.namihira.townbookweb.dto.StationDto;
+import jp.co.namihira.townbookweb.util.CommonUtil;
 
 @Service
 public class StationService {
@@ -30,11 +31,17 @@ public class StationService {
 		return toLineDtos(result.getLines());
 	}
 	
-	public List<StationDto> getStations(final String lineCode) {
+	public List<StationDto> getStations(final String prefectureCode, final String lineCode) {
 		final ResultListSet result = ekispertClient.getStations(lineCode);
-		return toStationDtos(result.getPoints());
-	}	
-	
+
+		List<Point> points = result.getPoints();
+		if (CommonUtil.isNotEmpty(prefectureCode)) {
+			points = points.stream()
+                           .filter(p -> p.getPrefecture().getCode().equals(prefectureCode))
+                           .collect(Collectors.toList());			
+		}
+		return toStationDtos(points);
+	}		
 	
 	public List<StationDto> getStationsbyCode(final List<String> codes) {
 		return stationDao.findByCodeIn(codes);
