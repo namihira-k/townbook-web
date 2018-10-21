@@ -37,12 +37,13 @@ public class EventApiController extends AbstractApiController {
 	
 	@PostMapping(BASE_PATH)
 	@ResponseStatus(HttpStatus.CREATED)
-	public EventDto post(@RequestBody EventDto eventDto) {
+	public EventDto post(@RequestBody EventDto eventDto) {		
         return eventService.save(eventDto);
     }
 	
 	@GetMapping(BASE_PATH)
 	public AppApiListResponse getList(
+			@RequestParam(defaultValue = "") String prefectureCode,			
 			@RequestParam(defaultValue = "") String stationCode,
 			@RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate fromDate) {
 		if (fromDate == null) {
@@ -50,7 +51,7 @@ public class EventApiController extends AbstractApiController {
 		}
 		final LocalDateTime from = LocalDateTime.of(fromDate, LocalTime.MIDNIGHT);		
 		
-		final List<EventDto> events = eventService.getEventList(stationCode, from);
+		final List<EventDto> events = eventService.getEventList(prefectureCode, stationCode, from);
 
 		final List<String> codes = events.stream()
 				                         .map(e -> e.getStationCode())

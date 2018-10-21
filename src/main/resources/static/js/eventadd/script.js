@@ -9,17 +9,24 @@ new Vue({
 			  endDateTime: '',
 			  content: '',
 			},
-			prefecture: {
-				code: '',
-			},
+			prefectureCode: 13, // Tokyo
+			lineCode: '',
 			prefectures: [],
+			lines: [],
 			stations: [],
 			isError: false,
 		};
   },
   mounted () {
     axios.get('/townbook/api/prefectures')
-         .then(res => { this.prefectures = res.data.results; });    
+         .then(res => { this.prefectures = res.data.results; });
+    
+  	axios.get('/townbook/api/lines', {
+      params: {
+        prefectureCode: this.prefectureCode
+      }
+    }).then(res => { this.lines = res.data.results; });    
+    
   },
   
   methods: {
@@ -35,10 +42,20 @@ new Vue({
 			     })
     },
     
+    
+    getLines () {
+    	axios.get('/townbook/api/lines', {
+        params: {
+          prefectureCode: this.prefectureCode
+        }
+      }).then(res => { this.lines = res.data.results; });
+    },
+
+    
     getStations () {
     	axios.get('/townbook/api/stations', {
         params: {
-          prefectureCode: this.prefecture.code
+        	lineCode: this.lineCode
         }
       }).then(res => { this.stations = res.data.results; });
     },

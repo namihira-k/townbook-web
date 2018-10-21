@@ -23,7 +23,10 @@ new Vue({
       }
     }).then(res => { this.lines = res.data.results; });
    	
-  	axios.get('/townbook/api/events')
+  	axios.get('/townbook/api/events', {
+				    params: {
+				    	prefectureCode: this.prefectureCode
+				    }})
          .then(res => { this.events = res.data.results; });
   },
   
