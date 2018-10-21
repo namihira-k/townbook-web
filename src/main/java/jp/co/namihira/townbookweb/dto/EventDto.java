@@ -32,6 +32,8 @@ public class EventDto extends AbstractDto {
 	
 	public String place;
 	
+	public String prefectureCode;
+	
 	public String stationCode;
 	
 	@Transient

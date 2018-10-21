@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Prefecture {
 
-	private int code;
+	private String code;
 	
 	@JsonProperty("Name")
 	private String name;

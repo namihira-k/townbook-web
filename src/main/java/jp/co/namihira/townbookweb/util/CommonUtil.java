@@ -20,6 +20,10 @@ public class CommonUtil {
         return str == null || str.isEmpty();
     }
     
+    public static boolean isNotEmpty(final String str) {
+    	return !isEmpty(str);
+    }
+    
     public static <T> List<T> list() {
         return new ArrayList<T>();
     }
