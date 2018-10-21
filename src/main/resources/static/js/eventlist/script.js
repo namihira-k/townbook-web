@@ -10,6 +10,8 @@ new Vue({
 			prefectures: [],
 			lines: [],		
 			stations: [],
+			
+			isProcess: false,
 		};
   },
 
@@ -18,10 +20,10 @@ new Vue({
          .then(res => { this.prefectures = res.data.results; });    
   	
   	axios.get('/townbook/api/lines', {
-      params: {
-        prefectureCode: this.prefectureCode
-      }
-    }).then(res => { this.lines = res.data.results; });
+			      params: {
+			        prefectureCode: this.prefectureCode
+			      }})
+			   .then(res => { this.lines = res.data.results; });
    	
   	axios.get('/townbook/api/events', {
 				    params: {
@@ -49,16 +51,19 @@ new Vue({
     },
     
     getEvents () {
-    	this.fromDate = M.Datepicker.getInstance($('#startDate')).el.value;
+      $("html,body").animate({scrollTop:0},"slow");
+    	this.isProcess = true;
     	
+    	this.fromDate = M.Datepicker.getInstance($('#startDate')).el.value;    	
     	axios.get('/townbook/api/events', {
-        params: {
-          stationCode: this.stationCode,
-          fromDate: this.fromDate
-        }
-      }).then(res => { this.events = res.data.results; });
-    }  	
-  
+			        params: {
+			          prefectureCode: this.prefectureCode,        	
+			          stationCode: this.stationCode,
+			          fromDate: this.fromDate
+			        }})
+			      .then(res => { this.events = res.data.results; })
+			      .then(() => { this.isProcess = false; });
+    }
+    
   }
-  
 });
