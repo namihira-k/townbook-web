@@ -10,25 +10,26 @@
 <body>
   <div layout:fragment="content">
 	  <div class="container">
-			<h4>イベント一覧</h4>
 			<div class="row">
+        <div class="col s12">
+    			<h4><i class="material-icons small">event</i>イベント一覧</h4>
+        </div>
 				<div class="col s12 m3">
 		      <div class="card">
 		        <div class="card-content">
-		          <h5>検索</h5>
-	            <h6>日にち</h6>
+	            <h6>開催日（以降）</h6>
 	            <div class="input-field">
 	              <input id="startDate" class="datepicker" type="text">
-	              <label for="startDate">開催日</label>
 	            </div>
-	            <h6>場所</h6>
-              <label for="prefecture">都道府県</label>
+              <div class="center-align"><i class="material-icons">add</i></div>
+	            <h6>都道府県</h6>
               <div class="input-field">
 	              <select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="getLines">
 	                <option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
 	              </select>
               </div>
-              <div class="center-align"><i class="material-icons">keyboard_arrow_down</i></div>
+              <div class="center-align"><i class="material-icons">add</i></div>
+              <h6>最寄り駅</h6>
               <label for="prefecture">路線</label>
               <div class="input-field">
                 <select id="line" class="browser-default" v-model="lineCode" v-on:change="getStations" v-bind:disabled="prefectureCode == ''">
@@ -36,8 +37,7 @@
                   <option v-for="line in lines" v-bind:value="line.code">{{ line.name }}</option>
                 </select>
               </div>
-              <div class="center-align"><i class="material-icons">keyboard_arrow_down</i></div>
-              <label for="station">最寄り駅</label>
+              <label for="station">駅</label>
               <div class="input-field">
 	              <select id="station" class="browser-default" v-model="stationCode" v-bind:disabled="lineCode == ''">
                   <option value="" disabled selected>(未設定)</option>
@@ -54,6 +54,9 @@
 	      <div class="col s12 m9">
 		      <div class="row" v-if="!events.length">
 		        <div class="col s12">
+              <div class="progress" v-if="isProcess">
+                <div class="indeterminate"></div>
+              </div>
 		          <div class="card-panel red lighten-5">
 		            <span>イベント情報はありません</span>
 		          </div>
@@ -64,8 +67,12 @@
               <div class="card sticky-action">
 		            <div class="card-content">
 		              <span class="card-title activator">{{ event.name }}<i class="material-icons right">more_vert</i></span>
+		              <div v-for="p in prefectures">
+		                <p v-if="p.code == event.prefectureCode">都道府県：{{ p.name }}</p>
+		              </div>
 	                <p>最寄り駅：{{ event.stationName }}</p>
-                  <p>建物/会場：{{ event.place }}</p>
+                  <p>建物 / 会場：{{ event.place }}</p>
+                  <hr>
 	                <p>開始：{{ event.startDateTime }}</p>
 	                <p>終了：{{ event.endDateTime }}</p>
                 </div>
