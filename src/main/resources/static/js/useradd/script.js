@@ -19,11 +19,12 @@ new Vue({
   },
   methods: {
     post () {
+      $("html,body").animate({scrollTop:0}, "slow");
     	this.isProcess = true;
     	axios.post('/townbook/api/users', this.user)
 	         .then(res => {
 	        	 M.Modal.getInstance($('#modal')).open();
-	          })
+	         })
 	         .catch(error => {
 	        	 this.isError = true;
 	         })
