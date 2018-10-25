@@ -66,8 +66,8 @@
 		      <div class="row">
 		        <div class="col s12 m6" v-for="event in events">
               <div class="card sticky-action">
-		            <div class="card-content">
-		              <span class="card-title activator">{{ event.name }}<i class="material-icons small right">info_outline</i></span>
+		            <div class="card-content activator">
+		              <span class="card-title">{{ event.name }}</span><a class="btn-floating pulse right"><i class="material-icons">menu</i></a>
                   <div class="row">
                     <div class="col m3">
 		                  <div v-for="p in prefectures">
