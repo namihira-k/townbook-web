@@ -45,6 +45,8 @@ public class EventDto extends AbstractDto {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	public LocalDateTime endDateTime;
 
+	public String conditions;
+	
 	public String content;
 	
 }

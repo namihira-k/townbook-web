@@ -14,6 +14,7 @@
         <div class="col s12">
     			<h4><i class="material-icons small">event</i>イベント一覧</h4>
         </div>
+        
 				<div class="col s12 m3">
 		      <div class="card cyan lighten-5">
 		        <div class="card-content">
@@ -66,15 +67,37 @@
 		        <div class="col s12 m6" v-for="event in events">
               <div class="card sticky-action">
 		            <div class="card-content">
-		              <span class="card-title activator">{{ event.name }}<i class="material-icons right">more_vert</i></span>
-		              <div v-for="p in prefectures">
-		                <p v-if="p.code == event.prefectureCode">都道府県：{{ p.name }}</p>
-		              </div>
-	                <p>最寄り駅：{{ event.stationName }}</p>
-                  <p>建物 / 会場：{{ event.place }}</p>
+		              <span class="card-title activator">{{ event.name }}<i class="material-icons small right">info_outline</i></span>
+                  <div class="row">
+                    <div class="col m3">
+		                  <div v-for="p in prefectures">
+		                    <div v-if="p.code == event.prefectureCode">
+		                      <div class="text-small">都道府県</div>
+		                      <div class="chip">{{ p.name }}</div>
+		                    </div>
+		                  </div>
+                    </div>
+                    <div class="col m3">
+		                  <div class="text-small">最寄り駅</div>
+		                  <div class="chip">{{ event.stationName }}</div>
+                    </div>
+                  </div>
+                  <div class="text-small">建物 / 会場</div>
+                  <div class="chip">{{ event.place }}</div>
                   <hr>
-	                <p>開始：{{ event.startDateTime }}</p>
-	                <p>終了：{{ event.endDateTime }}</p>
+                  <div class="row">
+                    <div class="col m6">
+		                  <div class="text-small">開始</div>
+		                  <div class="chip">{{ event.startDateTime }}</div>
+                    </div>
+                    <div class="col m6">
+		                  <div class="text-small">終了</div>
+		                  <div class="chip">{{ event.endDateTime }}</div>
+                    </div>
+                  </div>
+	                <hr>
+	                <div class="text-small">参加する方法</div>
+	                <div class="chip">{{ event.conditions }}</div>
                 </div>
 								<div class="card-reveal light-blue lighten-1 white-text">
 									<span class="card-title">{{ event.name }}<i class="material-icons right">close</i></span>
