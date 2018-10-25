@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import jp.co.namihira.townbookweb.client.ekispert.EkispertClient;
@@ -23,12 +24,19 @@ public class StationService {
 	@Autowired
 	private EkispertClient ekispertClient;
 	
+	@Value("${app.station.line.ignore}")
+	private String ignoreLineWords = "";
+	
 	@Autowired
 	private StationDao stationDao;
 	
 	public List<LineDto> getLines(final int prefectureCode) {
-		final ResultListSet result = ekispertClient.getLines(prefectureCode);
-		return toLineDtos(result.getLines());
+		final ResultListSet result = ekispertClient.getLines(prefectureCode);		
+		List<Line> lines = result.getLines().stream()
+				                            .filter(line -> line.getName().contains(ignoreLineWords) == false)
+				                            .collect(Collectors.toList());
+		
+		return toLineDtos(lines);
 	}
 	
 	public List<StationDto> getStations(final String prefectureCode, final String lineCode) {
