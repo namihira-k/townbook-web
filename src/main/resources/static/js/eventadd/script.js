@@ -4,6 +4,7 @@ new Vue({
 		return {
 			event: {
 		    name: '',
+		    conditions: '',
 			  stationCode: '',
 			  startDateTime: '', 
 			  endDateTime: '',
