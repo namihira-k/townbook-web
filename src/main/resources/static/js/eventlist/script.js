@@ -64,6 +64,11 @@ new Vue({
 			        }})
 			      .then(res => { this.events = res.data.results; })
 			      .then(() => { this.isProcess = false; });
+    },
+    
+    moveSearch () {
+    	var el = $('#id_search').offset().top;
+      $("html,body").animate({scrollTop:el}, "slow");    	
     }
     
   }
