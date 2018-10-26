@@ -67,7 +67,7 @@
 		            <div class="card-content activator">
 		              <span class="card-title">{{ event.name }}</span><a class="btn-floating pulse right"><i class="material-icons">menu</i></a>
                   <div class="row">
-                    <div class="col m3">
+                    <div class="col m4">
 		                  <div v-for="p in prefectures">
 		                    <div v-if="p.code == event.prefectureCode">
 		                      <div class="text-small">都道府県</div>
@@ -75,7 +75,7 @@
 		                    </div>
 		                  </div>
                     </div>
-                    <div class="col m3">
+                    <div class="col m4">
 		                  <div class="text-small">最寄り駅</div>
 		                  <div class="chip">{{ event.stationName }}</div>
                     </div>
@@ -95,7 +95,7 @@
                   </div>
 	                <hr>
 	                <div class="text-small">参加する方法</div>
-	                <div class="chip">{{ event.conditions }}</div>
+	                <div class="card-panel white">{{ event.conditions }}</div>
                 </div>
 								<div class="card-reveal light-blue lighten-1 white-text">
 									<span class="card-title">{{ event.name }}<i class="material-icons right">close</i></span>
