@@ -11,6 +11,9 @@ new Vue({
 			lines: [],		
 			stations: [],
 			
+			totalCount: 0,
+			page: 0,
+			
 			isProcess: false,
 		};
   },
@@ -29,7 +32,10 @@ new Vue({
 				    params: {
 				    	prefectureCode: this.prefectureCode
 				    }})
-         .then(res => { this.events = res.data.results; });
+         .then(res => {
+        	 this.totalCount = res.data.totalCount;
+        	 this.events = res.data.results;
+        	});
   },
   
   methods: {
@@ -55,34 +61,44 @@ new Vue({
       $("html,body").animate({scrollTop:el}, "slow");
     	this.isProcess = true;
     	
+    	this.page = 0;
     	this.fromDate = M.Datepicker.getInstance($('#startDate')).el.value;    	
     	axios.get('/yorimichi/api/events', {
 			        params: {
-			          prefectureCode: this.prefectureCode,        	
+			          page: this.page,
+			        	prefectureCode: this.prefectureCode,        	
 			          stationCode: this.stationCode,
-			          fromDate: this.fromDate
+			          fromDate: this.fromDate,
 			        }})
-			      .then(res => { this.events = res.data.results; })
+			      .then(res => {
+		        	this.totalCount = res.data.totalCount;
+			      	this.events = res.data.results;
+			      })
 			      .then(() => { this.isProcess = false; });
     },
     
     addEvents ($state) {
+    	this.page += 1;    	
     	axios.get('/yorimichi/api/events', {
         params: {
-          prefectureCode: this.prefectureCode,        	
-          stationCode: this.stationCode,
-          fromDate: this.fromDate
+					page: this.page,
+					prefectureCode: this.prefectureCode,        	
+					stationCode: this.stationCode,
+					fromDate: this.fromDate
         }})
       .then(res => {
-      	this.events = res.data.results;
-      	$state.loaded();
-      	$state.complete();
+      	if (res.data.results.length > 0) {
+      		this.events.push(...res.data.results);
+        	$state.loaded();
+      	} else {
+      		$state.complete();      		
+      	}
       });
     },
     
     moveSearch () {
     	var el = $('#id_search').offset().top;
-      $("html,body").animate({scrollTop:el}, "slow");    	
+      $("html,body").animate({scrollTop:el}, "fast");    	
     }
     
   }
