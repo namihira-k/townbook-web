@@ -11,3 +11,11 @@
 	white-space: normal;
 	display: block;
 }
+
+.fab {
+	color: gray;
+}
+
+.fab:hover {
+	color: initial;
+}
