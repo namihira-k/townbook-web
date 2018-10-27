@@ -39,6 +39,25 @@ new Vue({
   },
   
   methods: {
+  	
+  	init () {
+			this.events = [];
+			this.prefectureCode = 13;
+			this.lineCode = '';
+			this.stationCode = '';
+			this.lines = [];
+			this.stations = [];
+			
+			this.getLines();
+			this.getEvents();
+			this.moveSearch();
+  	},
+  	
+  	search () {
+  		this.moveEventList();
+  		this.getEvents();
+  	},
+  	
     getLines () {
     	axios.get('/yorimichi/api/lines', {
         params: {
@@ -57,8 +76,6 @@ new Vue({
     },
     
     getEvents () {
-    	var el = $('#eventlist').offset().top;
-      $("html,body").animate({scrollTop:el}, "slow");
     	this.isProcess = true;
     	
     	this.page = 0;
@@ -97,8 +114,12 @@ new Vue({
     },
     
     moveSearch () {
-    	var el = $('#id_search').offset().top;
-      $("html,body").animate({scrollTop:el}, "fast");    	
+      $("html,body").animate({scrollTop:0}, "fast");    	
+    },
+    
+    moveEventList () {
+    	var el = $('#eventlist').offset().top;
+      $("html,body").animate({scrollTop:el}, "slow");    	
     }
     
   }
