@@ -5,3 +5,9 @@
 .text-small {
 	font-size: 12px;
 }
+
+.line-break {
+	word-wrap: break-word;
+	white-space: normal;
+	display: block;
+}

@@ -64,9 +64,10 @@
 	            <p>{{ totalCount }} 件 見つかりました</p>
 	          </div>
 		        <div class="col s12 m6" v-for="event in events">
-              <div class="card sticky-action">
+              <div class="card medium sticky-action">
 		            <div class="card-content activator">
-		              <span class="card-title">{{ event.name }}</span><a class="btn-floating pulse right"><i class="material-icons">menu</i></a>
+		              <span class="card-title line-break">{{ event.name }}</span>
+		              <a class="btn-floating pulse right"><i class="material-icons">menu</i></a>
                   <div class="row">
                     <div class="col m4">
 		                  <div v-for="p in prefectures">
@@ -99,7 +100,8 @@
 	                <blockquote>{{ event.conditions }}</blockquote>
                 </div>
 								<div class="card-reveal light-blue lighten-1 white-text">
-									<span class="card-title">{{ event.name }}<i class="material-icons right">close</i></span>
+									<span class="card-title line-break">{{ event.name }}<i class="material-icons right">close</i></span>
+									<hr>
 									<span class="textarea">{{ event.content }}</span>
 								</div>
 		          </div>
