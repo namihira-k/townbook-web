@@ -9,6 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class AppApiListResponse {
 
+	private long totalCount;
 	private List<?> results;
 	
 }

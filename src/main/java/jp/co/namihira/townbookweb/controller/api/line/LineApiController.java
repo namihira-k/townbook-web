@@ -23,7 +23,7 @@ public class LineApiController extends AbstractApiController {
 	@GetMapping(BASE_PATH)
 	public AppApiListResponse get(@RequestParam int prefectureCode) {
 		final List<LineDto> dtos = stationService.getLines(prefectureCode);
-        return new AppApiListResponse(dtos);
+        return new AppApiListResponse(dtos.size(), dtos);
     }
 
 }
