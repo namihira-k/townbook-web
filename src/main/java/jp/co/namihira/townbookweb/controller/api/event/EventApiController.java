@@ -48,7 +48,7 @@ public class EventApiController extends AbstractApiController {
 	@GetMapping(BASE_PATH)
 	public AppApiListResponse getList(
 			@RequestParam(defaultValue = "0") Integer page,
-			@RequestParam(defaultValue = "5") Integer size,
+			@RequestParam(defaultValue = "2") Integer size,
 			@RequestParam(defaultValue = "") String prefectureCode,
 			@RequestParam(defaultValue = "") String stationCode,
 			@RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate fromDate) {

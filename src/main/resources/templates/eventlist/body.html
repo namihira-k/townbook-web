@@ -51,17 +51,18 @@
 		      </div>
 				</div>
 	      <div id="eventlist" class="col s12 m9">
-		      <div class="row" v-if="!events.length">
-		        <div class="col s12">
+		      <div class="row">
+            <div class="col s12" v-if="!events.length">
               <div class="progress" v-if="isProcess">
                 <div class="indeterminate"></div>
               </div>
-		          <div class="card-panel red lighten-5">
-		            <span>イベント情報はありません</span>
-		          </div>
-		        </div>
-		      </div>
-		      <div class="row">
+              <div class="card-panel red lighten-5">
+                <span>イベント情報はありません</span>
+              </div>
+            </div>
+	          <div class="col s12" v-else>
+	            <p>{{ totalCount }} 件 見つかりました</p>
+	          </div>
 		        <div class="col s12 m6" v-for="event in events">
               <div class="card sticky-action">
 		            <div class="card-content activator">
@@ -104,7 +105,9 @@
 		          </div>
 		        </div>
 		      </div>
-  		    <infinite-loading @infinite="addEvents"></infinite-loading>
+  		    <infinite-loading @infinite="addEvents">
+						<div slot="no-more"><i class="material-icons">directions_run</i> No more event <i class="material-icons">directions_run</i></div>
+  		    </infinite-loading>
 	      </div>
 			</div>
 	  </div>
