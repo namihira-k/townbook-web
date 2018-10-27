@@ -8,6 +8,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,16 +47,22 @@ public class EventApiController extends AbstractApiController {
 	
 	@GetMapping(BASE_PATH)
 	public AppApiListResponse getList(
+			@RequestParam(defaultValue = "0") Integer page,
+			@RequestParam(defaultValue = "5") Integer size,
 			@RequestParam(defaultValue = "") String prefectureCode,
 			@RequestParam(defaultValue = "") String stationCode,
 			@RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate fromDate) {
 		if (fromDate == null) {
 			fromDate = LocalDate.now();
 		}
-		final LocalDateTime from = LocalDateTime.of(fromDate, LocalTime.MIDNIGHT);		
+		final LocalDateTime from = LocalDateTime.of(fromDate, LocalTime.MIDNIGHT);
 		
-		final List<EventDto> events = eventService.getEventList(prefectureCode, stationCode, from);
-
+		
+		final PageRequest pageRequest = PageRequest.of(page, size, new Sort(Direction.ASC, "startDateTime"));
+		
+		final Page<EventDto> result = eventService.getEventList(prefectureCode, stationCode, from, pageRequest);
+				
+		final List<EventDto> events = result.getContent();		
 		final List<String> codes = events.stream()
 				                         .map(e -> e.getStationCode())
 				                         .collect(Collectors.toList());		
@@ -62,7 +72,7 @@ public class EventApiController extends AbstractApiController {
 			dto.ifPresent(d -> e.setStationName(d.getName()));
 		});
 		
-		return new AppApiListResponse(events);
+		return new AppApiListResponse(result.getTotalElements() ,events);
 	};
 	
 

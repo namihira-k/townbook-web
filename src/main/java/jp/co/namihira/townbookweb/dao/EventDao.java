@@ -1,22 +1,21 @@
 package jp.co.namihira.townbookweb.dao;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import jp.co.namihira.townbookweb.dto.EventDto;
 
 @Repository
-public interface EventDao extends CrudRepository<EventDto, Integer>  {
+public interface EventDao extends PagingAndSortingRepository<EventDto, Integer>  {
 
-	public List<EventDto> findByStationCodeOrderByStartDateTimeAsc(String stationCode);
+	public Page<EventDto> findByStartDateTimeAfter(LocalDateTime startDateTime, Pageable page);
 	
-	public List<EventDto> findByStartDateTimeAfterOrderByStartDateTimeAsc(LocalDateTime startDateTime);
+	public Page<EventDto> findByPrefectureCodeAndStartDateTimeAfter(String prefectureCode, LocalDateTime startDateTime, Pageable page);
 	
-	public List<EventDto> findByPrefectureCodeAndStartDateTimeAfterOrderByStartDateTimeAsc(String prefectureCode, LocalDateTime startDateTime);
-	
-	public List<EventDto> findByStationCodeAndStartDateTimeAfterOrderByStartDateTimeAsc(String stationCode, LocalDateTime startDateTime);
+	public Page<EventDto> findByStationCodeAndStartDateTimeAfter(String stationCode, LocalDateTime startDateTime, Pageable page);	
 	
 }

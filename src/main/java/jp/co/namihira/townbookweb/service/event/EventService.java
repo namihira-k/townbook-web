@@ -1,9 +1,10 @@
 package jp.co.namihira.townbookweb.service.event;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import jp.co.namihira.townbookweb.client.ekispert.EkispertClient;
@@ -40,26 +41,17 @@ public class EventService {
 		return eventDao.save(event);
 	}
 	
-	public List<EventDto> getEventList(final String prefectureCode, final String stationCode, final LocalDateTime from) {
+	
+	public Page<EventDto> getEventList(final String prefectureCode, final String stationCode, final LocalDateTime from, final PageRequest pageRequest) {
 		if (CommonUtil.isNotEmpty(stationCode)) {
-			return eventDao.findByStationCodeAndStartDateTimeAfterOrderByStartDateTimeAsc(stationCode, from);
+			return eventDao.findByStationCodeAndStartDateTimeAfter(stationCode, from, pageRequest);
 		}
 		
 		if (CommonUtil.isNotEmpty(prefectureCode)) {
-			return eventDao.findByPrefectureCodeAndStartDateTimeAfterOrderByStartDateTimeAsc(prefectureCode, from);			
+			return eventDao.findByPrefectureCodeAndStartDateTimeAfter(prefectureCode, from, pageRequest);			
 		}
 		
-		final Iterable<EventDto> results = eventDao.findByStartDateTimeAfterOrderByStartDateTimeAsc(from);
-		return CommonUtil.toList(results);
+		return eventDao.findByStartDateTimeAfter(from, pageRequest);
 	}
-	
-	public List<EventDto> getEventList(final String stationCode) {
-		if (CommonUtil.isEmpty(stationCode)) {
-			final Iterable<EventDto> results = eventDao.findAll();
-			return CommonUtil.toList(results);
-		}
-		
-		return eventDao.findByStationCodeOrderByStartDateTimeAsc(stationCode);
-	}
-		
+			
 }

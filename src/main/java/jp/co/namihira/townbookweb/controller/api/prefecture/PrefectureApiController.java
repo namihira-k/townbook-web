@@ -28,7 +28,7 @@ public class PrefectureApiController extends AbstractApiController {
 		final List<PrefectureDto> prefectureDtos = Stream.of(PrefectureEnum.values())
 				                                         .map(p -> p.toPrefectureDto(messageSource, locale))
 				                                         .collect(Collectors.toList());
-        return new AppApiListResponse(prefectureDtos);
+        return new AppApiListResponse(prefectureDtos.size(), prefectureDtos);
     }
 
 }

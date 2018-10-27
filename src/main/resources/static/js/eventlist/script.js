@@ -66,6 +66,20 @@ new Vue({
 			      .then(() => { this.isProcess = false; });
     },
     
+    addEvents ($state) {
+    	axios.get('/yorimichi/api/events', {
+        params: {
+          prefectureCode: this.prefectureCode,        	
+          stationCode: this.stationCode,
+          fromDate: this.fromDate
+        }})
+      .then(res => {
+      	this.events = res.data.results;
+      	$state.loaded();
+      	$state.complete();
+      });
+    },
+    
     moveSearch () {
     	var el = $('#id_search').offset().top;
       $("html,body").animate({scrollTop:el}, "slow");    	
