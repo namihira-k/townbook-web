@@ -1,126 +1,131 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" 
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{common/layout}">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout}">
 
 <head>
 </head>
 
 <body>
-  <div layout:fragment="content">
-	  <div class="container">
-			<div class="row">
-        <div class="col s12">
-    			<h4><i class="material-icons small">event</i>イベント一覧</h4>
-        </div>
-				<div id="id_search" class="col s12 m3">
-		      <div class="card cyan lighten-5">
-		        <div class="card-content">
-	            <h6>開催日（以降）</h6>
-	            <div class="input-field white">
-	              <input id="startDate" class="datepicker" type="text">
-	            </div>
-              <div class="center-align"><i class="material-icons">add</i></div>
-	            <h6>都道府県</h6>
-              <div class="input-field">
-	              <select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="getLines">
-	                <option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
-	              </select>
-              </div>
-              <div class="center-align"><i class="material-icons">add</i></div>
-              <h6>最寄り駅</h6>
-              <label for="prefecture">路線</label>
-              <div class="input-field">
-                <select id="line" class="browser-default" v-model="lineCode" v-on:change="getStations" v-bind:disabled="prefectureCode == ''">
-                  <option value="" disabled selected>(未設定)</option>                
-                  <option v-for="line in lines" v-bind:value="line.code">{{ line.name }}</option>
-                </select>
-              </div>
-              <label for="station">駅</label>
-              <div class="input-field">
-	              <select id="station" class="browser-default" v-model="stationCode" v-bind:disabled="lineCode == ''">
-                  <option value="" disabled selected>(未設定)</option>
-	                <option v-for="s in stations" v-bind:value="s.code">{{ s.name }}</option>
-	              </select>
-              </div>
-		          <div class="center-align">
-		            <button class="btn waves-effect waves-light center" v-on:click.prevent="getEvents">検索する<i class="material-icons right">search</i></button>
-		          </div>
-		        </div>
-		      </div>
-				</div>
-	      <div id="eventlist" class="col s12 m9">
-		      <div class="row">
-            <div class="col s12" v-if="!events.length">
-              <div class="progress" v-if="isProcess">
-                <div class="indeterminate"></div>
-              </div>
-              <div class="card-panel red lighten-5">
-                <span>イベント情報はありません</span>
-              </div>
-            </div>
-	          <div class="col s12" v-else>
-	            <p>{{ totalCount }} 件 見つかりました</p>
+	<div layout:fragment="content">
+		<div class="container">
+			<h4>
+				<i class="material-icons small">event</i>イベント一覧
+			</h4>
+			<div id="id_search" class="row card cyan lighten-5">
+				<div class="col s12 m8 offset-m2 card-content">
+					<h6>開催日（以降）</h6>
+					<div class="input-field white">
+						<input id="startDate" class="datepicker" type="text">
+					</div>
+					<div class="center-align">
+						<i class="material-icons">add</i>
+					</div>
+					<h6>都道府県</h6>
+					<div class="input-field">
+						<select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="getLines">
+							<option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
+						</select>
+					</div>
+					<div class="center-align">
+						<i class="material-icons">add</i>
+					</div>
+					<h6>最寄り駅</h6>
+					<label for="prefecture">路線</label>
+					<div class="input-field">
+						<select id="line" class="browser-default" v-model="lineCode" v-on:change="getStations" v-bind:disabled="prefectureCode == ''">
+							<option value="" disabled selected>(未設定)</option>
+							<option v-for="line in lines" v-bind:value="line.code">{{ line.name }}</option>
+						</select>
+					</div>
+					<label for="station">駅</label>
+					<div class="input-field">
+						<select id="station" class="browser-default" v-model="stationCode" v-bind:disabled="lineCode == ''">
+							<option value="" disabled selected>(未設定)</option>
+							<option v-for="s in stations" v-bind:value="s.code">{{ s.name }}</option>
+						</select>
+					</div>
+					<div class="row">
+					  <div class="col s3">
+					    <a class="waves-effect waves-teal btn-flat blue-text center" v-on:click.stop="init">CLEAR</a>
+					  </div>
+	          <div class="col s3 center-align">
+	            <button class="btn waves-effect waves-light center" v-on:click.prevent="search">検索する<i class="material-icons right">search</i></button>
 	          </div>
-		        <div class="col s12 m6" v-for="event in events">
-              <div class="card medium sticky-action">
-		            <div class="card-content activator">
-		              <span class="card-title line-break">{{ event.name }}</span>
-		              <a class="btn-floating pulse right"><i class="material-icons">menu</i></a>
-                  <div class="row">
-                    <div class="col m4">
-		                  <div v-for="p in prefectures">
-		                    <div v-if="p.code == event.prefectureCode">
-		                      <div class="text-small">都道府県</div>
-		                      <div class="chip">{{ p.name }}</div>
-		                    </div>
-		                  </div>
-                    </div>
-                    <div class="col m4">
-		                  <div class="text-small">最寄り駅</div>
-		                  <div class="chip">{{ event.stationName }}</div>
-                    </div>
-                  </div>
-                  <div class="text-small">建物 / 会場</div>
-                  <div class="chip">{{ event.place }}</div>
-                  <hr>
-                  <div class="row">
-                    <div class="col m6">
-		                  <div class="text-small">開始</div>
-		                  <div class="chip">{{ event.startDateTime }}</div>
-                    </div>
-                    <div class="col m6">
-		                  <div class="text-small">終了</div>
-		                  <div class="chip">{{ event.endDateTime }}</div>
-                    </div>
-                  </div>
-	                <hr>
-	                <div class="text-small">参加する方法</div>
-	                <blockquote>{{ event.conditions }}</blockquote>
-                </div>
-								<div class="card-reveal light-blue lighten-1 white-text">
-									<span class="card-title line-break">{{ event.name }}<i class="material-icons right">close</i></span>
-									<hr>
-									<span class="textarea">{{ event.content }}</span>
-								</div>
-		          </div>
-		        </div>
-		      </div>
-  		    <infinite-loading @infinite="addEvents">
-						<div slot="no-more"><i class="material-icons">directions_run</i> No more event <i class="material-icons">directions_run</i></div>
-  		    </infinite-loading>
-	      </div>
+					</div>
+				</div>
 			</div>
-	  </div>
-		<div class="fixed-action-btn">
-		  <a class="btn-floating btn-large light-blue lighten-1" v-on:click.prevent="moveSearch"><i class="large material-icons">search</i></a>
-		</div>
-  </div>
 
-  <div layout:fragment="javascript">
-    <script th:src="@{/js/eventlist/script.js}"></script> 
-  </div>
+			<div id="eventlist">
+				<div class="progress" v-if="isProcess">
+					<div class="indeterminate"></div>
+				</div>
+				<div class="card-panel red lighten-5" v-if="!events.length">
+					<span>イベント情報はありません</span>
+				</div>
+				<div v-else>
+					<p>{{ totalCount }} 件 見つかりました</p>
+				</div>
+				<div class="row">
+					<div class="col s12 m6" v-for="event in events">
+						<div class="card medium sticky-action">
+							<div class="card-content activator">
+								<span class="card-title line-break">{{ event.name }}</span>
+								<a class="btn-floating pulse right"><i class="material-icons">menu</i></a>
+								<div class="row">
+									<div class="col m4">
+										<div v-for="p in prefectures">
+											<div v-if="p.code == event.prefectureCode">
+												<div class="text-small">都道府県</div>
+												<div class="chip">{{ p.name }}</div>
+											</div>
+										</div>
+									</div>
+									<div class="col m4">
+										<div class="text-small">最寄り駅</div>
+										<div class="chip">{{ event.stationName }}</div>
+									</div>
+								</div>
+								<div class="text-small">建物 / 会場</div>
+								<div class="chip">{{ event.place }}</div>
+								<hr>
+								<div class="row">
+									<div class="col m6">
+										<div class="text-small">開始</div>
+										<div class="chip">{{ event.startDateTime }}</div>
+									</div>
+									<div class="col m6">
+										<div class="text-small">終了</div>
+										<div class="chip">{{ event.endDateTime }}</div>
+									</div>
+								</div>
+								<hr>
+								<div class="text-small">参加する方法</div>
+								<blockquote>{{ event.conditions }}</blockquote>
+							</div>
+							<div class="card-reveal light-blue lighten-1 white-text">
+								<span class="card-title line-break">{{ event.name }}<i
+									class="material-icons right">close</i></span>
+								<hr>
+								<span class="textarea">{{ event.content }}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<infinite-loading @infinite="addEvents">
+					<div slot="no-more"><i class="material-icons">directions_run</i> No more event <i class="material-icons">directions_run</i></div>
+				</infinite-loading>
+			</div>
+		</div>
+		<div class="fixed-action-btn">
+			<a class="btn-floating btn-large light-blue lighten-1" v-on:click.prevent="moveSearch"><i class="large material-icons">search</i></a>
+		</div>
+	</div>
+
+	<div layout:fragment="javascript">
+		<script th:src="@{/js/eventlist/script.js}"></script>
+	</div>
 
 </body>
 
