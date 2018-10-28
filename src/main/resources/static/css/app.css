@@ -19,3 +19,8 @@
 .fab:hover {
 	color: initial;
 }
+
+.event-content a {
+  color: white;
+  text-decoration: underline;
+}
