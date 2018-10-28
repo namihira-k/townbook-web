@@ -17,7 +17,7 @@ new Vue({
 			isProcess: false,
 		};
   },
-
+  
   mounted () {
     axios.get('/yorimichi/api/prefectures')
          .then(res => { this.prefectures = res.data.results; });    
@@ -35,7 +35,8 @@ new Vue({
          .then(res => {
         	 this.totalCount = res.data.totalCount;
         	 this.events = res.data.results;
-        	});
+        	 this.format();
+         });
   },
   
   methods: {
@@ -90,6 +91,7 @@ new Vue({
 			      .then(res => {
 		        	this.totalCount = res.data.totalCount;
 			      	this.events = res.data.results;
+			      	this.format();
 			      })
 			      .then(() => { this.isProcess = false; });
     },
@@ -106,6 +108,7 @@ new Vue({
       .then(res => {
       	if (res.data.results.length > 0) {
       		this.events.push(...res.data.results);
+	      	this.format();
         	$state.loaded();
       	} else {
       		$state.complete();      		
@@ -120,7 +123,13 @@ new Vue({
     moveEventList () {
     	var el = $('#eventlist').offset().top;
       $("html,body").animate({scrollTop:el}, "slow");    	
-    }
+    },
+    
+    format () {
+    	$('.event-content').linkify({
+		    target: '_blank',
+		  });
+    },
     
   }
 });
