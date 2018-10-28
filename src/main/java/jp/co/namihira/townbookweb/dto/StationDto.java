@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -18,7 +19,8 @@ import lombok.Setter;
 public class StationDto extends AbstractDto {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@SequenceGenerator(name="station_seq", initialValue=1000)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="station_seq")
 	public Integer id;
 	
 	@Column(unique = true)
