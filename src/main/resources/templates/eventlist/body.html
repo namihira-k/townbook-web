@@ -104,11 +104,15 @@
 								<div class="text-small">参加する方法</div>
 								<blockquote>{{ event.conditions }}</blockquote>
 							</div>
-							<div class="card-reveal teal lighten-1 white-text">
-								<span class="card-title line-break">{{ event.name }}<i
-									class="material-icons right">close</i></span>
-								<hr>
-								<span class="textarea event-content">{{ event.content }}</span>
+							<div class="card-reveal teal white-text">
+							  <div class="row">
+							    <div class="col s11">
+                    <span class="textarea event-content line-break">{{ event.content }}</span>							    
+							    </div>
+                  <div class="col s1">
+                    <span class="card-title"><i class="material-icons">close</i></span>
+                  </div>
+							  </div>
 							</div>
 						</div>
 					</div>
