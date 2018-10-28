@@ -12,16 +12,15 @@
 	display: block;
 }
 
-.fab {
-	color: gray;
-}
-
-.fab:hover {
-	color: initial;
-}
-
-.event-content a {
-  color: white;
+ .url-content a {
+  color: inherit;
   text-decoration: underline;
 }
 
+.fab {
+  color: gray;
+}
+
+.fab:hover {
+  color: initial;
+}

@@ -35,8 +35,11 @@ new Vue({
          .then(res => {
         	 this.totalCount = res.data.totalCount;
         	 this.events = res.data.results;
-        	 this.format();
          });
+  },
+  
+  updated () {
+  	this.format();  	
   },
   
   methods: {
@@ -126,7 +129,7 @@ new Vue({
     },
     
     format () {
-    	$('.event-content').linkify({
+    	$('.url-content').linkify({
 		    target: '_blank',
 		  });
     },

@@ -47,6 +47,8 @@ public class EventDto extends AbstractDto {
 
 	public String conditions;
 	
+	public String url;
+
 	public String content;
 	
 }
