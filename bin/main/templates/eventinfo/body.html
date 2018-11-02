@@ -11,31 +11,62 @@
 <body>
   
   <div layout:fragment="content">
-	  <div class="container">
-			<h1>Event Information</h1>
-			<div class="card-panel">
-			<h2>Elon Musk's Speech</h2>
-			<ul>
-			  <li>
-			    <label>Where</label>
-			    <p>Akihabara, Tokyo</p>
-			  </li>
-			  <li>
-			    <label>When</label>
-			    <p>2018/08/01 11:00 - 12:00</p>
-			  </li>
-			  <li>
-			    <label>Who</label>
-			    <p>Elon Musk</p>
-			   </li>
-			   <li>
-			     <label>What</label>
-			     <p>Speech</p>
-			   </li>
-			 </ul>
-			</div>
+	  <div id="eventinfo" class="container">
+
+            <div class="card large sticky-action">
+              <div class="card-content activator">
+                <span class="card-title line-break">{{ event.name }}</span>
+                <a class="btn-floating pulse right"><i class="material-icons">menu</i></a>
+                <div class="row">
+                  <div class="col m4">
+                    <div v-for="p in prefectures">
+                      <div v-if="p.code == event.prefectureCode">
+                        <div class="text-small">都道府県</div>
+                        <div class="chip">{{ p.name }}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col m4">
+                    <div class="text-small">最寄り駅</div>
+                    <div class="chip">{{ event.stationName }}</div>
+                  </div>
+                </div>
+                <div class="text-small">建物 / 会場</div>
+                <div class="chip">{{ event.place }}</div>
+                <hr>
+                <div class="row">
+                  <div class="col m6">
+                    <div class="text-small">開始</div>
+                    <div class="chip">{{ event.startDateTime }}</div>
+                  </div>
+                  <div class="col m6">
+                    <div class="text-small">終了</div>
+                    <div class="chip">{{ event.endDateTime }}</div>
+                  </div>
+                </div>
+                <hr>
+                <div class="text-small">参加する方法</div>
+                <blockquote>{{ event.conditions }}</blockquote>
+                <div class="text-small">URL</div>
+                <span class="textarea url-content line-break">{{ event.url }}</span>
+                <span class="textarea url-content line-break">{{ event.content }}</span>
+	  
 	  </div>
   </div>
+    </div>
+  </div>
+
+
+  <div layout:fragment="javascript">
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+    var uuid = /*[[${uuid}]]*/ '';
+    /*]]>*/
+    </script>
+
+    <script th:src="@{/js/eventinfo/script.js}"></script>    
+  </div>
+
 
 </body>
 
