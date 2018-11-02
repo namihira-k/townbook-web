@@ -41,6 +41,10 @@ public class EventService {
 		return eventDao.save(event);
 	}
 	
+	public EventDto find(final String uuid) {
+		final EventDto result = eventDao.findByUuid(uuid);
+		return result;
+	}
 	
 	public Page<EventDto> getEventList(final String prefectureCode, final String stationCode, final LocalDateTime from, final PageRequest pageRequest) {
 		if (CommonUtil.isNotEmpty(stationCode)) {
