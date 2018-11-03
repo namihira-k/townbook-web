@@ -1,71 +1,82 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" 
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{common/layout}">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layout}">
 
 
-<head>  
+<head>
 </head>
 
 <body>
-  
-  <div layout:fragment="content">
-	  <div id="eventinfo" class="container">
+	<div layout:fragment="content">
+		<div id="eventinfo" class="container">
+      <h4>イベント情報</h4>
+      <div class="progress" v-if="isProcess">
+        <div class="indeterminate"></div>
+      </div>
+			<div class="card">
+				<div class="card-content">
+          <span class="card-title">{{ event.name }}</span>
+					<div class="row">
+						<div class="col s12 m2">
+							<div v-for="p in prefectures">
+								<div v-if="p.code == event.prefectureCode">
+									<div class="text-small">都道府県</div>
+									<div class="chip">{{ p.name }}</div>
+								</div>
+							</div>
+						</div>
+						<div class="col s12 m2">
+							<div class="text-small">最寄り駅</div>
+							<div class="chip">{{ event.stationName }}</div>
+						</div>
+					</div>
+          <div class="row">
+            <div class="col s12">
+		         <div class="text-small">建物 / 会場</div>
+		         <div class="chip">{{ event.place }}</div>            
+            </div>
+          </div>
+					<hr>
+					<div class="row">
+						<div class="col s12 m2">
+							<div class="text-small">開始</div>
+							<div class="chip">{{ event.startDateTime }}</div>
+						</div>
+						<div class="col s12 m2">
+							<div class="text-small">終了</div>
+							<div class="chip">{{ event.endDateTime }}</div>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+            <div class="col s12">
+							<div class="text-small">参加する方法</div>
+							<blockquote>{{ event.conditions }}</blockquote>
+						  <div class="text-small">詳細</div>
+							<span class="textarea url-content line-break">{{ event.content }}</span>
+		          <div class="text-small">URL</div>
+		          <span class="textarea url-content line-break">{{ event.url }}</span>
+		          <div>
+  							<span class="text-small grey-text right">{{ event.uuid }}</span>
+		          </div>
+            </div>
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-            <div class="card large sticky-action">
-              <div class="card-content activator">
-                <span class="card-title line-break">{{ event.name }}</span>
-                <a class="btn-floating pulse right"><i class="material-icons">menu</i></a>
-                <div class="row">
-                  <div class="col m4">
-                    <div v-for="p in prefectures">
-                      <div v-if="p.code == event.prefectureCode">
-                        <div class="text-small">都道府県</div>
-                        <div class="chip">{{ p.name }}</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col m4">
-                    <div class="text-small">最寄り駅</div>
-                    <div class="chip">{{ event.stationName }}</div>
-                  </div>
-                </div>
-                <div class="text-small">建物 / 会場</div>
-                <div class="chip">{{ event.place }}</div>
-                <hr>
-                <div class="row">
-                  <div class="col m6">
-                    <div class="text-small">開始</div>
-                    <div class="chip">{{ event.startDateTime }}</div>
-                  </div>
-                  <div class="col m6">
-                    <div class="text-small">終了</div>
-                    <div class="chip">{{ event.endDateTime }}</div>
-                  </div>
-                </div>
-                <hr>
-                <div class="text-small">参加する方法</div>
-                <blockquote>{{ event.conditions }}</blockquote>
-                <div class="text-small">URL</div>
-                <span class="textarea url-content line-break">{{ event.url }}</span>
-                <span class="textarea url-content line-break">{{ event.content }}</span>
-	  
-	  </div>
-  </div>
-    </div>
-  </div>
+	<div layout:fragment="javascript">
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var uuid = /*[[${uuid}]]*/'';
+			/*]]>*/
+		</script>
 
-
-  <div layout:fragment="javascript">
-    <script th:inline="javascript">
-    /*<![CDATA[*/
-    var uuid = /*[[${uuid}]]*/ '';
-    /*]]>*/
-    </script>
-
-    <script th:src="@{/js/eventinfo/script.js}"></script>    
-  </div>
+		<script th:src="@{/js/eventinfo/script.js}"></script>
+	</div>
 
 
 </body>

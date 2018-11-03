@@ -12,6 +12,8 @@ public interface StationDao extends CrudRepository<StationDto, Integer>  {
 
 	public boolean existsByCode(final String code);
 	
-	public List<StationDto> findByCodeIn(List<String> codes);
+	public StationDto findByCode(final String code);
+	
+	public List<StationDto> findByCodeIn(final List<String> codes);
 	
 }
