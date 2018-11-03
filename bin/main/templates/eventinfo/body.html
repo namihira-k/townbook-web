@@ -5,6 +5,8 @@
 	layout:decorate="~{common/layout}">
 
 <head>
+  <meta name="twitter:title" th:content="${event?.name}" />
+  <meta name="twitter:description" th:content="${event?.content}" />
 </head>
 
 <body>
@@ -14,7 +16,10 @@
       <div class="progress" v-if="isProcess">
         <div class="indeterminate"></div>
       </div>
-			<div class="card" v-if="!isProcess">
+      <div class="card-panel red lighten-5" v-if="!event">
+        <span>イベント情報はありません</span>
+      </div>
+			<div class="card" v-if="event">
 				<div class="card-content">
           <span class="card-title">{{ event.name }}</span>
 					<div class="row">

@@ -79,6 +79,10 @@ public class EventApiController extends AbstractApiController {
 	@GetMapping(BASE_PATH + "/{uuid}")
 	public EventDto get(@PathVariable String uuid) {
 		final EventDto result = eventService.find(uuid);
+		if (result == null) {
+			return null;
+		}
+
 		final StationDto station = stationService.getStationByCode(result.getStationCode());
 		if (station != null) {
 			result.setStationName(station.getName());
