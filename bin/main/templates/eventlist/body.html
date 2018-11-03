@@ -110,7 +110,9 @@
 							  <div class="row">
 							    <div class="col s11">
                     <span class="textarea url-content line-break">{{ event.content }}</span>
-                    <span class="textarea url-content line-break">{{ event.uuid }}</span>                    
+                    <div>
+                      <span class="url-content right"><a v-bind:href="event.viewUrl">シェアするためのページ</a></span>
+                    </div>
 							    </div>
                   <div class="col s1">
                     <span class="card-title"><i class="material-icons">close</i></span>

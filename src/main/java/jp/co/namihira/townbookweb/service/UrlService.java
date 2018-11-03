@@ -30,5 +30,9 @@ public class UrlService {
     public String getBaseUrl() {
     	return protocol + appDomain + contextPath;
     }
+    
+    public String getContextPath() {
+    	return contextPath;
+    }
 
 }
