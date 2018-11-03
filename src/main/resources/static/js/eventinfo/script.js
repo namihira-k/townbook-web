@@ -5,10 +5,20 @@ new Vue({
 			uuid: uuid,
 			event: {},
 			prefectures: [],
-			
+
 			isProcess: true,
 		};
   },
+  
+  head: {
+  	meta () {
+  		return [
+    		{ name: 'twitter:title', content: this.event.name },
+    		{ name: 'twitter:description', content: this.event.content },
+    	];
+  	},
+  },
+  
   mounted () {
     axios.get('/yorimichi/api/prefectures')
          .then(res => { this.prefectures = res.data.results; });    
@@ -17,16 +27,17 @@ new Vue({
 			   .then(res => {
 			  	 this.event = res.data;
 			   })
-			   .then(() => { this.isProcess = false; });;
-
+			   .then(() => {
+  		  	 this.isProcess = false;
+			   });
   },
     
   updated () {
-  	this.format();  	
+  	this.format();
+  	this.$emit('updateHead');
   },
   
   methods: {
-  	
     format () {
     	$('.url-content').linkify({
 		    target: '_blank',
