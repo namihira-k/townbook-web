@@ -51,6 +51,10 @@ public class StationService {
 		return toStationDtos(points);
 	}		
 	
+	public StationDto getStationByCode(final String code) {
+		return stationDao.findByCode(code);
+	}
+	
 	public List<StationDto> getStationsbyCode(final List<String> codes) {
 		return stationDao.findByCodeIn(codes);
 	}

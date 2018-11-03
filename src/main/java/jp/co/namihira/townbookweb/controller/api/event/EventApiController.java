@@ -66,7 +66,7 @@ public class EventApiController extends AbstractApiController {
 		final List<EventDto> events = result.getContent();		
 		final List<String> codes = events.stream()
 				                         .map(e -> e.getStationCode())
-				                         .collect(Collectors.toList());		
+				                         .collect(Collectors.toList());
 		final List<StationDto> stations = stationService.getStationsbyCode(codes);
 		events.stream().forEach(e -> {
 			Optional<StationDto> dto = StationService.getByCode(e.getStationCode(), stations);
@@ -78,7 +78,12 @@ public class EventApiController extends AbstractApiController {
 	
 	@GetMapping(BASE_PATH + "/{uuid}")
 	public EventDto get(@PathVariable String uuid) {
-		return eventService.find(uuid);
+		final EventDto result = eventService.find(uuid);
+		final StationDto station = stationService.getStationByCode(result.getStationCode());
+		if (station != null) {
+			result.setStationName(station.getName());
+		}
+		return result;
 	}
 
 }
