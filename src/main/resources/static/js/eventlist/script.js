@@ -14,6 +14,8 @@ new Vue({
 			totalCount: 0,
 			page: 0,
 			
+			infoUrl: '',
+			
 			isProcess: false,
 		};
   },

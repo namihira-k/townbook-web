@@ -57,6 +57,8 @@ public class EventDto extends AbstractDto {
 	@Column(unique=true)
 	public String uuid;
 	
+	@Transient
+	private String viewUrl;
 	
 	@PrePersist
 	public void autofill() {

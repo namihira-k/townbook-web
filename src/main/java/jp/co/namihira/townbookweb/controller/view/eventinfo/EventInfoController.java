@@ -12,11 +12,13 @@ import jp.co.namihira.townbookweb.service.event.EventService;
 
 @Controller
 public class EventInfoController extends AbstractViewController {
-        
+    
+	public static final String path = "/eventinfo";
+	
 	@Autowired
 	private EventService eventService;
 	
-    @GetMapping("/eventinfo")
+    @GetMapping(path)
     public String get(Model model, @RequestParam(required = false) String uuid) {
     	model.addAttribute("uuid", uuid);
     	
