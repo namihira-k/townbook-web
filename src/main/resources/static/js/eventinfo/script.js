@@ -3,22 +3,13 @@ new Vue({
   data () {
 		return {
 			uuid: uuid,
-			event: {},
+			event: null,
 			prefectures: [],
 
 			isProcess: true,
 		};
   },
-  
-  head: {
-  	meta () {
-  		return [
-    		{ name: 'twitter:title', content: this.event.name },
-    		{ name: 'twitter:description', content: this.event.content },
-    	];
-  	},
-  },
-  
+    
   mounted () {
     axios.get('/yorimichi/api/prefectures')
          .then(res => { this.prefectures = res.data.results; });    
@@ -34,7 +25,6 @@ new Vue({
     
   updated () {
   	this.format();
-  	this.$emit('updateHead');
   },
   
   methods: {
