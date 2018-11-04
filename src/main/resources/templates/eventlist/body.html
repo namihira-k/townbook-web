@@ -145,6 +145,14 @@
 	</div>
 
 	<div layout:fragment="javascript">
+	  <script th:inline="javascript">
+      /*<![CDATA[*/
+      var prefectureCode = /*[[${prefectureCode}]]*/'';
+     	var lineCode = /*[[${lineCode}]]*/'';
+     	var stationCode = /*[[${stationCode}]]*/'';
+      /*]]>*/
+    </script>
+	
 		<script th:src="@{/js/eventlist/script.js}"></script>
 	</div>
 

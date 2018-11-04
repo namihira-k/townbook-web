@@ -12,6 +12,7 @@ import jp.co.namihira.townbookweb.client.ekispert.EkispertClient;
 import jp.co.namihira.townbookweb.client.ekispert.Line;
 import jp.co.namihira.townbookweb.client.ekispert.Point;
 import jp.co.namihira.townbookweb.client.ekispert.ResultListSet;
+import jp.co.namihira.townbookweb.client.ekispert.ResultSet;
 import jp.co.namihira.townbookweb.client.ekispert.Station;
 import jp.co.namihira.townbookweb.dao.StationDao;
 import jp.co.namihira.townbookweb.dto.LineDto;
@@ -52,7 +53,16 @@ public class StationService {
 	}		
 	
 	public StationDto getStationByCode(final String code) {
-		return stationDao.findByCode(code);
+		final StationDto existed = stationDao.findByCode(code);
+		if (existed != null) {
+			return existed;
+		}
+		
+		final ResultSet apiResult = ekispertClient.getStation(code);
+		final StationDto stationDto = toStationDto(apiResult.getPoint());
+		stationDao.save(stationDto);
+		
+		return stationDto;
 	}
 	
 	public List<StationDto> getStationsbyCode(final List<String> codes) {
