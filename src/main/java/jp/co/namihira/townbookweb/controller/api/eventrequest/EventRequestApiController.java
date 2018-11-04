@@ -1,6 +1,7 @@
 package jp.co.namihira.townbookweb.controller.api.eventrequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,10 +24,13 @@ public class EventRequestApiController extends AbstractApiController {
 	@Autowired
 	private TwitterService twitterService;
 	
+	@Value("${twitter.account}")
+	private String twitterAccount = "";
+	
 	@PostMapping(BASE_PATH)
 	@ResponseStatus(HttpStatus.CREATED)
 	public EventRequestDto post(@RequestBody EventRequestDto dto) {
-		twitterService.postDM("yorimichi_jp", "posted event request! : " + dto.getName() + ", " + dto.getUrl());
+		twitterService.postDM(twitterAccount, "posted event request! : " + dto.getName() + ", " + dto.getUrl());
 		return eventRequestService.save(dto);
     }
 	
