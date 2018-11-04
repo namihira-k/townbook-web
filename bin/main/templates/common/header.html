@@ -23,12 +23,14 @@
 	    <div class="nav-wrapper container">
 	      <a th:href="@{/view/welcome}" class="brand-logo">Yorimichi</a>
 	      <ul class="right hide-on-med-and-down">
-	         <li><a th:href="@{/view/welcome}">ホーム</a></li>
+	        <li><a th:href="@{/view/welcome}">ホーム</a></li>
 	        <li><a th:href="@{/view/eventlist}">イベント一覧</a></li>
+          <li><a th:href="@{/view/eventrequest}" class="waves-effect waves-light btn orange">掲載の依頼</a></li>
 	      </ul>
 				<ul id="slide-out" class="sidenav">
 				  <li><a th:href="@{/view/welcome}">ホーム</a></li>
 				  <li><a th:href="@{/view/eventlist}">イベント一覧</a></li>
+          <li><a th:href="@{/view/eventrequest}">掲載の依頼</a></li>
 				</ul>
 				<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 	    </div>
