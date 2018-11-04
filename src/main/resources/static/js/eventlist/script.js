@@ -4,9 +4,9 @@ new Vue({
 		return {
 			events: [],
 			fromDate: '',
-			prefectureCode: 13, //Tokyo
-			lineCode: '',
-			stationCode: '',
+			prefectureCode: prefectureCode,
+			lineCode: lineCode,
+			stationCode: stationCode,
 			prefectures: [],
 			lines: [],		
 			stations: [],
@@ -29,10 +29,17 @@ new Vue({
 			        prefectureCode: this.prefectureCode
 			      }})
 			   .then(res => { this.lines = res.data.results; });
+  	
+  	axios.get('/yorimichi/api/stations', {
+            params: {
+              code: this.stationCode
+            }})
+         .then(res => { this.stations = res.data.results; });  	
    	
   	axios.get('/yorimichi/api/events', {
 				    params: {
-				    	prefectureCode: this.prefectureCode
+				    	prefectureCode: this.prefectureCode,
+				    	stationCode: this.stationCode,
 				    }})
          .then(res => {
         	 this.totalCount = res.data.totalCount;

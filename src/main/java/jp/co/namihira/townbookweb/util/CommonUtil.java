@@ -1,11 +1,17 @@
 package jp.co.namihira.townbookweb.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 public class CommonUtil {
 
+	@SafeVarargs
+	public static <E> List<E> list(E... args) {
+		return Arrays.asList(args);
+	}
+	
 	public static <E> List<E> toList(Iterable<E> args) {
 		final List<E> results = new ArrayList<>();
 		args.forEach(results::add);

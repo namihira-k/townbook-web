@@ -18,7 +18,7 @@
 }
 
 .fab {
-  color: gray;
+  color: grey;
 }
 
 .fab:hover {
@@ -27,4 +27,9 @@
 
 .ad {
 	margin: 10px;
+}
+
+hr {
+  border-style: none;
+  border-top: 1px solid grey;
 }
