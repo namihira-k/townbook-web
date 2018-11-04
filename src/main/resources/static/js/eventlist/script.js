@@ -32,7 +32,7 @@ new Vue({
   	
   	axios.get('/yorimichi/api/stations', {
             params: {
-              code: this.stationCode
+              lineCode: this.lineCode
             }})
          .then(res => { this.stations = res.data.results; });  	
    	
