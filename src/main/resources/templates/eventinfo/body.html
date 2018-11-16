@@ -59,12 +59,10 @@
 							<div class="text-small">参加する方法</div>
 							<blockquote>{{ event.conditions }}</blockquote>
 						  <div class="text-small">詳細</div>
-							<blockquote>{{ event.content }}</blockquote>
+							<blockquote class="textarea">{{ event.content }}</blockquote>
 		          <div class="text-small">URL</div>
-		          <span class="textarea url-content line-break">{{ event.url }}</span>
-		          <div>
-		            <span class="text-small grey-text right">{{ event.uuid }}</span>
-		          </div>
+		          <p class="textarea url-content">{{ event.url }}</p>
+		          <div class="text-small grey-text right">{{ event.uuid }}</div>
             </div>
           </div>
 				</div>

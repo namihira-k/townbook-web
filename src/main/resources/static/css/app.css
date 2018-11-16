@@ -1,15 +1,11 @@
 .textarea {
-  white-space: pre;
+  word-wrap: break-word;	
+	white-space: pre-wrap;
+  display: block;	
 }
 
 .text-small {
 	font-size: 12px;
-}
-
-.line-break {
-	word-wrap: break-word;
-	white-space: normal;
-	display: block;
 }
 
  .url-content a {
