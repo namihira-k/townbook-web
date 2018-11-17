@@ -4,14 +4,16 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
       layout:decorate="~{common/layout}">
 
-<head>  
+<head>
+
+
+
 </head>
 
 <body>
   <div layout:fragment="content">
 	  <div class="section no-pad-bot" id="index-banner">
-	    <div class="container">
-        <br><br>
+	    <div id="app-banner" class="container">
 	      <h1 class="header center orange-text">Yorimichi</h1>
 	      <div class="row center">
 	        <h5 class="header col s12 light">ふらりとちょっとどこかに寄っていきたい</h5>
@@ -19,50 +21,46 @@
 	      <div class="row center">
 	        <a th:href="@{/view/eventlist}" id="download-button" class="btn-large waves-effect waves-light orange">ふらっと寄れるイベント</a>
 	      </div>
-	      <br><br>
 	    </div>
 	  </div>
 
 	  <div class="container">
+      <div class="section">
+        <h5 class="center">例えば</h5>
+        <div class="row">
+          <h6 class="center">東京のイベント</h6>
+          <div class="col s12 m2 offset-m5">
+            <div class="collection">
+              <a th:href="@{/view/eventlist?prefectureCode=13&lineCode=113&stationCode=22741}" class="collection-item url-content center">新宿</a>
+              <a th:href="@{/view/eventlist?prefectureCode=13&lineCode=113&stationCode=22715}" class="collection-item url-content center">渋谷</a>
+              <a th:href="@{/view/eventlist?prefectureCode=13&lineCode=113&stationCode=22492}" class="collection-item url-content center">秋葉原</a>
+            </div>
+          </div>
+        </div>
+      </div>
+	  
 	    <div class="section">
 	      <div class="row">
 	        <div class="col s12 m4">
 	          <div class="icon-block">
 	            <h2 class="center light-blue-text"><i class="large material-icons">access_time</i></h2>
 	            <h5 class="center">空き時間ができた</h5>
-	            <p class="light"></p>
 	          </div>
 	        </div>
 	        <div class="col s12 m4">
 	          <div class="icon-block">
 	            <h2 class="center light-blue-text"><i class="large material-icons">directions_walk</i></h2>
 	            <h5 class="center">いつもと違う場所</h5>
-	            <p class="light"></p>
 	          </div>
 	        </div>
 	        <div class="col s12 m4">
 	          <div class="icon-block">
 	            <h2 class="center light-blue-text"><i class="large material-icons">favorite</i></h2>
 	            <h5 class="center">好きなイベント</h5>
-	            <p class="light"></p>
 	          </div>
 	        </div>
 	      </div>
 	    </div>
-	    
-	    <hr>
-	    
-      <div class="section">
-			  <div class="row">
-          <div class="col s12 m4 offset-m4 center">
-          　<h5>東京のイベント</h5>
-    				<div class="collection">
-		          <a th:href="@{/view/eventlist?prefectureCode=13&lineCode=113&stationCode=22741}" class="collection-item url-content">新宿</a>
-		          <a th:href="@{/view/eventlist?prefectureCode=13&lineCode=113&stationCode=22715}" class="collection-item url-content">渋谷</a>
-	          </div>
-          </div>
-				</div>
-      </div>
 	  </div>
   </div>
 
