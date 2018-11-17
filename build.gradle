@@ -39,8 +39,9 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
 	
-	compile('org.twitter4j:twitter4j-core:4.0.7')
-			
+	compile('org.twitter4j:twitter4j-core:4.0.7')	
+	compile('org.jsoup:jsoup:1.11.3')
+	
 	compileOnly('org.projectlombok:lombok')
 	
 	testCompile('org.springframework.boot:spring-boot-starter-test')
