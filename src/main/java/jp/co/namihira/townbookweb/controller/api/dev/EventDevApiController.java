@@ -51,8 +51,10 @@ public class EventDevApiController extends AbstractApiController {
 			String content = inner.getElementsByClass("content_title").get(0).text();
 			Pattern p = Pattern.compile("([0-9]+).+?([0-9]+)");
 			Matcher m = p.matcher(content);
+			String startDateTime = "";
 			if (m.find()) {
-				str += toValueOnSQL(date + " " + m.group(1) + ":" + m.group(2) + ":00");
+				startDateTime = date + " " + m.group(1) + ":" + m.group(2) + ":00";
+				str += toValueOnSQL(startDateTime);
 				str += toValueOnSQL(date + " " + (Integer.parseInt(m.group(1))+1) + ":" + m.group(2) + ":00");
 			}
 			
@@ -63,9 +65,9 @@ public class EventDevApiController extends AbstractApiController {
 			str += toValueOnSQL(url);
 
 			// content
-			str += toValueOnSQL("");			
+			str += toValueOnSQL(content);			
 			
-			str += toValueOnSQL(UUID.randomUUID().toString());
+			str += toValueOnSQL(UUID.nameUUIDFromBytes((title.text() + startDateTime).getBytes()).toString());
 			
 			result += "(" + str.substring(0, str.length()-2) + "),";			
 		}
@@ -73,8 +75,9 @@ public class EventDevApiController extends AbstractApiController {
 		return result.substring(0, result.length()-1) + ";";
     }
 	
-	private String toValueOnSQL(final String str) {
+	private String toValueOnSQL(String str) {
 		final MessageFormat mf = new MessageFormat("''{0}'', ");
+		str = str.replace("'", "");		
 		String[] msg = {str};
 		return mf.format(msg);
 	}
