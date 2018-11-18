@@ -14,6 +14,8 @@ public interface StationDao extends CrudRepository<StationDto, Integer>  {
 	
 	public StationDto findByCode(final String code);
 	
+	public List<StationDto> findByPrefectureCode(final String prefectureCode);
+	
 	public List<StationDto> findByCodeIn(final List<String> codes);
 	
 }
