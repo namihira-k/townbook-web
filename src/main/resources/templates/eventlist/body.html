@@ -92,7 +92,7 @@
 								<div class="text-small">参加する方法</div>
 								<blockquote>{{ event.conditions }}</blockquote>
                 <div class="text-small">URL</div>
-                <span class="textarea url-content">{{ event.url }}</span>
+                <a v-bind:href="event.url" target="_blank"> {{ event.url }}</a>
 							</div>
 							<div class="card-reveal teal white-text">
 							  <div class="row">
