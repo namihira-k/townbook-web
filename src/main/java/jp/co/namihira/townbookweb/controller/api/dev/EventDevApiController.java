@@ -1,6 +1,5 @@
 package jp.co.namihira.townbookweb.controller.api.dev;
 
-import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -23,58 +22,57 @@ public class EventDevApiController extends AbstractApiController {
 	private TowerRecordClient towerRecordClient;
 		
 	@GetMapping("/dev/eventfetch")
-	public String get() throws IOException {
+	public String getDatas() {
 		String result = "";
 		
-		Document doc = towerRecordClient.getEvent();
-		Elements elements = doc.getElementsByClass("textbox");
+		Document doc = towerRecordClient.getEventPage();		
+		Elements tbodies = doc.getElementsByTag("tr");
 		
 		int id = 100;
 		
-		for (int i = 0; i < elements.size(); i++, id++) {
+		for (int i = 1; i < tbodies.size(); i++, id++) {
 			String str = String.valueOf(id) + ",";
-
-			Element element = elements.get(i);
-			Element inner = element.getElementsByClass("inner").get(0);		
-			Element title = inner.getElementsByTag("h6").get(0).getElementsByTag("a").get(0);
 			
-			str += toValueOnSQL(title.text());
+			Elements infos = tbodies.get(i).getElementsByTag("td");
+
+			Element event = infos.get(2).getElementsByTag("a").first();
+			String title = event.text();
+			str += toValueOnSQL(title);
 			
 			String place = "タワーレコード渋谷店";
 			str += toValueOnSQL(place);
-			
+
 			str += toValueOnSQL("13");
 			str += toValueOnSQL("22715");
 			
-			final String date = title.attr("name");
+			String date = infos.get(0).text().replace("/", "-");
+			String time = infos.get(1).text();
 			
-			String content = inner.getElementsByClass("content_title").get(0).text();
-			Pattern p = Pattern.compile("([0-9]+).+?([0-9]+)");
-			Matcher m = p.matcher(content);
-			String startDateTime = "";
+			str += toValueOnSQL(date + " " + time + ":00");
+			Pattern p = Pattern.compile("([0-9]+):([0-9]+)");
+			Matcher m = p.matcher(time);
 			if (m.find()) {
-				startDateTime = date + " " + m.group(1) + ":" + m.group(2) + ":00";
-				str += toValueOnSQL(startDateTime);
-				str += toValueOnSQL(date + " " + (Integer.parseInt(m.group(1))+1) + ":" + m.group(2) + ":00");
+				str += toValueOnSQL(date + " " + (Integer.parseInt(m.group(1))+1) + ":" + m.group(2) + ":00");				
 			}
 			
 			// condition
 			str += toValueOnSQL("");
-			
-			String url = title.attr("href");
-			str += toValueOnSQL(url);
 
-			// content
+			String url = event.attr("href");
+			str += toValueOnSQL("https://tower.jp" + url);
+
+			String content = infos.get(3).text();
 			str += toValueOnSQL(content);			
+
+			String seed = date + time + title;
+			str += toValueOnSQL(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
 			
-			str += toValueOnSQL(UUID.nameUUIDFromBytes((title.text() + startDateTime).getBytes()).toString());
-			
-			result += "(" + str.substring(0, str.length()-2) + "),";			
+			result += "(" + str.substring(0, str.length()-2) + "),";						
 		}
 		
 		return result.substring(0, result.length()-1) + ";";
-    }
-	
+	}
+		
 	private String toValueOnSQL(String str) {
 		final MessageFormat mf = new MessageFormat("''{0}'', ");
 		str = str.replace("'", "");		
