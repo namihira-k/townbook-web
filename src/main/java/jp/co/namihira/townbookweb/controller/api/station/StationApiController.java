@@ -26,7 +26,7 @@ public class StationApiController extends AbstractApiController {
 			@RequestParam(defaultValue = "") String prefectureCode,
 			@RequestParam(defaultValue = "") String lineCode,
 			@RequestParam(defaultValue = "") String code			
-			) {
+	) {
 		if (CommonUtil.isNotEmpty(code)) {
 			final StationDto result = stationService.getStationByCode(code);
 			return new AppApiListResponse(1, CommonUtil.list(result));
@@ -35,7 +35,12 @@ public class StationApiController extends AbstractApiController {
 		if (CommonUtil.isEmpty(prefectureCode) && CommonUtil.isEmpty(lineCode)) {
 			return new AppApiListResponse(0, CommonUtil.list());
 		}
-		
+
+		if (CommonUtil.isNotEmpty(prefectureCode) && CommonUtil.isEmpty(lineCode)) {
+			final List<StationDto> stationDtos = stationService.getStations(prefectureCode);
+	        return new AppApiListResponse(stationDtos.size(), stationDtos);
+		}
+
 		final List<StationDto> stationDtos = stationService.getStations(prefectureCode, lineCode);
         return new AppApiListResponse(stationDtos.size(), stationDtos);
     }

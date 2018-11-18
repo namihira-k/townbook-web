@@ -23,6 +23,8 @@ public class StationDto extends AbstractDto {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="station_seq")
 	public Integer id;
 	
+	public String prefectureCode;
+	
 	@Column(unique = true)
 	private String code;
 	

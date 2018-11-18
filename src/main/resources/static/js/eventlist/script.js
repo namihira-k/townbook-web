@@ -5,7 +5,6 @@ new Vue({
 			events: [],
 			fromDate: '',
 			prefectureCode: prefectureCode,
-			lineCode: lineCode,
 			stationCode: stationCode,
 			prefectures: [],
 			lines: [],		
@@ -23,16 +22,10 @@ new Vue({
   mounted () {
     axios.get('/yorimichi/api/prefectures')
          .then(res => { this.prefectures = res.data.results; });    
-  	
-  	axios.get('/yorimichi/api/lines', {
-			      params: {
-			        prefectureCode: this.prefectureCode
-			      }})
-			   .then(res => { this.lines = res.data.results; });
-  	
+  	  	
   	axios.get('/yorimichi/api/stations', {
             params: {
-              lineCode: this.lineCode
+			        prefectureCode: this.prefectureCode
             }})
          .then(res => { this.stations = res.data.results; });  	
    	
@@ -56,9 +49,7 @@ new Vue({
   	init () {
 			this.events = [];
 			this.prefectureCode = 13;
-			this.lineCode = '';
 			this.stationCode = '';
-			this.lines = [];
 			this.stations = [];
 			
 			this.getLines();
@@ -70,20 +61,11 @@ new Vue({
   		this.moveEventList();
   		this.getEvents();
   	},
-  	
-    getLines () {
-    	axios.get('/yorimichi/api/lines', {
-        params: {
-          prefectureCode: this.prefectureCode
-        }
-      }).then(res => { this.lines = res.data.results; });
-    },
-  	
+  	  	
   	getStations () {
     	axios.get('/yorimichi/api/stations', {
         params: {
-          prefectureCode: this.prefectureCode,        	
-        	lineCode: this.lineCode
+          prefectureCode: this.prefectureCode
         }
       }).then(res => { this.stations = res.data.results; });
     },

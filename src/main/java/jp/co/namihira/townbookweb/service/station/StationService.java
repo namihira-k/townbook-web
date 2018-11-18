@@ -40,6 +40,10 @@ public class StationService {
 		return toLineDtos(lines);
 	}
 	
+	public List<StationDto> getStations(final String prefectureCode) {
+		return stationDao.findByPrefectureCode(prefectureCode);
+	}
+	
 	public List<StationDto> getStations(final String prefectureCode, final String lineCode) {
 		final ResultListSet result = ekispertClient.getStations(lineCode);
 

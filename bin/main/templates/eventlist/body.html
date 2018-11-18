@@ -15,35 +15,22 @@
 				<i class="material-icons small">event</i>イベント一覧
 			</h4>
 			<div id="id_search" class="row card cyan lighten-5">
-				<div class="col s12 m8 offset-m2 card-content">
-					<h6>開催日（以降）</h6>
+				<div class="col s12 m6 offset-m3 card-content">
+					<h6>開催日（本日以降）</h6>
 					<div class="input-field white">
 						<input id="startDate" class="datepicker" type="text">
 					</div>
-					<div class="center-align">
-						<i class="material-icons">add</i>
-					</div>
 					<h6>都道府県</h6>
 					<div class="input-field">
-						<select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="getLines">
+						<select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="getStations">
 							<option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
 						</select>
 					</div>
-					<div class="center-align">
-						<i class="material-icons">add</i>
-					</div>
 					<h6>最寄り駅</h6>
-					<label for="prefecture">路線</label>
-					<div class="input-field">
-						<select id="line" class="browser-default" v-model="lineCode" v-on:change="getStations" v-bind:disabled="prefectureCode == ''">
-							<option value="" disabled selected>(未設定)</option>
-							<option v-for="line in lines" v-bind:value="line.code">{{ line.name }}</option>
-						</select>
-					</div>
-					<label for="station">駅</label>
+          <label for="station">※登録されている駅のみが表示されます</label>
 					<div class="input-field">
 						<select id="station" class="browser-default" v-model="stationCode" v-bind:disabled="lineCode == ''">
-							<option value="" disabled selected>(未設定)</option>
+							<option value="" disabled selected>(条件なし)</option>
 							<option v-for="s in stations" v-bind:value="s.code">{{ s.name }}</option>
 						</select>
 					</div>
@@ -122,7 +109,7 @@
 					</div>
 				</div>
 				<infinite-loading @infinite="addEvents">
-					<div slot="no-results"><i class="material-icons">directions_run</i> No more event <i class="material-icons">directions_run</i></div>
+					<div slot="no-results"><i class="material-icons">directions_run</i> No event <i class="material-icons">directions_run</i></div>
           <div slot="no-more"><i class="material-icons">directions_run</i> No more event <i class="material-icons">directions_run</i></div>
 				</infinite-loading>
 				<div>
@@ -144,7 +131,6 @@
 	  <script th:inline="javascript">
       /*<![CDATA[*/
       var prefectureCode = /*[[${prefectureCode}]]*/'';
-     	var lineCode = /*[[${lineCode}]]*/'';
      	var stationCode = /*[[${stationCode}]]*/'';
       /*]]>*/
     </script>

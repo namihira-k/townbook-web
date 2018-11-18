@@ -14,11 +14,9 @@ public class EventListController extends AbstractViewController {
     public String get(
     		Model model,
 			@RequestParam(defaultValue = "13") String prefectureCode,
-			@RequestParam(defaultValue = "") String lineCode,
 			@RequestParam(defaultValue = "") String stationCode
-    		) {
+    ) {
     	model.addAttribute("prefectureCode", prefectureCode);
-    	model.addAttribute("lineCode", lineCode);
     	model.addAttribute("stationCode", stationCode);
     	return "eventlist/body";
     }
