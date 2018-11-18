@@ -12,62 +12,65 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jp.co.namihira.townbookweb.client.towerrecord.TowerRecordClient;
+import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsClient;
+import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsShopEnum;
 import jp.co.namihira.townbookweb.controller.api.AbstractApiController;
 
 @RestController
 public class EventDevApiController extends AbstractApiController {
 	    
 	@Autowired
-	private TowerRecordClient towerRecordClient;
+	private TowerRecordsClient towerRecordClient;
 		
 	@GetMapping("/dev/eventfetch")
 	public String getDatas() {
 		String result = "";
 		
-		Document doc = towerRecordClient.getEventPage();		
-		Elements tbodies = doc.getElementsByTag("tr");
-		
 		int id = 100;
-		
-		for (int i = 1; i < tbodies.size(); i++, id++) {
-			String str = String.valueOf(id) + ",";
-			
-			Elements infos = tbodies.get(i).getElementsByTag("td");
 
-			Element event = infos.get(2).getElementsByTag("a").first();
-			String title = event.text();
-			str += toValueOnSQL(title);
+		for (TowerRecordsShopEnum shop : TowerRecordsShopEnum.values()) {
+			Document doc = towerRecordClient.getEventPage(shop);		
+			Elements tbodies = doc.getElementsByTag("tr");
 			
-			String place = "タワーレコード渋谷店";
-			str += toValueOnSQL(place);
+			for (int i = 1; i < tbodies.size(); i++, id++) {
+				String str = String.valueOf(id) + ",";
+				
+				Elements infos = tbodies.get(i).getElementsByTag("td");
 
-			str += toValueOnSQL("13");
-			str += toValueOnSQL("22715");
-			
-			String date = infos.get(0).text().replace("/", "-");
-			String time = infos.get(1).text();
-			
-			str += toValueOnSQL(date + " " + time + ":00");
-			Pattern p = Pattern.compile("([0-9]+):([0-9]+)");
-			Matcher m = p.matcher(time);
-			if (m.find()) {
-				str += toValueOnSQL(date + " " + (Integer.parseInt(m.group(1))+1) + ":" + m.group(2) + ":00");				
+				Element event = infos.get(2).getElementsByTag("a").first();
+				String title = event.text();
+				str += toValueOnSQL(title);
+				
+				String place = shop.getFullName();
+				str += toValueOnSQL(place);
+
+				str += toValueOnSQL(shop.getPrefectureCode());
+				str += toValueOnSQL(shop.getStationCode());
+				
+				String date = infos.get(0).text().replace("/", "-");
+				String time = infos.get(1).text();
+				
+				str += toValueOnSQL(date + " " + time + ":00");
+				Pattern p = Pattern.compile("([0-9]+):([0-9]+)");
+				Matcher m = p.matcher(time);
+				if (m.find()) {
+					str += toValueOnSQL(date + " " + (Integer.parseInt(m.group(1))+1) + ":" + m.group(2) + ":00");				
+				}
+				
+				// condition
+				str += toValueOnSQL("");
+
+				String url = event.attr("href");
+				str += toValueOnSQL("https://tower.jp" + url);
+
+				String content = infos.get(3).text();
+				str += toValueOnSQL(content);			
+
+				String seed = date + time + title;
+				str += toValueOnSQL(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
+				
+				result += "(" + str.substring(0, str.length()-2) + "),";						
 			}
-			
-			// condition
-			str += toValueOnSQL("");
-
-			String url = event.attr("href");
-			str += toValueOnSQL("https://tower.jp" + url);
-
-			String content = infos.get(3).text();
-			str += toValueOnSQL(content);			
-
-			String seed = date + time + title;
-			str += toValueOnSQL(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
-			
-			result += "(" + str.substring(0, str.length()-2) + "),";						
 		}
 		
 		return result.substring(0, result.length()-1) + ";";
