@@ -9,7 +9,8 @@ public enum TowerRecordsShopEnum {
 	
 	SHINJUKU("13", "22741", "新宿店", "https://tower.jp/store/kanto/Shinjuku/event"),
 	IKEBUKURO("13", "22513", "池袋店", "https://tower.jp/store/kanto/Ikebukuro/event"),
-	SHIBUYA("13", "22715", "渋谷店", "https://tower.jp/store/kanto/Shibuya/event");
+	SHIBUYA("13", "22715", "渋谷店", "https://tower.jp/store/kanto/Shibuya/event"),
+	YOKOHAMA("14", "23368", "横浜ビブレ店", "https://tower.jp/store/kanto/YokohamaVIVRE/event");
 	
 	private final String prefectureCode;
 	private final String stationCode;

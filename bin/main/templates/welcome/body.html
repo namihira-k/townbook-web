@@ -28,16 +28,31 @@
       <div class="section">
         <h5 class="center">例えば</h5>
         <div class="row">
-          <h6 class="center">東京のイベント</h6>
-          <div class="col s12 m2 offset-m5">
-            <div class="collection">
-              <a th:href="@{/view/eventlist?prefectureCode=13&lineCode=113&stationCode=22741}" class="collection-item url-content center">新宿</a>
-              <a th:href="@{/view/eventlist?prefectureCode=13&lineCode=113&stationCode=22715}" class="collection-item url-content center">渋谷</a>
-              <a th:href="@{/view/eventlist?prefectureCode=13&lineCode=113&stationCode=22513}" class="collection-item url-content center">池袋</a>
-              <a th:href="@{/view/eventlist?prefectureCode=13&lineCode=113&stationCode=22492}" class="collection-item url-content center">秋葉原</a>
+          <div class="col s12 m4 offset-m2">
+		        <div class="row">
+		          <h6 class="center">東京のイベント</h6>
+		          <div class="col s12 m8 offset-m2">
+		            <div class="collection">
+		              <a th:href="@{/view/eventlist?prefectureCode=13&stationCode=22741}" class="collection-item url-content center">新宿</a>
+		              <a th:href="@{/view/eventlist?prefectureCode=13&stationCode=22715}" class="collection-item url-content center">渋谷</a>
+		              <a th:href="@{/view/eventlist?prefectureCode=13&stationCode=22513}" class="collection-item url-content center">池袋</a>
+		              <a th:href="@{/view/eventlist?prefectureCode=13&stationCode=22492}" class="collection-item url-content center">秋葉原</a>
+		            </div>
+		          </div>
+		        </div>
+          </div>
+          <div class="col s12 m4">
+            <div class="row">
+              <h6 class="center">神奈川のイベント</h6>
+              <div class="col s12 m8 offset-m2">
+                <div class="collection">
+                  <a th:href="@{/view/eventlist?prefectureCode=14&stationCode=23368}" class="collection-item url-content center">横浜</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        
       </div>
 	  
 	    <div class="section">
