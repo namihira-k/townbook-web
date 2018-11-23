@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jp.co.namihira.townbookweb.client.hmv.HMVClient;
+import jp.co.namihira.townbookweb.client.hmv.HMVShopEnum;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsClient;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsShopEnum;
 import jp.co.namihira.townbookweb.controller.api.AbstractApiController;
@@ -20,16 +22,71 @@ import jp.co.namihira.townbookweb.controller.api.AbstractApiController;
 public class EventDevApiController extends AbstractApiController {
 	    
 	@Autowired
+	private HMVClient hmvClient;
+	
+	@Autowired
 	private TowerRecordsClient towerRecordClient;
 		
-	@GetMapping("/dev/eventfetch")
+	
+	@GetMapping("/dev/eventfetch-hmv")
+	public String getHMVData() {
+		String result = "";
+		
+		int id = 200;
+		
+		for (HMVShopEnum shop : HMVShopEnum.values()) {
+			Document doc = hmvClient.getEventPage(shop);
+			
+			Element eventInfo = doc.getElementsByClass("stEventBox").get(0);
+			Elements events = eventInfo.getElementsByTag("li");
+
+			for (int i = 0; i < events.size(); i++, id++) {
+				String str = String.valueOf(id) + ",";
+				
+				Element event = events.get(i);
+				String title = event.getElementsByTag("a").first().text();
+				str += toValueOnSQL(title);
+
+				String place = shop.getName();
+				str += toValueOnSQL(place);
+				
+				str += toValueOnSQL(shop.getPrefectureCode());
+				str += toValueOnSQL(shop.getStationCode());
+				
+				String datetime = event.text();
+				Pattern p = Pattern.compile("(20[0-9]+/[0-9]+/[0-9]+) ([0-9]+):([0-9]+)");
+				Matcher m = p.matcher(datetime);
+				if (m.find()) {
+					str += toValueOnSQL(m.group().replace("/", "-") + ":00");
+					str += toValueOnSQL(m.group(1).replace("/", "-") + " " + (Integer.parseInt(m.group(2))+1) + ":" + m.group(3) + ":00");
+				}	
+
+				// condition
+				str += toValueOnSQL("");
+
+				String url = event.getElementsByTag("a").first().attr("href");
+				str += toValueOnSQL("https://www.hmv.co.jp" + url);
+
+				str += toValueOnSQL(title);
+				
+				String seed = datetime + title;
+				str += toValueOnSQL(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
+				
+				result += "(" + str.substring(0, str.length()-2) + "),";
+			}			
+		}
+		
+		return result.substring(0, result.length()-1) + ";";		
+	}
+	
+	@GetMapping("/dev/eventfetch-tr")
 	public String getDatas() {
 		String result = "";
 		
 		int id = 100;
 
 		for (TowerRecordsShopEnum shop : TowerRecordsShopEnum.values()) {
-			Document doc = towerRecordClient.getEventPage(shop);		
+			Document doc = towerRecordClient.getEventPage(shop);
 			Elements tbodies = doc.getElementsByTag("tr");
 			
 			for (int i = 1; i < tbodies.size(); i++, id++) {
@@ -54,7 +111,7 @@ public class EventDevApiController extends AbstractApiController {
 				Pattern p = Pattern.compile("([0-9]+):([0-9]+)");
 				Matcher m = p.matcher(time);
 				if (m.find()) {
-					str += toValueOnSQL(date + " " + (Integer.parseInt(m.group(1))+1) + ":" + m.group(2) + ":00");				
+					str += toValueOnSQL(date + " " + (Integer.parseInt(m.group(1))+1) + ":" + m.group(2) + ":00");
 				}
 				
 				// condition
@@ -64,12 +121,12 @@ public class EventDevApiController extends AbstractApiController {
 				str += toValueOnSQL("https://tower.jp" + url);
 
 				String content = infos.get(3).text();
-				str += toValueOnSQL(content);			
+				str += toValueOnSQL(content);		
 
 				String seed = date + time + title;
 				str += toValueOnSQL(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
 				
-				result += "(" + str.substring(0, str.length()-2) + "),";						
+				result += "(" + str.substring(0, str.length()-2) + "),";
 			}
 		}
 		
