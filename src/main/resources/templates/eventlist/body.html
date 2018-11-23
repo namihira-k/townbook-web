@@ -12,21 +12,21 @@
 	<div layout:fragment="content">
 		<div class="container">
 			<h4>
-				<i class="material-icons small">event</i>イベント一覧
+				<i class="material-icons small">message</i>イベント一覧
 			</h4>
 			<div id="id_search" class="row card cyan lighten-5">
 				<div class="col s12 m6 offset-m3 card-content">
-					<h6>開催日（本日以降）</h6>
+					<h6><i class="material-icons">event</i>開催日（本日以降）</h6>
 					<div class="input-field white">
 						<input id="startDate" class="datepicker" type="text">
 					</div>
-					<h6>都道府県</h6>
+					<h6><i class="material-icons">place</i>都道府県</h6>
 					<div class="input-field">
 						<select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="getStations">
 							<option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
 						</select>
 					</div>
-					<h6>最寄り駅</h6>
+					<h6><i class="material-icons">directions_transit</i>最寄り駅</h6>
           <label for="station">※登録されている駅のみが表示されます</label>
 					<div class="input-field">
 						<select id="station" class="browser-default" v-model="stationCode">
@@ -60,7 +60,7 @@
 						<div class="card sticky-action">
 							<div class="card-content activator">
 								<span class="card-title line-break">{{ event.name }}</span>
-								<a class="btn-floating pulse right"><i class="material-icons">menu</i></a>
+								<a class="btn-floating pulse right"><i class="material-icons circle-icons">menu</i></a>
 								<div class="row">
 									<div class="col m4">
 										<div v-for="p in prefectures">
@@ -123,7 +123,7 @@
 			</div>
 		</div>
 		<div class="fixed-action-btn">
-			<a class="btn-floating btn-large light-blue lighten-1" v-on:click.prevent="moveSearch"><i class="large material-icons">arrow_upward</i></a>
+			<a class="btn-floating btn-large light-blue lighten-1" v-on:click.prevent="moveSearch"><i class="large material-icons circle-icons">arrow_upward</i></a>
 		</div>
 	</div>
 
