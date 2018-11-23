@@ -1,6 +1,7 @@
 package jp.co.namihira.townbookweb.service.event;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import jp.co.namihira.townbookweb.client.ekispert.Point;
 import jp.co.namihira.townbookweb.dao.EventDao;
 import jp.co.namihira.townbookweb.dao.StationDao;
 import jp.co.namihira.townbookweb.dto.EventDto;
+import jp.co.namihira.townbookweb.dto.EventStatsDto;
 import jp.co.namihira.townbookweb.dto.StationDto;
 import jp.co.namihira.townbookweb.service.station.StationService;
 import jp.co.namihira.townbookweb.util.CommonUtil;
@@ -56,6 +58,11 @@ public class EventService {
 		}
 		
 		return eventDao.findByStartDateTimeAfter(from, pageRequest);
+	}
+	
+	public List<EventStatsDto> getStats(final LocalDateTime from){		
+		final LocalDateTime to = from.plusDays(1);
+		return eventDao.countByStartDateTimeGroupByStationCode(from, to);
 	}
 			
 }
