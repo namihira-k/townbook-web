@@ -9,8 +9,10 @@ import jp.co.namihira.townbookweb.controller.view.AbstractViewController;
 
 @Controller
 public class EventListController extends AbstractViewController {
-        		
-    @GetMapping("/eventlist")
+
+	public static final String BASE_PATH = "/eventlist";	
+	
+    @GetMapping(BASE_PATH)
     public String get(
     		Model model,
 			@RequestParam(defaultValue = "13") String prefectureCode,
