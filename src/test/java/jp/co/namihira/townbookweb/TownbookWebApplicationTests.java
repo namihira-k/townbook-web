@@ -10,6 +10,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class TownbookWebApplicationTests {
 
 	@Test
+	public void test() {
+	}
+	
+	@Test
 	public void contextLoads() {
 	}
 

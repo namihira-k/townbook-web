@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum HMVShopEnum {
 	
+	IKEBUKURO("13", "22513", "HMVエソラ池袋", "https://www.hmv.co.jp/store/IKE/"),
 	SHIBUYA("13", "22715", "HMV&BOOKS SHIBUYA", "https://www.hmv.co.jp/store/BTK/");
 	
 	private final String prefectureCode;

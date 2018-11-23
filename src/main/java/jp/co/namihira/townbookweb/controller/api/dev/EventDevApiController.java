@@ -54,7 +54,7 @@ public class EventDevApiController extends AbstractApiController {
 				str += toValueOnSQL(shop.getStationCode());
 				
 				String datetime = event.text();
-				Pattern p = Pattern.compile("([0-9]{4}/[0-9]{2}/[0-9]{2}) (0-9]{2}):(0-9]{2})");
+				Pattern p = Pattern.compile("(20[0-9]+/[0-9]+/[0-9]+) ([0-9]+):([0-9]+)");
 				Matcher m = p.matcher(datetime);
 				if (m.find()) {
 					str += toValueOnSQL(m.group().replace("/", "-") + ":00");
