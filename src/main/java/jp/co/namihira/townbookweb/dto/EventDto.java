@@ -50,6 +50,8 @@ public class EventDto extends AbstractDto {
 
 	public String conditions;
 	
+	public Boolean isFree = false;
+	
 	public String url;
 
 	public String content;

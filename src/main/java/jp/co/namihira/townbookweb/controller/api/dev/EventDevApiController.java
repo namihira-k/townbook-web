@@ -1,6 +1,7 @@
 package jp.co.namihira.townbookweb.controller.api.dev;
 
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,10 +65,17 @@ public class EventDevApiController extends AbstractApiController {
 				// condition
 				str += toValueOnSQL("");
 
-				String url = event.getElementsByTag("a").first().attr("href");
-				str += toValueOnSQL("https://www.hmv.co.jp" + url);
+				String url = "https://www.hmv.co.jp" + event.getElementsByTag("a").first().attr("href");
+				str += toValueOnSQL(url);
 
 				str += toValueOnSQL(title);
+				
+				Document info = hmvClient.getPage(url);
+				Elements contents = info.getElementsByClass("eventInfoText");
+				final List<String> freeKeywords = HMVShopEnum.getKeywordsOfFree();
+				Boolean isFree = freeKeywords.parallelStream().anyMatch(f -> contents.text().contains(f));
+				str += String.valueOf(isFree) + ",";
+
 				
 				String seed = datetime + title;
 				str += toValueOnSQL(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
@@ -98,7 +106,7 @@ public class EventDevApiController extends AbstractApiController {
 				String title = event.text();
 				str += toValueOnSQL(title);
 				
-				String place = shop.getFullName();
+				String place = shop.getName();
 				str += toValueOnSQL(place);
 
 				str += toValueOnSQL(shop.getPrefectureCode());
@@ -117,12 +125,18 @@ public class EventDevApiController extends AbstractApiController {
 				// condition
 				str += toValueOnSQL("");
 
-				String url = event.attr("href");
-				str += toValueOnSQL("https://tower.jp" + url);
+				String url = "https://tower.jp" + event.attr("href");
+				str += toValueOnSQL(url);
 
 				String content = infos.get(3).text();
-				str += toValueOnSQL(content);		
+				str += toValueOnSQL(content);
 
+				Document info = towerRecordClient.getPage(url);
+				Elements contents = info.getElementsByClass("storeInfo-List");
+				final List<String> freeKeywords = TowerRecordsShopEnum.getKeywordsOfFree();
+				Boolean isFree = freeKeywords.parallelStream().anyMatch(f -> contents.text().contains(f));
+				str += String.valueOf(isFree) + ",";
+				
 				String seed = date + time + title;
 				str += toValueOnSQL(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
 				

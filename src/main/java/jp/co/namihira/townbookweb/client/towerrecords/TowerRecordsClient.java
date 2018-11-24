@@ -1,23 +1,15 @@
 package jp.co.namihira.townbookweb.client.towerrecords;
 
-import java.io.IOException;
-
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 
+import jp.co.namihira.townbookweb.client.ServiceClient;
+
 @Service
-public class TowerRecordsClient {
+public class TowerRecordsClient extends ServiceClient {
 
 	public Document getEventPage(final TowerRecordsShopEnum shop) {
-		Document doc = null;;
-		try {
-			doc = Jsoup.connect(shop.getUrl()).get();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return doc;
-	}
-	
+		return getPage(shop.getUrl());
+	}		
 	
 }
