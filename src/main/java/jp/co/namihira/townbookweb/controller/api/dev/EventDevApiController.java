@@ -65,13 +65,17 @@ public class EventDevApiController extends AbstractApiController {
 				// condition
 				str += toValueOnSQL("");
 
-				String url = event.getElementsByTag("a").first().attr("href");
-				str += toValueOnSQL("https://www.hmv.co.jp" + url);
+				String url = "https://www.hmv.co.jp" + event.getElementsByTag("a").first().attr("href");
+				str += toValueOnSQL(url);
 
 				str += toValueOnSQL(title);
 				
-				// @FIXME
-				str += String.valueOf(false) + ",";
+				Document info = hmvClient.getPage(url);
+				Elements contents = info.getElementsByClass("eventInfoText");
+				final List<String> freeKeywords = HMVShopEnum.getKeywordsOfFree();
+				Boolean isFree = freeKeywords.parallelStream().anyMatch(f -> contents.text().contains(f));
+				str += String.valueOf(isFree) + ",";
+
 				
 				String seed = datetime + title;
 				str += toValueOnSQL(UUID.nameUUIDFromBytes(seed.getBytes()).toString());

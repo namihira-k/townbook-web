@@ -1,5 +1,8 @@
 package jp.co.namihira.townbookweb.client.hmv;
 
+import java.util.List;
+
+import jp.co.namihira.townbookweb.util.CommonUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -14,5 +17,11 @@ public enum HMVShopEnum {
 	private final String stationCode;
     private final String name;
 	private final String url;
+
+	private static final List<String> KEYWORDS_FREE = CommonUtil.list("観覧フリー");
+
+	public static List<String> getKeywordsOfFree(){
+		return KEYWORDS_FREE;
+	}	
 	
 }

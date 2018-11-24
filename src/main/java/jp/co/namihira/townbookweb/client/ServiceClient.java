@@ -1,4 +1,4 @@
-package jp.co.namihira.townbookweb.client.towerrecords;
+package jp.co.namihira.townbookweb.client;
 
 import java.io.IOException;
 
