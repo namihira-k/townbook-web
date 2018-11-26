@@ -61,8 +61,7 @@ public class EventApiController extends AbstractApiController {
 		if (fromDate == null) {
 			fromDate = LocalDate.now();
 		}
-		final LocalDateTime from = LocalDateTime.of(fromDate, LocalTime.MIDNIGHT);
-		
+		final LocalDateTime from = LocalDateTime.of(fromDate, LocalTime.now());
 		
 		final PageRequest pageRequest = PageRequest.of(page, size, new Sort(Direction.ASC, "startDateTime"));
 		

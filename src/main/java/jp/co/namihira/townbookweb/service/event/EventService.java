@@ -61,7 +61,7 @@ public class EventService {
 	}
 	
 	public List<EventStatsDto> getStats(final LocalDateTime from){		
-		final LocalDateTime to = from.plusDays(1);
+		final LocalDateTime to = from.plusDays(1).withHour(23).withMinute(59);
 		return eventDao.countByStartDateTimeGroupByStationCode(from, to);
 	}
 			
