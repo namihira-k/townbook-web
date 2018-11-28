@@ -89,6 +89,7 @@
 									</div>
 								</div>
 								<hr>
+                <div class="chip orange darken-2 white-text" v-if="isToday(event.startDateTime)">本日開催！</div>
 	              <div class="chip orange darken-2 white-text" v-if="event.isFree">参加無料＆観覧自由！</div>
                 <div class="text-small">URL</div>
                 <a v-bind:href="event.url" target="_blank">{{ event.url }}</a>

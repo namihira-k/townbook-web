@@ -110,6 +110,14 @@ new Vue({
       });
     },
     
+    isToday(str) {
+    	var startDay = new Date(str);
+    	var day = new Date();
+    	day.setHours(23);
+    	day.setMinutes(59);
+    	return startDay < day;
+    },
+    
     moveSearch () {
       $("html,body").animate({scrollTop:0}, "fast");    	
     },
