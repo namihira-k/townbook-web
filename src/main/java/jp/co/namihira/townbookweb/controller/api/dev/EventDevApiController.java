@@ -18,6 +18,7 @@ import jp.co.namihira.townbookweb.client.hmv.HMVShopEnum;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsClient;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsShopEnum;
 import jp.co.namihira.townbookweb.controller.api.AbstractApiController;
+import jp.co.namihira.townbookweb.util.CommonUtil;
 
 @RestController
 public class EventDevApiController extends AbstractApiController {
@@ -33,7 +34,7 @@ public class EventDevApiController extends AbstractApiController {
 	public String getHMVData() {
 		String result = "";
 		
-		int id = 200;
+		int id = 300;
 		
 		for (HMVShopEnum shop : HMVShopEnum.values()) {
 			Document doc = hmvClient.getEventPage(shop);
@@ -115,11 +116,18 @@ public class EventDevApiController extends AbstractApiController {
 				String date = infos.get(0).text().replace("/", "-");
 				String time = infos.get(1).text();
 				
-				str += toValueOnSQL(date + " " + time + ":00");
+				if (CommonUtil.isNotEmpty(time)) {
+					str += toValueOnSQL(date + " " + time + ":00");					
+				} else {
+					str += toValueOnSQL("");
+				}
+				
 				Pattern p = Pattern.compile("([0-9]+):([0-9]+)");
 				Matcher m = p.matcher(time);
 				if (m.find()) {
 					str += toValueOnSQL(date + " " + (Integer.parseInt(m.group(1))+1) + ":" + m.group(2) + ":00");
+				} else {
+					str += toValueOnSQL("");					
 				}
 				
 				// condition

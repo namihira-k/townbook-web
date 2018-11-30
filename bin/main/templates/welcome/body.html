@@ -52,8 +52,31 @@
               </div>
             </div>
           </div>
+          <div class="col s12 m4 offset-m2">
+            <div class="row">
+              <h6 class="center">愛知のイベント</h6>
+              <div class="col s12 m8 offset-m2">
+                <div class="collection">
+                  <template v-for="s in stationStats">
+                    <a class="collection-item url-content center" v-bind:href="s.viewUrl" v-if="s.prefectureCode == 23">{{ s.stationName }}<span class="new badge" data-badge-caption="" v-if="s.count > 0">{{ s.count }}</span></a>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col s12 m4">
+            <div class="row">
+              <h6 class="center">大阪のイベント</h6>
+              <div class="col s12 m8 offset-m2">
+                <div class="collection">
+                  <template v-for="s in stationStats">
+                    <a class="collection-item url-content center" v-bind:href="s.viewUrl" v-if="s.prefectureCode == 27">{{ s.stationName }}<span class="new badge" data-badge-caption="" v-if="s.count > 0">{{ s.count }}</span></a>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
       </div>
 	  
 	    <div class="section">
