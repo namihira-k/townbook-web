@@ -55,7 +55,7 @@
           <div class="col s12 m3">
             <div class="row">
               <h6 class="center">愛知のイベント</h6>
-              <div class="col s12 m10 offset-m1">
+              <div class="col s12">
                 <div class="collection">
                   <template v-for="s in stationStats">
                     <a class="collection-item url-content center" v-bind:href="s.viewUrl" v-if="s.prefectureCode == 23">{{ s.stationName }}<span class="new badge" data-badge-caption="" v-if="s.count > 0">{{ s.count }}</span></a>
