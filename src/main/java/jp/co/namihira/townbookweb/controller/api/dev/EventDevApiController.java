@@ -39,6 +39,10 @@ public class EventDevApiController extends AbstractApiController {
 		for (HMVShopEnum shop : HMVShopEnum.values()) {
 			Document doc = hmvClient.getEventPage(shop);
 			
+			if (!doc.text().contains("ストアイベント情報")) {
+				break;
+			}
+			
 			Element eventInfo = doc.getElementsByClass("stEventBox").get(0);
 			Elements events = eventInfo.getElementsByTag("li");
 
