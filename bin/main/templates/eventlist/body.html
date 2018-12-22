@@ -22,7 +22,7 @@
 					</div>
 					<h6><i class="material-icons">place</i>都道府県</h6>
 					<div class="input-field">
-						<select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="getStations">
+						<select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="setStations">
 							<option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
 						</select>
 					</div>
