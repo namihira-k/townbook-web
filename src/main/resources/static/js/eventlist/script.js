@@ -61,6 +61,11 @@ new Vue({
   		this.moveEventList();
   		this.getEvents();
   	},
+  	
+  	setStations () {
+  		this.getStations();
+  		this.stationCode = '';
+    },  	
   	  	
   	getStations () {
     	axios.get('/yorimichi/api/stations', {
