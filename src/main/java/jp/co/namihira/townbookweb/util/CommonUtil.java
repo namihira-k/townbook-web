@@ -4,9 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class CommonUtil {
 
+	public static boolean contains(final String target, final String[] keywords) {
+		return Stream.of(keywords).anyMatch(keyword -> target.contains(keyword));
+	}
+	
 	@SafeVarargs
 	public static <E> List<E> list(E... args) {
 		return Arrays.asList(args);
