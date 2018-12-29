@@ -12,7 +12,6 @@ import jp.co.namihira.townbookweb.util.CommonUtil;
 @Service
 public class FukuyaShotenClient extends ServiceClient {
 
-	
     private static final List<String> EVENT_INFO_URLS = CommonUtil.list("http://www.fukuya-shoten.jp/event/", "http://www.fukuya-shoten.jp/event/page/2/");
 	
 	public List<Document> getEventPages() {

@@ -19,7 +19,7 @@ import lombok.Setter;
 public class StationDto extends AbstractDto {
 	
 	@Id
-	@SequenceGenerator(name="station_seq", initialValue=1000)
+	@SequenceGenerator(name="station_seq", initialValue=100000)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="station_seq")
 	public Integer id;
 	
