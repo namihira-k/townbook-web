@@ -30,7 +30,7 @@
           <label for="station">※登録されている駅のみが表示されます</label>
 					<div class="input-field">
 						<select id="station" class="browser-default" v-model="stationCode">
-							<option value="" disabled selected>(条件なし)</option>
+							<option value="" selected>(条件なし)</option>
 							<option v-for="s in stations" v-bind:value="s.code">{{ s.name }}</option>
 						</select>
 					</div>
