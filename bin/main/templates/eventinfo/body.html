@@ -57,11 +57,15 @@
 					<div class="row">
             <div class="col s12">
 							<div class="chip orange darken-2 white-text" v-if="event.isFree">参加無料＆観覧自由！</div>
-						  <div class="text-small">詳細</div>
-							<blockquote class="textarea">{{ event.content }}</blockquote>
-		          <div class="text-small">URL</div>
-		          <p class="textarea url-content">{{ event.url }}</p>
-		          <div class="text-small grey-text right">{{ event.uuid }}</div>
+						</div>
+					</div>
+          <div class="row">						
+            <div class="col s12">
+              <div class="text-small">詳細</div>
+              <blockquote class="textarea">{{ event.content }}</blockquote>
+              <div class="text-small">情報元</div>
+              <p class="textarea url-content">{{ event.url }}</p>
+              <div class="text-small grey-text right">{{ event.uuid }}</div>
             </div>
           </div>
 				</div>
