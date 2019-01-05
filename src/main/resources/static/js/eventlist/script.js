@@ -20,7 +20,10 @@ new Vue({
   },
   
   mounted () {
-    axios.get('/yorimichi/api/prefectures')
+    axios.get('/yorimichi/api/prefectures', {
+    				params: {
+    					hasEvents: true,
+    				}})
          .then(res => { this.prefectures = res.data.results; });    
   	  	
   	axios.get('/yorimichi/api/stations', {
@@ -49,8 +52,7 @@ new Vue({
   	init () {
 			this.events = [];
 			this.prefectureCode = 13;
-			this.stationCode = '';
-			this.stations = [];
+  		this.setStations();
 			
 			this.getLines();
 			this.getEvents();

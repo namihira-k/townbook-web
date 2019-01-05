@@ -23,6 +23,11 @@ public class CommonUtil {
 		return results;
 	}
 	
+	public static <E> List<E> toList(E[] args) {
+		return Arrays.asList(args);
+	}
+	
+	
     public static <E> boolean isEmpty(Collection<E> c) {
         return c == null || c.size() == 0;
     }

@@ -21,13 +21,14 @@
 						<input id="startDate" class="datepicker" type="text">
 					</div>
 					<h6><i class="material-icons">place</i>都道府県</h6>
+          <label for="station">※イベントが登録されている都道府県のみが表示されます</label>
 					<div class="input-field">
 						<select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="setStations">
 							<option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
 						</select>
 					</div>
 					<h6><i class="material-icons">directions_transit</i>最寄り駅</h6>
-          <label for="station">※登録されている駅のみが表示されます</label>
+          <label for="station">※イベントが登録されている駅のみが表示されます</label>
 					<div class="input-field">
 						<select id="station" class="browser-default" v-model="stationCode">
 							<option value="" selected>(条件なし)</option>
