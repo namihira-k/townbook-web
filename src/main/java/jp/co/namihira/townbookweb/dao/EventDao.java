@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.namihira.townbookweb.dto.EventDto;
 import jp.co.namihira.townbookweb.dto.EventStatsDto;
+import jp.co.namihira.townbookweb.dto.PrefectureDto;
 
 @Repository
 public interface EventDao extends PagingAndSortingRepository<EventDto, Integer>  {
@@ -24,8 +25,6 @@ public interface EventDao extends PagingAndSortingRepository<EventDto, Integer> 
 	
 	public Page<EventDto> findByStationCodeAndStartDateTimeAfter(String stationCode, LocalDateTime startDateTime, Pageable page);	
 	
-	
-	
 	@Query(value = 
 		"SELECT new jp.co.namihira.townbookweb.dto.EventStatsDto(e.stationCode, COUNT(e)) " +
 		"FROM EventDto e " +
@@ -36,5 +35,17 @@ public interface EventDao extends PagingAndSortingRepository<EventDto, Integer> 
 		"  e.stationCode "
 	)
 	public List<EventStatsDto> countByStartDateTimeGroupByStationCode(@Param("from") LocalDateTime from, @Param("to") LocalDateTime to);	
+
+	
+	@Query(value = 
+		"SELECT new jp.co.namihira.townbookweb.dto.PrefectureDto(d.prefectureCode) " +
+		"FROM EventDto d " +
+		"WHERE 1 = 1 " +
+		"  AND :from <= d.startDateTime " +				
+		"GROUP BY " +
+		"  d.prefectureCode "
+	)
+	public List<PrefectureDto> findPrefectures(@Param("from") LocalDateTime from);
+
 	
 }

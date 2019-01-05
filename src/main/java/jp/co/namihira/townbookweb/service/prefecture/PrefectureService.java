@@ -1,5 +1,6 @@
 package jp.co.namihira.townbookweb.service.prefecture;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -11,17 +12,17 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import jp.co.namihira.townbookweb.consts.PrefectureEnum;
-import jp.co.namihira.townbookweb.dao.StationDao;
+import jp.co.namihira.townbookweb.dao.EventDao;
 import jp.co.namihira.townbookweb.dto.PrefectureDto;
 
 @Service
 public class PrefectureService {
-
+	
 	@Autowired
-	private StationDao stationDao;
+	private EventDao eventDao;
 	
 	public List<PrefectureDto> getPrefecturesHasEvents(final MessageSource messageSource, final Locale locale){
-		final List<PrefectureDto> dtos = stationDao.findPrefectures();				
+		final List<PrefectureDto> dtos = eventDao.findPrefectures(LocalDateTime.now());				
 		final List<PrefectureDto> results = dtos.stream()
 												.sorted(Comparator.comparing(PrefectureDto::getCode))
 				                                .map(dto -> PrefectureEnum.of(dto.getCode()).toPrefectureDto(messageSource, locale))
