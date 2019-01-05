@@ -30,8 +30,7 @@ public class PrefectureApiController extends AbstractApiController {
 	public AppApiListResponse get(
 			final Locale locale,
 			@RequestParam(required = false, defaultValue = "false") boolean hasEvents
-	) {
-    	
+	) {    	
     	List<PrefectureDto> prefectureDtos = CommonUtil.list();
     	if (hasEvents) {
     		prefectureDtos = prefectureService.getPrefecturesHasEvents(messageSource, locale);
