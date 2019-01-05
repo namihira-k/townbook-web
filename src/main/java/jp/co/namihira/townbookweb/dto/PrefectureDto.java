@@ -9,7 +9,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PrefectureDto extends AbstractDto {
 
-	private int code;
+	private String code;
 	private String name;
+	
+	public PrefectureDto(final String code) {
+		this.code = code;
+	}
 	
 }
