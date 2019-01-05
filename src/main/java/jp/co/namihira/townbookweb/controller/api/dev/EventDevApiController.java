@@ -76,8 +76,9 @@ public class EventDevApiController extends AbstractApiController {
 					str += toValueOnSQL(shop.getStationCode());
 				}
 				
-				String datetime = event.getElementsByClass("timest").get(0).text();				
-				Pattern pTime = Pattern.compile("([0-9]+)年([0-9]+)月([0-9]+)日\\(.\\)([0-9]+)[：:]([0-9]+)～");
+				String datetime = event.getElementsByClass("timest").get(0).text();
+				datetime = datetime.replace("（", "(").replace("）", ")").replace("：", ":").replace(" ", "");
+				Pattern pTime = Pattern.compile("([0-9]+)年([0-9]+)月([0-9]+)日\\(.\\)([0-9]+):([0-9]+)～");
 				Matcher mTime = pTime.matcher(datetime);
 
 				if (mTime.find()) {
