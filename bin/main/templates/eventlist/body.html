@@ -59,24 +59,29 @@
 					<div class="col s12 m6" v-for="event in events">
 						<div class="card sticky-action">
 							<div class="card-content activator">
-								<span class="card-title line-break">{{ event.name }}</span>
-								<a class="btn-floating pulse right"><i class="material-icons circle-icons">menu</i></a>
+							  <div class="row">
+							    <div class="col m11">
+  	                <span class="card-title line-break">{{ event.name }}</span>
+							    </div>
+                  <div class="col m1">
+		                <a class="btn-floating pulse right"><i class="material-icons circle-icons">menu</i></a>
+                  </div>
+							  </div>
 								<div class="row">
-									<div class="col m4">
+									<div class="col m12">
 										<div v-for="p in prefectures">
 											<div v-if="p.code == event.prefectureCode">
-												<div class="text-small">都道府県</div>
 												<div class="chip">{{ p.name }}</div>
 											</div>
 										</div>
 									</div>
-									<div class="col m4">
-										<div class="text-small">最寄り駅</div>
+									<div class="col m12">
 										<div class="chip">{{ event.stationName }}</div>
 									</div>
+                  <div class="col m12">
+    								<div class="chip">{{ event.place }}</div>
+                  </div>
 								</div>
-								<div class="text-small">建物 / 会場</div>
-								<div class="chip">{{ event.place }}</div>
 								<hr>
 								<div class="row">
 									<div class="col m6">
