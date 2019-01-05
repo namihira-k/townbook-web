@@ -17,6 +17,8 @@ import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenClient;
 import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenEnum;
 import jp.co.namihira.townbookweb.client.hmv.HMVClient;
 import jp.co.namihira.townbookweb.client.hmv.HMVShopEnum;
+import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaClient;
+import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaParser;
 import jp.co.namihira.townbookweb.client.shosen.ShosenClient;
 import jp.co.namihira.townbookweb.client.shosen.ShosenParser;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsClient;
@@ -27,7 +29,12 @@ import jp.co.namihira.townbookweb.util.CommonUtil;
 
 @RestController
 public class EventDevApiController extends AbstractApiController {
-	    
+
+	@Autowired
+	private KinokuniyaClient kinokuniyaClient;
+	@Autowired
+	private KinokuniyaParser kinokuniyaParser;
+	
 	@Autowired
 	private ShosenClient shosenClient;	
 	@Autowired
@@ -36,7 +43,16 @@ public class EventDevApiController extends AbstractApiController {
 	private HMVClient hmvClient;
 	@Autowired
 	private TowerRecordsClient towerRecordClient;
+
+	@GetMapping("/dev/eventfetch-kinokuniya")
+	public String getkinokuniyaData() {
+		int id = 900;
 		
+		final List<Document> docs = kinokuniyaClient.getEventPages();
+		final List<EventDto> events = kinokuniyaParser.parseEvent(docs);
+		return EventSQLBuilder.build(id, events);
+	}
+	
 	@GetMapping("/dev/eventfetch-shosen")
 	public String getShosenData() {
 		int id = 700;
