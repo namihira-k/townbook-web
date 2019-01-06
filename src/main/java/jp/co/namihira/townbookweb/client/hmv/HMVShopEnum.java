@@ -23,7 +23,7 @@ public enum HMVShopEnum {
     private final String name;
 	private final String url;
 
-	private static final List<String> KEYWORDS_FREE = CommonUtil.list("観覧フリー");
+	private static final List<String> KEYWORDS_FREE = CommonUtil.list("観覧フリー", "観覧は無料");
 
 	public static List<String> getKeywordsOfFree(){
 		return KEYWORDS_FREE;
