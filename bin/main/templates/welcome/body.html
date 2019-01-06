@@ -5,9 +5,11 @@
       layout:decorate="~{common/layout}">
 
 <head>
-
-
-
+  <style type="text/css" layout:fragment="style">
+    #event-info {
+      margin: 50px;
+    }
+  </style>  
 </head>
 
 <body>
@@ -49,7 +51,7 @@
       </div>
 
 	    <hr>
-      <div class="section">
+      <div id="event-info" class="section">
         <h5 class="center">今日と明日のイベント</h5>
         <div class="row">
           <div class="col s12 m3">
