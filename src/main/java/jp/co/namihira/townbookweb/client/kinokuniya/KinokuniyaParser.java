@@ -55,7 +55,7 @@ public class KinokuniyaParser {
 			}			
 			
 			final Element headerEL = eventEL.getElementsByTag("a").first();
-			final String name = headerEL.text().replaceAll("【.*】", "");
+			final String name = headerEL.text().replaceAll("【.*?】", "");
 			event.setName(name);
 
 			final String headerText = headerEL.text();
