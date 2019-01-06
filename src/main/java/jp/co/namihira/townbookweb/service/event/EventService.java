@@ -15,6 +15,7 @@ import jp.co.namihira.townbookweb.dao.StationDao;
 import jp.co.namihira.townbookweb.dto.EventDto;
 import jp.co.namihira.townbookweb.dto.EventStatsDto;
 import jp.co.namihira.townbookweb.dto.StationDto;
+import jp.co.namihira.townbookweb.dto.StationStatsDto;
 import jp.co.namihira.townbookweb.service.station.StationService;
 import jp.co.namihira.townbookweb.util.CommonUtil;
 
@@ -60,9 +61,16 @@ public class EventService {
 		return eventDao.findByStartDateTimeAfter(from, pageRequest);
 	}
 	
-	public List<EventStatsDto> getStats(final LocalDateTime from){		
+	public List<StationStatsDto> getStationStats(final LocalDateTime from){		
 		final LocalDateTime to = from.plusDays(1).withHour(23).withMinute(59);
 		return eventDao.countByStartDateTimeGroupByStationCode(from, to);
 	}
 			
+	public EventStatsDto getEventStats(final LocalDateTime from) {
+		final long count = eventDao.countByStartDateTimeAfter(from);
+		final EventStatsDto dto = new EventStatsDto();
+		dto.setTotalCount(count);
+		return dto;
+	}
+	
 }
