@@ -14,6 +14,7 @@ import jp.co.namihira.townbookweb.controller.api.AppApiListResponse;
 import jp.co.namihira.townbookweb.controller.view.eventlist.EventListController;
 import jp.co.namihira.townbookweb.dto.EventStatsDto;
 import jp.co.namihira.townbookweb.dto.StationDto;
+import jp.co.namihira.townbookweb.dto.StationStatsDto;
 import jp.co.namihira.townbookweb.service.UrlService;
 import jp.co.namihira.townbookweb.service.event.EventService;
 import jp.co.namihira.townbookweb.service.station.StationService;
@@ -32,9 +33,15 @@ public class StatsApiController extends AbstractApiController {
 	@Autowired
 	private UrlService urlService;
 	
+	@GetMapping(BASE_PATH + "/event")
+	public EventStatsDto getEventStats(){
+		return eventService.getEventStats(LocalDateTime.now());
+	}
+	
+	
 	@GetMapping(BASE_PATH + "/station")
 	public AppApiListResponse getStationStats(){
-		final List<EventStatsDto> events = eventService.getStats(LocalDateTime.now());
+		final List<StationStatsDto> events = eventService.getStationStats(LocalDateTime.now());
 		
 		final List<String> codes = events.stream()
                 					     .map(e -> e.getStationCode())
