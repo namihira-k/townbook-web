@@ -13,7 +13,5 @@ public class AppConfig {
 	public LayoutDialect layoutDialect() {
 	    return new LayoutDialect();
 	}
-	
-	   
-	
+ 	
 }
