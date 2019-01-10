@@ -31,6 +31,10 @@ public class EventService {
 	@Autowired
 	private EkispertClient ekispertClient;
 	
+	public List<EventDto> save(final List<EventDto> events) {
+		return CommonUtil.toList(eventDao.saveAll(events));
+	}
+	
 	public EventDto save(final EventDto event) {
 		final Point point = ekispertClient.getStation(event.getStationCode()).getPoint();		
 		
