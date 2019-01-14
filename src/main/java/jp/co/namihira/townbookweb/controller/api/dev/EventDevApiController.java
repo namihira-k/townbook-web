@@ -22,10 +22,9 @@ import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaParser;
 import jp.co.namihira.townbookweb.client.shosen.ShosenClient;
 import jp.co.namihira.townbookweb.client.shosen.ShosenParser;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsClient;
-import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsShopEnum;
+import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsParser;
 import jp.co.namihira.townbookweb.controller.api.AbstractApiController;
 import jp.co.namihira.townbookweb.dto.EventDto;
-import jp.co.namihira.townbookweb.util.CommonUtil;
 
 @RestController
 public class EventDevApiController extends AbstractApiController {
@@ -43,6 +42,8 @@ public class EventDevApiController extends AbstractApiController {
 	private HMVClient hmvClient;
 	@Autowired
 	private TowerRecordsClient towerRecordClient;
+	@Autowired
+	private TowerRecordsParser towerRecordsParser;
 
 	@GetMapping("/dev/eventfetch-kinokuniya")
 	public String getkinokuniyaData() {
@@ -191,69 +192,11 @@ public class EventDevApiController extends AbstractApiController {
 	
 	@GetMapping("/dev/eventfetch-tr")
 	public String getDatas() {
-		String result = "";
-		
 		int id = 100;
 
-		for (TowerRecordsShopEnum shop : TowerRecordsShopEnum.values()) {
-			Document doc = towerRecordClient.getEventPage(shop);
-			Elements tbodies = doc.getElementsByTag("tr");
-			
-			for (int i = 1; i < tbodies.size(); i++, id++) {
-				String str = String.valueOf(id) + ",";
-				
-				Elements infos = tbodies.get(i).getElementsByTag("td");
-
-				Element event = infos.get(2).getElementsByTag("a").first();
-				String title = event.text();
-				str += toValueOnSQL(title);
-				
-				String place = shop.getName();
-				str += toValueOnSQL(place);
-
-				str += toValueOnSQL(shop.getPrefectureCode());
-				str += toValueOnSQL(shop.getStationCode());
-				
-				String date = infos.get(0).text().replace("/", "-");
-				String time = infos.get(1).text();
-				
-				if (CommonUtil.isNotEmpty(time)) {
-					str += toValueOnSQL(date + " " + time + ":00");					
-				} else {
-					str += toValueOnSQL("");
-				}
-				
-				Pattern p = Pattern.compile("([0-9]+):([0-9]+)");
-				Matcher m = p.matcher(time);
-				if (m.find()) {
-					str += toValueOnSQL(date + " " + (Integer.parseInt(m.group(1))+1) + ":" + m.group(2) + ":00");
-				} else {
-					str += toValueOnSQL("");					
-				}
-				
-				// condition
-				str += toValueOnSQL("");
-
-				String url = "https://tower.jp" + event.attr("href");
-				str += toValueOnSQL(url);
-
-				String content = infos.get(3).text();
-				str += toValueOnSQL(content);
-
-				Document info = towerRecordClient.getPage(url);
-				Elements contents = info.getElementsByClass("storeInfo-List");
-				final List<String> freeKeywords = TowerRecordsShopEnum.getKeywordsOfFree();
-				Boolean isFree = freeKeywords.parallelStream().anyMatch(f -> contents.text().contains(f));
-				str += String.valueOf(isFree) + ",";
-				
-				String seed = date + time + title;
-				str += toValueOnSQL(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
-				
-				result += "(" + str.substring(0, str.length()-2) + "),";
-			}
-		}
-		
-		return result.substring(0, result.length()-1) + ";";
+		final List<Document> docs = towerRecordClient.getEventPages();
+		final List<EventDto> events = towerRecordsParser.parseEvent(docs);
+		return EventSQLBuilder.build(id, events);
 	}
 		
 	private String toValueOnSQL(String str) {
