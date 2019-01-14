@@ -17,6 +17,7 @@ public enum TowerRecordsShopEnum {
 	YOKOHAMA("14", "23368", "タワーレコード 横浜ビブレ店"),
 	KAWASAKI("14", "23126", "タワーレコード 川崎店"),	
 	NAGOYA_PARCO("23", "25230", "タワーレコード 名古屋パルコ店"),
+	KYOTO("26", "25635", "タワーレコード 京都店"),
 	UMEDA_NU("27", "25853", "タワーレコード 梅田NU茶屋町店");
 	
 	private final String prefectureCode;
