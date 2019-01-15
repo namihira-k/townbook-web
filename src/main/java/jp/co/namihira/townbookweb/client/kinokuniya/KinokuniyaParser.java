@@ -63,6 +63,9 @@ public class KinokuniyaParser {
 			final Matcher mShopName = pShopName.matcher(headerText);
 			if (mShopName.find()) {
 				final KinokuniyaEnum shop = KinokuniyaEnum.getShopbyName(mShopName.group(1));
+				if (shop == null) {
+					continue;
+				}
 				event.setPlace(shop.getName());
 				event.setPrefectureCode(shop.getPrefectureCode());
 				event.setStationCode(shop.getStationCode());
