@@ -3,7 +3,7 @@ new Vue({
   data () {
 		return {
 			stationStats: [],
-			eventStats: null,
+			eventStats: [],
 		};
   },
 
@@ -17,7 +17,6 @@ new Vue({
   
   methods: {
     hasEvents(prefectureCode) {
-    	console.log("called hasEvents");
     	for(let s of this.stationStats) {
     		if (s.prefectureCode == prefectureCode) {
     			return true;

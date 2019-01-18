@@ -7,6 +7,7 @@ new Vue({
   },
   
   mounted () {
+  	this.updateTime();
   	let self = this;
     setInterval(function () {self.updateTime()}, 60000);  	
   },
