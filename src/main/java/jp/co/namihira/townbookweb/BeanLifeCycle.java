@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import jp.co.namihira.townbookweb.client.hmv.HMVClient;
+import jp.co.namihira.townbookweb.client.hmv.HMVParser;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaClient;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaParser;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsClient;
@@ -38,18 +40,27 @@ public class BeanLifeCycle {
 	private KinokuniyaParser kinokuniyaParser;
 	
 	@Autowired
+	private HMVClient hmvClient;
+	@Autowired
+	private HMVParser HMVParser;
+	
+	@Autowired
 	private EventService eventService;
 	
 	@PostConstruct
     public void initAfterStartup() {
 		logger.info("data.init.flag : " + initData);
-		if (initData) {			
+		if (initData) {
 			List<Document> docs = towerRecordsClient.getEventPages();
 			List<EventDto> events = towerRecordsParser.parseEvent(docs);
 			eventService.save(events);
 			
 			docs = kinokuniyaClient.getEventPages();
 			events = kinokuniyaParser.parseEvent(docs);
+			eventService.save(events);
+			
+			docs = hmvClient.getEventPages();
+			events = HMVParser.parseEvent(docs);
 			eventService.save(events);
 		}
     }
