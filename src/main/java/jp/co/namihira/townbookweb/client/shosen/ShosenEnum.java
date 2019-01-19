@@ -12,7 +12,8 @@ import lombok.Getter;
 public enum ShosenEnum {
 
 	JIMBOCHO("13", "22756", "書泉グランデ（神保町）", new String[]{"神保町"}),
-	AKIHABARA("13", "22492", "書泉ブックタワー（秋葉原）", new String[]{"秋葉原"});
+	AKIHABARA("13", "22492", "書泉ブックタワー（秋葉原）", new String[]{"秋葉原"}),
+	OTHER("13", "22828", "HMV", new String[]{"その他"});	
 	
 	private final String prefectureCode;
 	private final String stationCode;
@@ -23,7 +24,7 @@ public enum ShosenEnum {
     	Optional<ShosenEnum> result = Stream.of(ShosenEnum.values())
     			                            .filter(shop -> CommonUtil.contains(name, shop.getIdentifier()))
     			                            .findFirst();
-    	return result.get();
+    	return result.orElse(OTHER);
     }
 
 }

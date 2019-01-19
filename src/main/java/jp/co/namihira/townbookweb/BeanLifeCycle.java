@@ -12,12 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import jp.co.namihira.townbookweb.client.ServiceClient;
+import jp.co.namihira.townbookweb.client.ServiceParser;
 import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenClient;
 import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenParser;
 import jp.co.namihira.townbookweb.client.hmv.HMVClient;
 import jp.co.namihira.townbookweb.client.hmv.HMVParser;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaClient;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaParser;
+import jp.co.namihira.townbookweb.client.shosen.ShosenClient;
+import jp.co.namihira.townbookweb.client.shosen.ShosenParser;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsClient;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsParser;
 import jp.co.namihira.townbookweb.dto.EventDto;
@@ -52,27 +56,23 @@ public class BeanLifeCycle {
 	private FukuyaShotenParser fukuyaShotenParser;
 	
 	@Autowired
+	private ShosenClient shosenClient;
+	@Autowired
+	private ShosenParser shosenParser;
+	
+	
+	@Autowired
 	private EventService eventService;
 	
 	@PostConstruct
     public void initAfterStartup() {
 		logger.info("data.init.flag : " + initData);
 		if (initData) {
-			List<Document> docs = towerRecordsClient.getEventPages();
-			List<EventDto> events = towerRecordsParser.parseEvent(docs);
-			eventService.save(events);
-			
-			docs = kinokuniyaClient.getEventPages();
-			events = kinokuniyaParser.parseEvent(docs);
-			eventService.save(events);
-			
-			docs = hmvClient.getEventPages();
-			events = hmvParser.parseEvent(docs);
-			eventService.save(events);
-			
-			docs = fukuyaShotenClient.getEventPages();
-			events = fukuyaShotenParser.parseEvent(docs);
-			eventService.save(events);			
+			initEventData(towerRecordsClient, towerRecordsParser);
+			initEventData(kinokuniyaClient, kinokuniyaParser);
+			initEventData(hmvClient, hmvParser);
+			initEventData(fukuyaShotenClient, fukuyaShotenParser);
+			initEventData(shosenClient, shosenParser);
 		}
     }
 	
@@ -80,5 +80,11 @@ public class BeanLifeCycle {
     public void cleanupBeforeExit() {
 		logger.info("cleanupBeforeExit");
     }
+	
+	private void initEventData(ServiceClient client, ServiceParser parser) {
+		List<Document> docs = client.getEventPages();
+		List<EventDto> events = parser.parseEvent(docs);
+		eventService.save(events);		
+	}
 		
 }

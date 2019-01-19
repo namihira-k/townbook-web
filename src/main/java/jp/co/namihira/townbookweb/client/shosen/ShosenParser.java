@@ -9,22 +9,16 @@ import java.util.regex.Pattern;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.stereotype.Service;
 
+import jp.co.namihira.townbookweb.client.ServiceParser;
 import jp.co.namihira.townbookweb.dto.EventDto;
 import jp.co.namihira.townbookweb.util.CommonUtil;
 
-public class ShosenParser {
-
-	public static List<EventDto> parseEvent(final List<Document> docs) {
-		final List<EventDto> results = CommonUtil.list();
-		for (Document doc : docs) {
-			final List<EventDto> result = parseEvent(doc);
-			results.addAll(result);
-		}
-		return results;
-	}
+@Service
+public class ShosenParser implements ServiceParser {
 	
-	private static List<EventDto> parseEvent(final Document doc) {
+	public List<EventDto> parseEvent(final Document doc) {
 		final List<EventDto> results = CommonUtil.list();
 		
 		final List<Element> eventELs = doc.getElementsByClass("borderbox");

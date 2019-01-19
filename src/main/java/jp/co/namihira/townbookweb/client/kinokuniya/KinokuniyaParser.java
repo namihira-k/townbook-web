@@ -11,26 +11,18 @@ import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jp.co.namihira.townbookweb.client.ServiceParser;
 import jp.co.namihira.townbookweb.dto.EventDto;
 import jp.co.namihira.townbookweb.util.CommonUtil;
 import jp.co.namihira.townbookweb.util.DateTimeUtil;
 
 @Service
-public class KinokuniyaParser {
+public class KinokuniyaParser implements ServiceParser {
 
 	@Autowired
 	private KinokuniyaClient kinokuniyaClient;
-	
-	public List<EventDto> parseEvent(final List<Document> docs) {
-		final List<EventDto> results = CommonUtil.list();
-		for (Document doc : docs) {
-			final List<EventDto> result = parseEvent(doc);
-			results.addAll(result);
-		}
-		return results;
-	}
-	
-	private List<EventDto> parseEvent(final Document doc) {
+		
+	public List<EventDto> parseEvent(final Document doc) {
 		final List<EventDto> results = CommonUtil.list();
 		
 		final List<Element> eventELs = doc.getElementsByClass("unit");

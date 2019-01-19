@@ -1,15 +1,24 @@
 package jp.co.namihira.townbookweb.client;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ServiceClient {
+public interface ServiceClient {
 
-	public Document getPage(final String url) {
+	public default List<Document> getPages(final List<String> urls) {
+		final List<Document> result = urls.parallelStream()
+				                          .map(url -> getPage(url))
+				                          .collect(Collectors.toList());
+		return result;
+	}
+	
+	public default Document getPage(final String url) {
 		Document doc = null;;
 		try {
 			doc = Jsoup.connect(url).get();
@@ -19,5 +28,6 @@ public class ServiceClient {
 		return doc;		
 	}
 	
+	public List<Document> getEventPages();
 	
 }
