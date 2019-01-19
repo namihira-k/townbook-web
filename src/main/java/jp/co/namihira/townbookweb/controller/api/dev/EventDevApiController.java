@@ -29,7 +29,9 @@ public class EventDevApiController extends AbstractApiController {
 	private KinokuniyaParser kinokuniyaParser;
 	
 	@Autowired
-	private ShosenClient shosenClient;	
+	private ShosenClient shosenClient;
+	@Autowired
+	private ShosenParser shosenParser;
 	
 	@Autowired
 	private FukuyaShotenClient fukuyaShotenClient;
@@ -60,7 +62,7 @@ public class EventDevApiController extends AbstractApiController {
 		int id = 700;
 		
 		final List<Document> docs = shosenClient.getEventPages();
-		final List<EventDto> events = ShosenParser.parseEvent(docs);
+		final List<EventDto> events = shosenParser.parseEvent(docs);
 		return EventSQLBuilder.build(id, events);
 	}
 	

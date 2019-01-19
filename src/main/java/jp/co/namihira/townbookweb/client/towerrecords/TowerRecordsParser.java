@@ -13,25 +13,17 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jp.co.namihira.townbookweb.client.ServiceParser;
 import jp.co.namihira.townbookweb.dto.EventDto;
 import jp.co.namihira.townbookweb.util.CommonUtil;
 
 @Service
-public class TowerRecordsParser {
+public class TowerRecordsParser implements ServiceParser {
 
 	@Autowired
 	private TowerRecordsClient towerRecordsClient;	
-	
-	public List<EventDto> parseEvent(final List<Document> docs) {
-		final List<EventDto> results = CommonUtil.list();
-		for (Document doc : docs) {
-			final List<EventDto> result = parseEvent(doc);
-			results.addAll(result);
-		}
-		return results;
-	}
-	
-	private List<EventDto> parseEvent(final Document doc) {
+		
+	public List<EventDto> parseEvent(final Document doc) {
 		final List<EventDto> results = CommonUtil.list();
 		
 		Elements tbodies = doc.getElementsByTag("tr");

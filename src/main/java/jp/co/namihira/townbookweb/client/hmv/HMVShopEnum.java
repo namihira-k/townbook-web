@@ -21,7 +21,6 @@ public enum HMVShopEnum {
 	SAKEE("23", "24944", "HMV 栄", new String[]{"栄"}),
 	KISOGAWA("23", "24902", "HMV イオンモール木曽川", new String[]{"木曽川"}),
 	SHINSAIBASHI("27", "25981", "HMV&BOOKS SHINSAIBASHI", new String[]{"SHINSAIBASHI"}),
-	
 	OTHER("13", "22828", "HMV", new String[]{"その他"});
 	
 	private final String prefectureCode;
