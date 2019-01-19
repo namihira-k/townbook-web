@@ -71,6 +71,21 @@
           </div>
           <div class="col l4 m6 s12">
             <div class="row">
+              <h6 class="center">宮城のイベント</h6>
+              <div class="col s12">
+                <div class="collection">
+                  <template v-for="s in stationStats">
+                    <a class="collection-item url-content center" v-bind:href="s.viewUrl" v-if="s.prefectureCode == 4">{{ s.stationName }}<span class="new badge" data-badge-caption="" v-if="s.count > 0">{{ s.count }}</span></a>
+                  </template>
+                </div>
+                <div class="card-panel center-align" v-if="!hasEvents(4)">
+                  <span class="red-text text-lighten-2">イベントはありません</span>
+                </div>                
+              </div>
+            </div>
+          </div>
+          <div class="col l4 m6 s12">
+            <div class="row">
               <h6 class="center">神奈川のイベント</h6>
               <div class="col s12">
                 <div class="collection">
@@ -109,6 +124,21 @@
                   </template>
                 </div>
                 <div class="card-panel center-align" v-if="!hasEvents(27)">
+                  <span class="red-text text-lighten-2">イベントはありません</span>
+                </div>                
+              </div>
+            </div>
+          </div>
+          <div class="col l4 m6 s12">
+            <div class="row">
+              <h6 class="center">福岡のイベント</h6>
+              <div class="col s12">
+                <div class="collection">
+                  <template v-for="s in stationStats">
+                    <a class="collection-item url-content center" v-bind:href="s.viewUrl" v-if="s.prefectureCode == 40">{{ s.stationName }}<span class="new badge" data-badge-caption="" v-if="s.count > 0">{{ s.count }}</span></a>
+                  </template>
+                </div>
+                <div class="card-panel center-align" v-if="!hasEvents(40)">
                   <span class="red-text text-lighten-2">イベントはありません</span>
                 </div>                
               </div>
