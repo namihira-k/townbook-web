@@ -24,7 +24,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class EventDto extends AbstractDto {
+public class EventDto extends AbstractDto implements Cloneable {
 
 	@Id
 	@SequenceGenerator(name="event_seq", initialValue=1000)
@@ -65,6 +65,17 @@ public class EventDto extends AbstractDto {
 	@PrePersist
 	public void autofill() {
 	    this.setUuid(UUID.randomUUID().toString());
+	}
+	
+	@Override
+	public EventDto clone() {
+		EventDto dto = null;
+		try {
+			dto = (EventDto) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
 	
 	

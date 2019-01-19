@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenClient;
 import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenEnum;
 import jp.co.namihira.townbookweb.client.hmv.HMVClient;
-import jp.co.namihira.townbookweb.client.hmv.HMVShopEnum;
+import jp.co.namihira.townbookweb.client.hmv.HMVParser;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaClient;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaParser;
 import jp.co.namihira.townbookweb.client.shosen.ShosenClient;
@@ -38,8 +37,12 @@ public class EventDevApiController extends AbstractApiController {
 	private ShosenClient shosenClient;	
 	@Autowired
 	private FukuyaShotenClient fukuyaShotenClient;
+	
 	@Autowired
 	private HMVClient hmvClient;
+	@Autowired
+	private HMVParser hmvParser;
+	
 	@Autowired
 	private TowerRecordsClient towerRecordClient;
 	@Autowired
@@ -130,64 +133,10 @@ public class EventDevApiController extends AbstractApiController {
 	
 	@GetMapping("/dev/eventfetch-hmv")
 	public String getHMVData() {
-		String result = "";
-		
 		int id = 300;
-		
-		for (HMVShopEnum shop : HMVShopEnum.values()) {
-			Document doc = hmvClient.getEventPage(shop);
-			
-			if (!doc.text().contains("ストアイベント情報")) {
-				break;
-			}
-			
-			Element eventInfo = doc.getElementsByClass("stEventBox").get(0);
-			Elements events = eventInfo.getElementsByTag("li");
-
-			for (int i = 0; i < events.size(); i++, id++) {
-				String str = String.valueOf(id) + ",";
-				
-				Element event = events.get(i);
-				String title = event.getElementsByTag("a").first().text();
-				str += toValueOnSQL(title);
-
-				String place = shop.getName();
-				str += toValueOnSQL(place);
-				
-				str += toValueOnSQL(shop.getPrefectureCode());
-				str += toValueOnSQL(shop.getStationCode());
-				
-				String datetime = event.text();
-				Pattern p = Pattern.compile("(20[0-9]+/[0-9]+/[0-9]+) ([0-9]+):([0-9]+)");
-				Matcher m = p.matcher(datetime);
-				if (m.find()) {
-					str += toValueOnSQL(m.group().replace("/", "-") + ":00");
-					str += toValueOnSQL(m.group(1).replace("/", "-") + " " + (Integer.parseInt(m.group(2))+1) + ":" + m.group(3) + ":00");
-				}	
-
-				// condition
-				str += toValueOnSQL("");
-
-				String url = "https://www.hmv.co.jp" + event.getElementsByTag("a").first().attr("href");
-				str += toValueOnSQL(url);
-
-				// content
-				str += toValueOnSQL(title);
-				
-				Document info = hmvClient.getPage(url);
-				Elements contents = info.getElementsByClass("eventInfoText");
-				final List<String> freeKeywords = HMVShopEnum.getKeywordsOfFree();
-				Boolean isFree = freeKeywords.parallelStream().anyMatch(f -> contents.text().contains(f));
-				str += String.valueOf(isFree) + ",";
-
-				String seed = datetime + title;
-				str += toValueOnSQL(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
-				
-				result += "(" + str.substring(0, str.length()-2) + "),";
-			}			
-		}
-		
-		return result.substring(0, result.length()-1) + ";";
+		final List<Document> docs = hmvClient.getEventPages();
+		final List<EventDto> events = hmvParser.parseEvent(docs);
+		return EventSQLBuilder.build(id, events);
 	}
 	
 	@GetMapping("/dev/eventfetch-tr")
