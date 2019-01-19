@@ -1,5 +1,5 @@
 new Vue({
-  el: '#eventinfo',
+  el: '#app',
   data () {
 		return {
 			uuid: uuid,

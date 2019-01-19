@@ -89,6 +89,8 @@ public class EventApiController extends AbstractApiController {
 			return null;
 		}
 
+		result.setViewUrl(urlService.getBaseUrl() + "/view" + EventInfoController.path + "?uuid=" + result.getUuid());
+		
 		final StationDto station = stationService.getStationByCode(result.getStationCode());
 		if (station != null) {
 			result.setStationName(station.getName());
