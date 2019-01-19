@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenClient;
+import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenParser;
 import jp.co.namihira.townbookweb.client.hmv.HMVClient;
 import jp.co.namihira.townbookweb.client.hmv.HMVParser;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaClient;
@@ -42,7 +44,12 @@ public class BeanLifeCycle {
 	@Autowired
 	private HMVClient hmvClient;
 	@Autowired
-	private HMVParser HMVParser;
+	private HMVParser hmvParser;
+	
+	@Autowired
+	private FukuyaShotenClient fukuyaShotenClient;
+	@Autowired
+	private FukuyaShotenParser fukuyaShotenParser;
 	
 	@Autowired
 	private EventService eventService;
@@ -60,8 +67,12 @@ public class BeanLifeCycle {
 			eventService.save(events);
 			
 			docs = hmvClient.getEventPages();
-			events = HMVParser.parseEvent(docs);
+			events = hmvParser.parseEvent(docs);
 			eventService.save(events);
+			
+			docs = fukuyaShotenClient.getEventPages();
+			events = fukuyaShotenParser.parseEvent(docs);
+			eventService.save(events);			
 		}
     }
 	
