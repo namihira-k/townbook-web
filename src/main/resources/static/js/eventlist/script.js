@@ -144,5 +144,9 @@ new Vue({
 		  });
     },
     
+    encodeURI(str) {
+    	return encodeURIComponent(str);
+    },
+    
   }
 });
