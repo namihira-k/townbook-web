@@ -20,6 +20,8 @@ import jp.co.namihira.townbookweb.client.hmv.HMVClient;
 import jp.co.namihira.townbookweb.client.hmv.HMVParser;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaClient;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaParser;
+import jp.co.namihira.townbookweb.client.sanseido.SanseidoClient;
+import jp.co.namihira.townbookweb.client.sanseido.SanseidoParser;
 import jp.co.namihira.townbookweb.client.shosen.ShosenClient;
 import jp.co.namihira.townbookweb.client.shosen.ShosenParser;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsClient;
@@ -62,6 +64,11 @@ public class BeanLifeCycle {
 	private ShosenParser shosenParser;
 	
 	@Autowired
+	private SanseidoClient sanseidoClient;
+	@Autowired
+	private SanseidoParser sanseidoParser;
+	
+	@Autowired
 	private TwitterService twitterService;
 	
 	@Autowired
@@ -71,6 +78,7 @@ public class BeanLifeCycle {
     public void initAfterStartup() {
 		logger.info("data.init.flag : " + initData);
 		if (initData) {
+			initEventData(sanseidoClient, sanseidoParser);
 			initEventData(towerRecordsClient, towerRecordsParser);
 			initEventData(kinokuniyaClient, kinokuniyaParser);
 			initEventData(hmvClient, hmvParser);

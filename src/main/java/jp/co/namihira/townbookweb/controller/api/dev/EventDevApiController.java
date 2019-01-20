@@ -13,6 +13,8 @@ import jp.co.namihira.townbookweb.client.hmv.HMVClient;
 import jp.co.namihira.townbookweb.client.hmv.HMVParser;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaClient;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaParser;
+import jp.co.namihira.townbookweb.client.sanseido.SanseidoClient;
+import jp.co.namihira.townbookweb.client.sanseido.SanseidoParser;
 import jp.co.namihira.townbookweb.client.shosen.ShosenClient;
 import jp.co.namihira.townbookweb.client.shosen.ShosenParser;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsClient;
@@ -48,6 +50,20 @@ public class EventDevApiController extends AbstractApiController {
 	@Autowired
 	private TowerRecordsParser towerRecordsParser;
 
+	@Autowired
+	private SanseidoClient sanseidoClient;
+	@Autowired
+	private SanseidoParser sanseidoParser;
+	
+	@GetMapping("/dev/eventfetch-sanseido")
+	public String getSanseidoData() {
+		int id = 1100;
+		
+		final List<Document> docs = sanseidoClient.getEventPages();
+		final List<EventDto> events = sanseidoParser.parseEvent(docs);
+		return EventSQLBuilder.build(id, events);
+	}	
+	
 	@GetMapping("/dev/eventfetch-kinokuniya")
 	public String getkinokuniyaData() {
 		int id = 900;
