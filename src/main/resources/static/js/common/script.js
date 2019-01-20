@@ -18,8 +18,12 @@ new Vue({
   	},
   	
   	formatDate (date) {
-  		return date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate() + " " 
-  		     + date.getHours() + ":" + date.getMinutes();
+  		return date.getFullYear() + "-" + this.formatDigit(date.getMonth() + 1) + "-" + this.formatDigit(date.getDate()) + " " 
+  		     + this.formatDigit(date.getHours()) + ":" + this.formatDigit(date.getMinutes());
+  	},
+  	
+  	formatDigit (val) {
+  		return ("0" + val).slice(-2);
   	},
   	
   },
