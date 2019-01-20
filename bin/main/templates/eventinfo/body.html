@@ -39,7 +39,7 @@
           <div class="row">
             <div class="col s12">
 		         <div class="text-small">建物 / 会場</div>
-		         <div class="chip">{{ event.place }}</div>            
+		         <div class="chip">{{ event.place }}<a v-bind:href="'https://maps.google.co.jp/maps?q=' + encodeURI(event.place)" target=”_blank”> [場所]</a></div>
             </div>
           </div>
 					<hr>

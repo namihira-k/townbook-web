@@ -45,6 +45,10 @@ new Vue({
     isHot(event) {
     	return event.isFree || this.isToday(event.startDateTime);
     },
+    
+    encodeURI(str) {
+    	return encodeURIComponent(str);
+    },
   	
   }
   
