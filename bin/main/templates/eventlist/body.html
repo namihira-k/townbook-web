@@ -34,14 +34,10 @@
 								<option v-for="s in stations" v-bind:value="s.code">{{ s.name }}</option>
 							</select>
 						</div>
-						<div class="row">
-						  <div class="col s3">
-						    <a class="waves-effect waves-teal btn-flat blue-text center" v-on:click.stop="init">CLEAR</a>
-						  </div>
-		          <div class="col s3 center-align">
-		            <button class="btn waves-effect waves-light center" v-on:click.prevent="search">検索する<i class="material-icons right">search</i></button>
-		          </div>
-						</div>
+            <a class="waves-effect waves-teal btn-flat blue-text center" v-on:click.stop="init">検索条件をクリアする</a>
+            <div class="center-align">
+    	        <button class="btn waves-effect waves-light center" v-on:click.prevent="search">検索する<i class="material-icons right">search</i></button>
+            </div>
 					</div>
         </div>
 			</div>
