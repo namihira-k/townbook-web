@@ -34,9 +34,9 @@ public class HMVParser implements ServiceParser {
 			EventDto eventDto = new EventDto();
 			
 			final String person = eventEL.getElementsByTag("dt").first().text();
-			final String title = eventEL.getElementsByClass("eventTitle").first().text();
-			
+			final String title = eventEL.getElementsByClass("eventTitle").first().text();			
 			eventDto.setName(person + " " + title);
+			
 			final String shopName = eventEL.getElementsByClass("eventLocation").first().text();
 			final HMVShopEnum shop = HMVShopEnum.getShopbyName(shopName);
 			eventDto.setPlace(shop.getName());
