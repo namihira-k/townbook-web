@@ -26,6 +26,7 @@ import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsClient;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsParser;
 import jp.co.namihira.townbookweb.dto.EventDto;
 import jp.co.namihira.townbookweb.service.event.EventService;
+import jp.co.namihira.townbookweb.service.twitter.TwitterService;
 
 @Component
 public class BeanLifeCycle {
@@ -60,6 +61,8 @@ public class BeanLifeCycle {
 	@Autowired
 	private ShosenParser shosenParser;
 	
+	@Autowired
+	private TwitterService twitterService;
 	
 	@Autowired
 	private EventService eventService;
@@ -73,6 +76,7 @@ public class BeanLifeCycle {
 			initEventData(hmvClient, hmvParser);
 			initEventData(fukuyaShotenClient, fukuyaShotenParser);
 			initEventData(shosenClient, shosenParser);
+			twitterService.postDMtoAdmin("completed initEventData");
 		}
     }
 	
