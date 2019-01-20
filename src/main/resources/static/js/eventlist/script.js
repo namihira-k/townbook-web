@@ -125,6 +125,10 @@ new Vue({
     	return startDay < day;
     },
     
+    isHot(event) {
+    	return event.isFree;
+    },
+    
     moveSearch () {
       $("html,body").animate({scrollTop:0}, "fast");    	
     },

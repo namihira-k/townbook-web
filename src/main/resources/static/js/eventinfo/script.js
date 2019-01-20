@@ -41,6 +41,10 @@ new Vue({
     	day.setMinutes(59);
     	return startDay < day;
     },
+    
+    isHot(event) {
+    	return event.isFree || this.isToday(event.startDateTime);
+    },
   	
   }
   

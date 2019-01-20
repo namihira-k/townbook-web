@@ -47,6 +47,14 @@ i {
 	top: 0px;
 }
 
+.card-operation {
+  border: solid 5px #26a69a;
+}
+
+.card-hot {
+  border: solid 5px #ff9800;
+}
+
 #app-banner {
   padding: 100px 0px;	
 }

@@ -19,7 +19,7 @@
       <div class="card-panel red lighten-5" v-if="!event">
         <span>イベント情報はありません</span>
       </div>
-			<div class="card" v-if="event">
+			<div class="card" v-bind:class="{ 'card-hot': isHot(event) }" v-if="event">
 				<div class="card-content">
           <span class="card-title">{{ event.name }}</span>
 					<div class="row">

@@ -11,39 +11,39 @@
 <body>
 	<div layout:fragment="content">
 		<div class="container">
-			<h4>
-				<i class="material-icons small">message</i>イベント一覧
-			</h4>
-			<div id="id_search" class="row card cyan lighten-5">
-				<div class="col s12 m6 offset-m3 card-content">
-					<h6><i class="material-icons">event</i>開催日（本日以降）</h6>
-					<div class="input-field white">
-						<input id="startDate" class="datepicker" type="text">
+			<h4><i class="material-icons small">message</i>イベント一覧</h4>
+			<div id="id_search" class="row">
+			  <div class="card card-operation col s12 m6 offset-m3">
+					<div class="card-content">
+						<h6><i class="material-icons">event</i>開催日（本日以降）</h6>
+						<div class="input-field white">
+							<input id="startDate" class="datepicker" type="text">
+						</div>
+						<h6><i class="material-icons">place</i>都道府県</h6>
+	          <label for="station">※イベントが登録されている都道府県のみが表示されます</label>
+						<div class="input-field">
+							<select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="setStations">
+								<option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
+							</select>
+						</div>
+						<h6><i class="material-icons">directions_transit</i>最寄り駅</h6>
+	          <label for="station">※イベントが登録されている駅のみが表示されます</label>
+						<div class="input-field">
+							<select id="station" class="browser-default" v-model="stationCode">
+								<option value="" selected>(条件なし)</option>
+								<option v-for="s in stations" v-bind:value="s.code">{{ s.name }}</option>
+							</select>
+						</div>
+						<div class="row">
+						  <div class="col s3">
+						    <a class="waves-effect waves-teal btn-flat blue-text center" v-on:click.stop="init">CLEAR</a>
+						  </div>
+		          <div class="col s3 center-align">
+		            <button class="btn waves-effect waves-light center" v-on:click.prevent="search">検索する<i class="material-icons right">search</i></button>
+		          </div>
+						</div>
 					</div>
-					<h6><i class="material-icons">place</i>都道府県</h6>
-          <label for="station">※イベントが登録されている都道府県のみが表示されます</label>
-					<div class="input-field">
-						<select id="prefecture" class="browser-default" v-model="prefectureCode" v-on:change="setStations">
-							<option v-for="p in prefectures" v-bind:value="p.code">{{ p.name }}</option>
-						</select>
-					</div>
-					<h6><i class="material-icons">directions_transit</i>最寄り駅</h6>
-          <label for="station">※イベントが登録されている駅のみが表示されます</label>
-					<div class="input-field">
-						<select id="station" class="browser-default" v-model="stationCode">
-							<option value="" selected>(条件なし)</option>
-							<option v-for="s in stations" v-bind:value="s.code">{{ s.name }}</option>
-						</select>
-					</div>
-					<div class="row">
-					  <div class="col s3">
-					    <a class="waves-effect waves-teal btn-flat blue-text center" v-on:click.stop="init">CLEAR</a>
-					  </div>
-	          <div class="col s3 center-align">
-	            <button class="btn waves-effect waves-light center" v-on:click.prevent="search">検索する<i class="material-icons right">search</i></button>
-	          </div>
-					</div>
-				</div>
+        </div>
 			</div>
 
 			<div id="eventlist">
@@ -58,14 +58,14 @@
 				</div>
 				<div class="row">
 					<div class="col s12 m6" v-for="event in events">
-						<div class="card sticky-action">
+						<div class="card sticky-action" v-bind:class="{ 'card-hot': isHot(event) }">
 							<div class="card-content activator">
 							  <div class="row">
 							    <div class="col m11">
   	                <span class="card-title line-break">{{ event.name }}</span>
 							    </div>
                   <div class="col m1">
-		                <a class="btn-floating pulse right"><i class="material-icons circle-icons">menu</i></a>
+		                <a class="btn-floating pulse right" v-bind:class="{ 'orange darken-2': isHot(event) }"><i class="material-icons circle-icons">menu</i></a>
                   </div>
 							  </div>
 								<div class="row">
@@ -104,7 +104,7 @@
                 <div class="text-small">情報元</div>
                 <a v-bind:href="event.url" target="_blank">{{ event.url }}</a>
 							</div>
-							<div class="card-reveal teal white-text">
+							<div class="card-reveal teal white-text" v-bind:class="{ orange: isHot(event) }">
 							  <div class="row">
 							    <div class="col s11">
                     <p class="textarea url-content">{{ event.content }}</p>
