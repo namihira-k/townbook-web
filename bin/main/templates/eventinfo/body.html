@@ -57,9 +57,10 @@
 					<div class="row">
             <div class="col s12">
               <div class="chip orange darken-2 white-text" v-if="isToday(event.startDateTime)">本日開催！</div>
-							<div class="chip orange darken-2 white-text" v-if="event.isFree">参加無料＆観覧自由！</div>
-						</div>
-					</div>
+              <div class="chip orange darken-2 white-text" v-if="event.isFree">当日参加可</div>
+              <div class="chip orange darken-2 white-text" v-if="event.isFree">参加無料</div>
+            </div>
+          </div>
           <div class="row">				
             <div class="col s12">
               <div class="text-small">詳細</div>
