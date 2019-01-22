@@ -134,7 +134,7 @@ new Vue({
     },
     
     moveEventList () {
-    	var el = $('#eventlist').offset().top;
+    	var el = $('#btn-search').offset().top;
       $("html,body").animate({scrollTop:el}, "slow");    	
     },
     

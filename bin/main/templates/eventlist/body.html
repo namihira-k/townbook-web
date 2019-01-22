@@ -27,7 +27,7 @@
 							</select>
 						</div>
 						<h6><i class="material-icons">directions_transit</i>最寄り駅</h6>
-	          <label for="station">※イベントが登録されている駅のみが表示されます</label>
+            <label for="station">※イベントが登録されている駅のみが表示されます</label>
 						<div class="input-field">
 							<select id="station" class="browser-default" v-model="stationCode">
 								<option value="" selected>(条件なし)</option>
@@ -35,12 +35,12 @@
 							</select>
 						</div>
             <a class="waves-effect waves-teal btn-flat blue-text center" v-on:click.stop="init">検索条件をクリアする</a>
-            <div class="center-align">
-    	        <button class="btn waves-effect waves-light center" v-on:click.prevent="search">検索する<i class="material-icons right">search</i></button>
+            <div id="btn-search" class="center-align">
+              <button class="btn waves-effect waves-light center" v-on:click.prevent="search">検索する<i class="material-icons right">search</i></button>
             </div>
-					</div>
+          </div>
         </div>
-			</div>
+      </div>
 
 			<div id="eventlist">
 				<div class="progress" v-if="isProcess">
