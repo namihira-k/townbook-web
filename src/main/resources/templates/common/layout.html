@@ -32,23 +32,23 @@
 
   <script type="text/javascript">
     $(function(){
-	    $('.datepicker').datepicker({
-	    	format: 'yyyy-mm-dd',
-	    	defaultDate: new Date(),
-	    	setDefaultDate: true,
-	    	minDate: new Date(),
+      $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        minDate: new Date(),
         showClearBtn: true,
-	    });
-	    	    
-	    $('.timepicker').timepicker({
-	    	defaultTime: '12:00',
-	    	twelveHour: false,
-	    	showClearBtn: true
-	    });
-	    
+      });
+
+      $('.timepicker').timepicker({
+        defaultTime: '12:00',
+        twelveHour: false,
+        showClearBtn: true
+      });
+
       $('.sidenav').sidenav();
-	    $('select').formSelect();
-	    $('.modal').modal();
+      $('select').formSelect();
+      $('.modal').modal();
     });
     
     var baseUrl = 'http://www.wavething.com/yorimichi';
@@ -60,25 +60,26 @@
   </template>
   
   <!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-33863076-2"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-	
-	  gtag('config', 'UA-33863076-2');
-	</script>
-	  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-33863076-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-33863076-2');
+  </script>
+
 </head>
 
 <body>
   <div th:replace="common/header :: header">header</div>
   <div id="app" layout:fragment="content">content</div>
   <div th:replace="common/footer :: footer">footer</div>
+  
+  <script th:src="@{/js/mixin/common-util.js}"></script>
+  <script th:src="@{/js/mixin/datetime-util.js}"></script>
+  <script th:src="@{/js/common/script.js}"></script>
 
   <div layout:fragment="javascript"></div>
-  
-  <script th:src="@{/js/common/script.js}"></script>
 
 </body>
 
