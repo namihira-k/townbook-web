@@ -1,10 +1,10 @@
 new Vue({
   el: '#app',
   data () {
-		return {
-			stationStats: [],
-			eventStats: [],
-		};
+    return {
+      stationStats: [],
+      eventStats: [],
+    };
   },
 
   mounted () {
@@ -17,12 +17,12 @@ new Vue({
   
   methods: {
     hasEvents(prefectureCode) {
-    	for(let s of this.stationStats) {
-    		if (s.prefectureCode == prefectureCode) {
-    			return true;
-    		}
-    	};
-    	return false;
+      for(let s of this.stationStats) {
+        if (s.prefectureCode == prefectureCode) {
+          return true;
+        }
+      };
+      return false;
     },
   },
 
