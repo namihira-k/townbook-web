@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.namihira.townbookweb.client.ServiceParser;
+import jp.co.namihira.townbookweb.consts.EventCategoryEnum;
 import jp.co.namihira.townbookweb.dto.EventDto;
 import jp.co.namihira.townbookweb.util.CommonUtil;
 
@@ -84,13 +85,15 @@ public class SanseidoParser implements ServiceParser {
 			eventDto.setStationCode(shop.getStationCode());
 			
 			eventDto.setConditions("");
-			eventDto.setContent(title);			
+			eventDto.setContent(title);
 			eventDto.setIsFree(false);
 			
 			String seed = datetimeStr + title;
 			eventDto.setUuid(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
-			
-			results.add(eventDto);
+
+            eventDto.setEventCategories(CommonUtil.list(EventCategoryEnum.BOOK));
+
+            results.add(eventDto);
 		}
 		
 		return results;

@@ -8,5 +8,4 @@ import jp.co.namihira.townbookweb.dto.EventRequestDto;
 @Repository
 public interface EventRequestDao extends PagingAndSortingRepository<EventRequestDto, Integer>  {
 
-	
 }

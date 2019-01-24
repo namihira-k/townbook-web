@@ -33,70 +33,70 @@ import jp.co.namihira.townbookweb.service.twitter.TwitterService;
 @Component
 public class BeanLifeCycle {
 
-	private static final Logger logger = LoggerFactory.getLogger(BeanLifeCycle.class);
-	
-	@Value("${app.data.init}")
-	private boolean initData = false;
-	
-	@Autowired
-	private TowerRecordsClient towerRecordsClient;
-	@Autowired
-	private TowerRecordsParser towerRecordsParser;
-	
-	@Autowired
-	private KinokuniyaClient kinokuniyaClient;
-	@Autowired
-	private KinokuniyaParser kinokuniyaParser;
-	
-	@Autowired
-	private HMVClient hmvClient;
-	@Autowired
-	private HMVParser hmvParser;
-	
-	@Autowired
-	private FukuyaShotenClient fukuyaShotenClient;
-	@Autowired
-	private FukuyaShotenParser fukuyaShotenParser;
-	
-	@Autowired
-	private ShosenClient shosenClient;
-	@Autowired
-	private ShosenParser shosenParser;
-	
-	@Autowired
-	private SanseidoClient sanseidoClient;
-	@Autowired
-	private SanseidoParser sanseidoParser;
-	
-	@Autowired
-	private TwitterService twitterService;
-	
-	@Autowired
-	private EventService eventService;
-	
-	@PostConstruct
+    private static final Logger logger = LoggerFactory.getLogger(BeanLifeCycle.class);
+
+    @Value("${app.data.init}")
+    private boolean initData = false;
+
+    @Autowired
+    private TowerRecordsClient towerRecordsClient;
+    @Autowired
+    private TowerRecordsParser towerRecordsParser;
+
+    @Autowired
+    private KinokuniyaClient kinokuniyaClient;
+    @Autowired
+    private KinokuniyaParser kinokuniyaParser;
+
+    @Autowired
+    private HMVClient hmvClient;
+    @Autowired
+    private HMVParser hmvParser;
+
+    @Autowired
+    private FukuyaShotenClient fukuyaShotenClient;
+    @Autowired
+    private FukuyaShotenParser fukuyaShotenParser;
+
+    @Autowired
+    private ShosenClient shosenClient;
+    @Autowired
+    private ShosenParser shosenParser;
+
+    @Autowired
+    private SanseidoClient sanseidoClient;
+    @Autowired
+    private SanseidoParser sanseidoParser;
+
+    @Autowired
+    private TwitterService twitterService;
+
+    @Autowired
+    private EventService eventService;
+
+    @PostConstruct
     public void initAfterStartup() {
-		logger.info("data.init.flag : " + initData);
-		if (initData) {
-			initEventData(sanseidoClient, sanseidoParser);
-			initEventData(towerRecordsClient, towerRecordsParser);
-			initEventData(kinokuniyaClient, kinokuniyaParser);
-			initEventData(hmvClient, hmvParser);
-			initEventData(fukuyaShotenClient, fukuyaShotenParser);
-			initEventData(shosenClient, shosenParser);
-			twitterService.postDMtoAdmin("completed initEventData");
-		}
+        logger.info("data.init.flag : " + initData);
+        if (initData) {
+            initEventData(sanseidoClient, sanseidoParser);
+            initEventData(towerRecordsClient, towerRecordsParser);
+            initEventData(kinokuniyaClient, kinokuniyaParser);
+            initEventData(hmvClient, hmvParser);
+            initEventData(fukuyaShotenClient, fukuyaShotenParser);
+            initEventData(shosenClient, shosenParser);
+            twitterService.postDMtoAdmin("completed initEventData");
+        }
     }
-	
-	@PreDestroy
+
+    @PreDestroy
     public void cleanupBeforeExit() {
-		logger.info("cleanupBeforeExit");
+        logger.info("cleanupBeforeExit");
     }
-	
-	private void initEventData(ServiceClient client, ServiceParser parser) {
-		List<Document> docs = client.getEventPages();
-		List<EventDto> events = parser.parseEvent(docs);
-		eventService.save(events);		
-	}
-		
+
+    private void initEventData(ServiceClient client, ServiceParser parser) {
+        List<Document> docs = client.getEventPages();
+        List<EventDto> events = parser.parseEvent(docs);
+        eventService.save(events);
+    }
+
 }
