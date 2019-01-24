@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jp.co.namihira.townbookweb.controller.api.AbstractApiController;
 import jp.co.namihira.townbookweb.controller.api.AppApiListResponse;
 import jp.co.namihira.townbookweb.controller.view.eventinfo.EventInfoController;
+import jp.co.namihira.townbookweb.dto.EventCategoryRelationDto;
 import jp.co.namihira.townbookweb.dto.EventDto;
 import jp.co.namihira.townbookweb.dto.StationDto;
 import jp.co.namihira.townbookweb.service.UrlService;
@@ -34,68 +35,70 @@ import jp.co.namihira.townbookweb.service.station.StationService;
 @RestController
 public class EventApiController extends AbstractApiController {
 
-	private static final String BASE_PATH = "/events";
-	
-	@Autowired
-	private EventService eventService;
-		
-	@Autowired
-	private StationService stationService;
-	
-	@Autowired
-	private UrlService urlService;
-	
-	@PostMapping(BASE_PATH)
-	@ResponseStatus(HttpStatus.CREATED)
-	public EventDto post(@RequestBody EventDto eventDto) {		
+    private static final String BASE_PATH = "/events";
+
+    @Autowired
+    private EventService eventService;
+
+    @Autowired
+    private StationService stationService;
+
+    @Autowired
+    private UrlService urlService;
+
+    @PostMapping(BASE_PATH)
+    @ResponseStatus(HttpStatus.CREATED)
+    public EventDto post(@RequestBody EventDto eventDto) {
         return eventService.save(eventDto);
     }
-	
-	@GetMapping(BASE_PATH)
-	public AppApiListResponse getList(
-			@RequestParam(defaultValue = "0") Integer page,
-			@RequestParam(defaultValue = "4") Integer size,
-			@RequestParam(defaultValue = "") String prefectureCode,
-			@RequestParam(defaultValue = "") String stationCode,
-			@RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate fromDate) {
-		if (fromDate == null) {
-			fromDate = LocalDate.now();
-		}
-		final LocalDateTime from = LocalDateTime.of(fromDate, LocalTime.now());
-		
-		final PageRequest pageRequest = PageRequest.of(page, size, new Sort(Direction.ASC, "startDateTime"));
-		
-		final Page<EventDto> result = eventService.getEventList(prefectureCode, stationCode, from, pageRequest);
-				
-		final List<EventDto> events = result.getContent();		
-		final List<String> codes = events.stream()
-				                         .map(e -> e.getStationCode())
-				                         .collect(Collectors.toList());
-		final List<StationDto> stations = stationService.getStationsbyCode(codes);
-		events.stream().forEach(event -> {
-			Optional<StationDto> dto = StationService.getByCode(event.getStationCode(), stations);
-			dto.ifPresent(d -> event.setStationName(d.getName()));
-			
-			event.setViewUrl(urlService.getContextPath() + "/view" + EventInfoController.path + "?uuid=" + event.getUuid());
-		});
-		
-		return new AppApiListResponse(result.getTotalElements() ,events);
-	};
-	
-	@GetMapping(BASE_PATH + "/{uuid}")
-	public EventDto get(@PathVariable String uuid) {
-		final EventDto result = eventService.find(uuid);
-		if (result == null) {
-			return null;
-		}
 
-		result.setViewUrl(urlService.getBaseUrl() + "/view" + EventInfoController.path + "?uuid=" + result.getUuid());
-		
-		final StationDto station = stationService.getStationByCode(result.getStationCode());
-		if (station != null) {
-			result.setStationName(station.getName());
-		}
-		return result;
-	}
+    @GetMapping(BASE_PATH)
+    public AppApiListResponse getList(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "4") Integer size,
+            @RequestParam(defaultValue = "") String prefectureCode,
+            @RequestParam(defaultValue = "") String stationCode,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate) {
+        if (fromDate == null) {
+            fromDate = LocalDate.now();
+        }
+        final LocalDateTime from = LocalDateTime.of(fromDate, LocalTime.now());
+
+        final PageRequest pageRequest = PageRequest.of(page, size, new Sort(Direction.ASC, "startDateTime"));
+
+        final Page<EventDto> result = eventService.getEventList(prefectureCode, stationCode, from, pageRequest);
+
+        final List<EventDto> events = result.getContent();
+
+        final List<EventCategoryRelationDto> relationDtos = eventService.getEventCategoies(events);
+        eventService.merge(events, relationDtos);
+
+        final List<String> codes = events.stream().map(e -> e.getStationCode()).collect(Collectors.toList());
+        final List<StationDto> stations = stationService.getStationsbyCode(codes);
+        events.stream().forEach(event -> {
+            Optional<StationDto> dto = StationService.getByCode(event.getStationCode(), stations);
+            dto.ifPresent(d -> event.setStationName(d.getName()));
+
+            event.setViewUrl(urlService.getContextPath() + "/view" + EventInfoController.path + "?uuid=" + event.getUuid());
+        });
+
+        return new AppApiListResponse(result.getTotalElements(), events);
+    };
+
+    @GetMapping(BASE_PATH + "/{uuid}")
+    public EventDto get(@PathVariable String uuid) {
+        final EventDto result = eventService.find(uuid);
+        if (result == null) {
+            return null;
+        }
+
+        result.setViewUrl(urlService.getBaseUrl() + "/view" + EventInfoController.path + "?uuid=" + result.getUuid());
+
+        final StationDto station = stationService.getStationByCode(result.getStationCode());
+        if (station != null) {
+            result.setStationName(station.getName());
+        }
+        return result;
+    }
 
 }
