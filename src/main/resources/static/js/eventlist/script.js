@@ -9,10 +9,12 @@ new Vue({
       fromDate: '',
       prefectureCode: prefectureCode,
       stationCode: stationCode,
-      prefectures: [],
-      lines: [],		
-      stations: [],
+      category: ['MUSIC', 'BOOK'],
 
+      prefectures: [],
+      lines: [],
+      stations: [],
+      
       totalCount: 0,
       page: 0,
 
@@ -39,7 +41,12 @@ new Vue({
             params: {
               prefectureCode: this.prefectureCode,
               stationCode: this.stationCode,
-         }})
+              category: this.category,
+            },
+            paramsSerializer: function(params) {
+              return Qs.stringify(params, {arrayFormat: 'repeat'})
+            }
+         })
          .then(res => {
              this.totalCount = res.data.totalCount;
              this.events = res.data.results;
@@ -88,10 +95,15 @@ new Vue({
       axios.get('/yorimichi/api/events', {
               params: {
                 page: this.page,
-                prefectureCode: this.prefectureCode,        	
+                prefectureCode: this.prefectureCode,
                 stationCode: this.stationCode,
+                category: this.category,
                 fromDate: this.fromDate,
-           }})
+              },
+              paramsSerializer: function(params) {
+                return Qs.stringify(params, {arrayFormat: 'repeat'})
+              }
+            })
            .then(res => {
              this.totalCount = res.data.totalCount;
              this.events = res.data.results;
@@ -107,8 +119,13 @@ new Vue({
                 page: this.page,
                 prefectureCode: this.prefectureCode,
                 stationCode: this.stationCode,
+                category: this.category,
                 fromDate: this.fromDate
-              }})
+              },
+              paramsSerializer: function(params) {
+                return Qs.stringify(params, {arrayFormat: 'repeat'})
+              }
+            })
            .then(res => {
               if (res.data.results.length > 0) {
                 this.events.push(...res.data.results);

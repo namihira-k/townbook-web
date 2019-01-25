@@ -34,7 +34,22 @@
 								<option v-for="s in stations" v-bind:value="s.code">{{ s.name }}</option>
 							</select>
 						</div>
-            <a class="waves-effect waves-teal btn-flat blue-text center" v-on:click.stop="init">検索条件をクリアする</a>
+            <h6><i class="material-icons">favorite</i>カテゴリ</h6>
+            <p>
+              <label>
+                <input type="checkbox" class="filled-in" value="MUSIC" v-model="category"/>
+                <span>音楽</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox" class="filled-in" value="BOOK" v-model="category"/>
+                <span>本</span>
+              </label>
+            </p>
+            <p class="right-align">
+              <a class="waves-effect waves-teal btn-flat blue-text center" v-on:click.stop="init">検索条件をクリアする</a>
+            </p>
             <div id="btn-search" class="center-align">
               <button class="btn waves-effect waves-light center" v-on:click.prevent="search">検索する<i class="material-icons right">search</i></button>
             </div>
