@@ -22,15 +22,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import jp.co.namihira.townbookweb.consts.EventCategoryEnum;
 import jp.co.namihira.townbookweb.controller.api.AbstractApiController;
 import jp.co.namihira.townbookweb.controller.api.AppApiListResponse;
 import jp.co.namihira.townbookweb.controller.view.eventinfo.EventInfoController;
-import jp.co.namihira.townbookweb.dto.EventCategoryRelationDto;
 import jp.co.namihira.townbookweb.dto.EventDto;
 import jp.co.namihira.townbookweb.dto.StationDto;
 import jp.co.namihira.townbookweb.service.UrlService;
+import jp.co.namihira.townbookweb.service.event.EventSearchCondition;
 import jp.co.namihira.townbookweb.service.event.EventService;
 import jp.co.namihira.townbookweb.service.station.StationService;
+import jp.co.namihira.townbookweb.util.CommonUtil;
 
 @RestController
 public class EventApiController extends AbstractApiController {
@@ -58,6 +60,7 @@ public class EventApiController extends AbstractApiController {
             @RequestParam(defaultValue = "4") Integer size,
             @RequestParam(defaultValue = "") String prefectureCode,
             @RequestParam(defaultValue = "") String stationCode,
+            @RequestParam(required = false) List<EventCategoryEnum> category,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate) {
         if (fromDate == null) {
             fromDate = LocalDate.now();
@@ -66,12 +69,18 @@ public class EventApiController extends AbstractApiController {
 
         final PageRequest pageRequest = PageRequest.of(page, size, new Sort(Direction.ASC, "startDateTime"));
 
-        final Page<EventDto> result = eventService.getEventList(prefectureCode, stationCode, from, pageRequest);
+        final EventSearchCondition condition = new EventSearchCondition();
+        if (CommonUtil.isNotEmpty(prefectureCode)) {            
+            condition.setPrefectureCodes(CommonUtil.list(prefectureCode));
+        }
+        if (CommonUtil.isNotEmpty(stationCode)) {
+            condition.setStationCodes(CommonUtil.list(stationCode));            
+        }
+        condition.setCategpries(category);
+        condition.setStartDateTime(from);
+        final Page<EventDto> result = eventService.getEventList(condition, pageRequest);
 
         final List<EventDto> events = result.getContent();
-
-        final List<EventCategoryRelationDto> relationDtos = eventService.getEventCategoies(events);
-        eventService.merge(events, relationDtos);
 
         final List<String> codes = events.stream().map(e -> e.getStationCode()).collect(Collectors.toList());
         final List<StationDto> stations = stationService.getStationsbyCode(codes);

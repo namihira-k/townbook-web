@@ -9,12 +9,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jp.co.namihira.townbookweb.consts.EventCategoryEnum;
 import jp.co.namihira.townbookweb.util.CommonUtil;
@@ -65,6 +69,13 @@ public class EventDto extends AbstractDto implements Cloneable {
     @Transient
     private String viewUrl;
 
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "event_category_relations",
+               joinColumns = { @JoinColumn(name = "event_id") },
+               inverseJoinColumns = { @JoinColumn(name = "event_category_id") })
+    private List<EventCategoryDto> eventCategoryDtos;
+    
     @Transient
     private List<EventCategoryEnum> eventCategories;
 

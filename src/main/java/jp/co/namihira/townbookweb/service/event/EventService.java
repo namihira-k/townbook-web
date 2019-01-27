@@ -2,7 +2,6 @@ package jp.co.namihira.townbookweb.service.event;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,10 +11,9 @@ import org.springframework.stereotype.Service;
 import jp.co.namihira.townbookweb.client.ekispert.EkispertClient;
 import jp.co.namihira.townbookweb.client.ekispert.Point;
 import jp.co.namihira.townbookweb.consts.EventCategoryEnum;
-import jp.co.namihira.townbookweb.dao.EventCategoryRelationDao;
 import jp.co.namihira.townbookweb.dao.EventDao;
 import jp.co.namihira.townbookweb.dao.StationDao;
-import jp.co.namihira.townbookweb.dto.EventCategoryRelationDto;
+import jp.co.namihira.townbookweb.dto.EventCategoryDto;
 import jp.co.namihira.townbookweb.dto.EventDto;
 import jp.co.namihira.townbookweb.dto.EventStatsDto;
 import jp.co.namihira.townbookweb.dto.StationDto;
@@ -30,9 +28,6 @@ public class EventService {
     private EventDao eventDao;
 
     @Autowired
-    private EventCategoryRelationDao eventCategoryRelationDao;
-
-    @Autowired
     private StationDao stationDao;
 
     @Autowired
@@ -40,7 +35,6 @@ public class EventService {
 
     public List<EventDto> save(final List<EventDto> events) {
         List<EventDto> results = CommonUtil.toList(eventDao.saveAll(events));
-        saveEventCategoies(results);
         return results;
     }
 
@@ -62,7 +56,12 @@ public class EventService {
         return result;
     }
 
-    public Page<EventDto> getEventList(final String prefectureCode, final String stationCode, final LocalDateTime from,
+    
+    public Page<EventDto> getEventList(final EventSearchCondition condition, final PageRequest pageRequest) {
+        return eventDao.findByCondition(condition, pageRequest);
+    }
+    
+    public Page<EventDto> getEventList(final String prefectureCode, final String stationCode, final List<EventCategoryEnum> categpries, final LocalDateTime from,
             final PageRequest pageRequest) {
         if (CommonUtil.isNotEmpty(stationCode)) {
             return eventDao.findByStationCodeAndStartDateTimeAfter(stationCode, from, pageRequest);
@@ -87,42 +86,14 @@ public class EventService {
         return dto;
     }
 
-    public List<EventCategoryRelationDto> getEventCategoies(final List<EventDto> events) {
-        final List<Integer> ids = events.stream().map(e -> e.getId()).collect(Collectors.toList());
-        final List<EventCategoryRelationDto> relationDtos = CommonUtil
-                .toList(eventCategoryRelationDao.findByEventIdIn(ids));
-        return relationDtos;
-    }
-
-    public List<EventDto> merge(final List<EventDto> eventDtos, final List<EventCategoryRelationDto> relationDtos) {
+    public List<EventDto> merge(final List<EventDto> eventDtos) {
         eventDtos.forEach(e -> {
-            for (EventCategoryRelationDto r : relationDtos) {
-                if (e.getId().equals(r.getEventId())) {
-                    e.addEventCategory(r.getEventCategory());
-                }
+            List<EventCategoryDto> categoryDtos = e.getEventCategoryDtos();
+            for (EventCategoryDto dto : categoryDtos) {
+                e.addEventCategory(dto.getEventCategory());                
             }
         });
         return eventDtos;
-    }
-
-    private List<EventCategoryRelationDto> saveEventCategoies(List<EventDto> events) {
-        List<EventCategoryRelationDto> relationDtos = CommonUtil.list();
-        for (EventDto event : events) {
-            List<EventCategoryEnum> categories = event.getEventCategories();
-            if (CommonUtil.isEmpty(categories)) {
-                continue;
-            }
-
-            List<EventCategoryRelationDto> dtos = categories.stream().map(c -> {
-                EventCategoryRelationDto d = new EventCategoryRelationDto();
-                d.setEventId(event.getId());
-                d.setEventCategory(c);
-                return d;
-            }).collect(Collectors.toList());
-            relationDtos.addAll(dtos);
-        }
-
-        return CommonUtil.toList(eventCategoryRelationDao.saveAll(relationDtos));
     }
 
 }
