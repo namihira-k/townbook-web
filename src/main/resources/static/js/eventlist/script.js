@@ -48,13 +48,13 @@ new Vue({
             }
          })
          .then(res => {
-             this.totalCount = res.data.totalCount;
-             this.events = res.data.results;
+            this.totalCount = res.data.totalCount;
+            this.events = res.data.results;
          });
   },
   
   updated () {
-    this.format();  	
+    this.format();
   },
   
   methods: {
@@ -63,8 +63,8 @@ new Vue({
       this.events = [];
       this.prefectureCode = 13;
       this.setStations();
+      this.category = ['MUSIC', 'BOOK'];
 
-      this.getLines();
       this.getEvents();
       this.moveSearch();
     },
@@ -142,12 +142,12 @@ new Vue({
     },
     
     moveSearch () {
-      $("html,body").animate({scrollTop:0}, "fast");    	
+      $("html,body").animate({scrollTop:0}, "fast");
     },
     
     moveEventList () {
       var el = $('#btn-search').offset().top;
-      $("html,body").animate({scrollTop:el}, "slow");    	
+      $("html,body").animate({scrollTop:el}, "slow");
     },
     
     format () {
