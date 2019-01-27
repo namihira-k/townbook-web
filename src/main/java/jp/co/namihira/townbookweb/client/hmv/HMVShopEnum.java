@@ -22,6 +22,7 @@ public enum HMVShopEnum {
     HIBIYA("13", "22951", "HMV&BOOKS HIBIYA COTTAGE", new String[]{"HIBIYA"}),
     SHINJUKU("13", "22741", "HMV record shop 新宿ALTA", new String[]{"新宿"}),
     TOYOSU("13", "22839", "HMV ららぽーと豊洲 ", new String[]{"豊洲"}),
+    TACHIKAWA("13", "22799", "HMV 立川", new String[]{"立川"}),
     YOKOHAMA_WP("14", "23368", "HMV 横浜ワールドポーターズ", new String[]{"横浜ワールドポーターズ"}),
     YOKOHAMA_LP("14", "23123", "HMV ららぽーと横浜", new String[]{"ららぽーと横浜"}),
     KAWASAKI("14", "23126", "HMV ラゾーナ川崎", new String[]{"ラゾーナ川崎"}),
