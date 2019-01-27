@@ -31,6 +31,10 @@ public class CommonUtil {
     public static <E> boolean isEmpty(Collection<E> c) {
         return c == null || c.size() == 0;
     }
+
+    public static <E> boolean isNotEmpty(Collection<E> c) {
+        return !isEmpty(c);
+    }
     
     public static boolean isEmpty(final String str) {
         return str == null || str.isEmpty();

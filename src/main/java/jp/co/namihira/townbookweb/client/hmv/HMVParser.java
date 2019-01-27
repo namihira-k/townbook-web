@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import jp.co.namihira.townbookweb.client.ServiceParser;
 import jp.co.namihira.townbookweb.consts.EventCategoryEnum;
+import jp.co.namihira.townbookweb.dto.EventCategoryDto;
 import jp.co.namihira.townbookweb.dto.EventDto;
 import jp.co.namihira.townbookweb.util.CommonUtil;
 
@@ -58,6 +59,10 @@ public class HMVParser implements ServiceParser {
 
             eventDto.setEventCategories(CommonUtil.list(EventCategoryEnum.MUSIC));
 
+            EventCategoryDto eventCategoryDto = new EventCategoryDto();
+            eventCategoryDto.setId(2);
+            eventDto.setEventCategoryDtos(CommonUtil.list(eventCategoryDto));            
+            
             final List<LocalDateTime> startDateTimes = CommonUtil.list();
             final String datetimeStrs = eventEL.getElementsByTag("dd").get(1).text();
             final List<String> splitedDatetime = CommonUtil.list(datetimeStrs.split("\\|"));

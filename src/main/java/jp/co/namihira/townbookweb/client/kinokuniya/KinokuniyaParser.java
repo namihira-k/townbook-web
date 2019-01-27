@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import jp.co.namihira.townbookweb.client.ServiceParser;
 import jp.co.namihira.townbookweb.consts.EventCategoryEnum;
+import jp.co.namihira.townbookweb.dto.EventCategoryDto;
 import jp.co.namihira.townbookweb.dto.EventDto;
 import jp.co.namihira.townbookweb.util.CommonUtil;
 import jp.co.namihira.townbookweb.util.DateTimeUtil;
@@ -84,6 +85,10 @@ public class KinokuniyaParser implements ServiceParser {
             final String seed = headerEL.text();
             event.setUuid(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
 
+            EventCategoryDto eventCategoryDto = new EventCategoryDto();
+            eventCategoryDto.setId(1);
+            event.setEventCategoryDtos(CommonUtil.list(eventCategoryDto));
+            
             results.add(event);
         }
 

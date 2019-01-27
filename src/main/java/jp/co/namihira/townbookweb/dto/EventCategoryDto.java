@@ -1,11 +1,14 @@
 package jp.co.namihira.townbookweb.dto;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -15,20 +18,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "event_category_relation")
+@Table(name = "event_categories")
 @Setter
 @Getter
 @NoArgsConstructor
-public class EventCategoryRelationDto extends AbstractDto {
+public class EventCategoryDto extends AbstractDto {
 
     @Id
-    @SequenceGenerator(name="event_category_relation_seq", initialValue=1000)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="event_category_relation_seq")
-    public Integer id;
-
-    public Integer eventId;
+    @SequenceGenerator(name="event_category_seq", initialValue=1000)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="event_category_seq")
+    private Integer id;
     
     @Enumerated(EnumType.STRING)
-    public EventCategoryEnum eventCategory;
+    private EventCategoryEnum eventCategory;
+    
+    @ManyToMany(mappedBy="eventCategoryDtos")
+    private List<EventDto> eventDtos;
 
 }
