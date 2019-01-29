@@ -75,7 +75,6 @@ public class KinokuniyaParser implements ServiceParser {
 
             final Document info = kinokuniyaClient.getPage(url);
             final Element detailContentEL = info.getElementById("con");
-            ;
             final List<String> freeKeywords = KinokuniyaEnum.getKeywordsOfFree();
             final Boolean isFree = freeKeywords.parallelStream().anyMatch(f -> detailContentEL.text().contains(f));
             event.setIsFree(isFree);
