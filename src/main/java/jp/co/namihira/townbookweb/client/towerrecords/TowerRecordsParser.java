@@ -74,11 +74,15 @@ public class TowerRecordsParser implements ServiceParser {
 			dto.setContent(content);
 			
 			Document detailEL = towerRecordsClient.getPage(url);
-			Elements contents = detailEL.getElementsByClass("storeInfo-List");
-			final List<String> freeKeywords = TowerRecordsConsts.getKeywordsOfFree();
-			Boolean isFree = freeKeywords.parallelStream().anyMatch(f -> contents.text().contains(f));
-			dto.setIsFree(isFree);
-				
+			if (detailEL != null) {
+                Elements contents = detailEL.getElementsByClass("storeInfo-List");
+                final List<String> freeKeywords = TowerRecordsConsts.getKeywordsOfFree();
+                Boolean isFree = freeKeywords.parallelStream().anyMatch(f -> contents.text().contains(f));
+                dto.setIsFree(isFree);
+            } else {
+                dto.setIsFree(false);
+            }
+
 			String seed = date + time + title;
 			dto.setUuid(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
 

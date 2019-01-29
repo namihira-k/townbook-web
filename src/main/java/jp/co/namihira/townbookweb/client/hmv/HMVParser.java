@@ -52,10 +52,14 @@ public class HMVParser implements ServiceParser {
             eventDto.setContent(person + " " + title);
 
             Document detailEL = hmvClient.getPage(url);
-            Elements contents = detailEL.getElementsByClass("eventInfoText");
-            final List<String> freeKeywords = HMVConsts.getKeywordsOfFree();
-            Boolean isFree = freeKeywords.parallelStream().anyMatch(f -> contents.text().contains(f));
-            eventDto.setIsFree(isFree);
+            if (detailEL != null) {
+                Elements contents = detailEL.getElementsByClass("eventInfoText");
+                final List<String> freeKeywords = HMVConsts.getKeywordsOfFree();
+                Boolean isFree = freeKeywords.parallelStream().anyMatch(f -> contents.text().contains(f));
+                eventDto.setIsFree(isFree);
+            } else {
+                eventDto.setIsFree(false);                
+            }
 
             eventDto.setEventCategories(CommonUtil.list(EventCategoryEnum.MUSIC));
 
