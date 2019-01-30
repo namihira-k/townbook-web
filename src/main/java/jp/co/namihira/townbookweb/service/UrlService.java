@@ -13,26 +13,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class UrlService {
 
-	private String protocol = "http://";
-	
-	@Value("${app.domain}")
-	private String appDomain = "";
+    @Value("${app.protocol}")
+    private String protocol = "";
 
-	@Value("${server.servlet.contextPath}")	
-	private String contextPath = "";
-	
+    @Value("${app.domain}")
+    private String appDomain = "";
+
+    @Value("${server.servlet.contextPath}")	
+    private String contextPath = "";
+
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     public void sendRedirect(HttpServletRequest request, HttpServletResponse response, String relativeUrl) throws IOException {
-    	redirectStrategy.sendRedirect(request, response, protocol + appDomain + request.getContextPath() + relativeUrl);
+        redirectStrategy.sendRedirect(request, response, protocol + appDomain + request.getContextPath() + relativeUrl);
     }
     
     public String getBaseUrl() {
-    	return protocol + appDomain + contextPath;
+        return protocol + appDomain + contextPath;
     }
     
     public String getContextPath() {
-    	return contextPath;
+        return contextPath;
     }
 
 }
