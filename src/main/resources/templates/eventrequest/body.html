@@ -26,16 +26,17 @@
   		        <p>イベント情報を確認した後に掲載されます（翌日以降）</p>
 		          <form action="post">
 	              <div class="input-field">
-	                <input id="name" type="text" class="validate" v-model="event.name">
+	                <input id="name" type="text" class="validate" v-model="event.name" required>
 	                <label for="name">イベント名（必須） </label>
+                  <span class="helper-text" data-error="入力は必須です" data-success=""></span>
 	              </div>
 	              <div class="input-field">
-	                <input id="url" type="text" class="validate" v-model="event.url">
+	                <input id="url" type="text" class="validate" v-model="event.url" required>
 	                <label for="url">URL（必須）</label>
+                  <span class="helper-text" data-error="入力は必須です" data-success=""></span>
 	              </div>
 	                <div class="center">
-		              <button class="btn waves-effect waves-light" v-on:click.prevent="post">依頼する<i class="material-icons right">send</i>
-		              </button>
+                    <button class="btn waves-effect waves-light" v-on:click.prevent="post" v-bind:disabled="!isReady()">依頼する</button>
 	                </div>
 		          </form>
 		        </div>
