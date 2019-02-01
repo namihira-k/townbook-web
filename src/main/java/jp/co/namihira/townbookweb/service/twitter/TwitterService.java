@@ -9,18 +9,22 @@ import jp.co.namihira.townbookweb.client.twitter.TwitterClient;
 @Service
 public class TwitterService {
 
-	@Autowired
-	private TwitterClient twitterClient;
-	
-	@Value("${twitter.account}")
-	private String twitterAccount = "";
-	
-	public void postDM(final String screenName, final String text) {
-		twitterClient.postDM(screenName, text);
-	}
-	
-	public void postDMtoAdmin(final String text) {
-		twitterClient.postDM(twitterAccount, text);
-	}
-	
+    @Autowired
+    private TwitterClient twitterClient;
+
+    @Value("${twitter.account}")
+    private String twitterAccount = "";
+
+    public void postDM(final String screenName, final String text) {
+        twitterClient.postDM(screenName, text);
+    }
+
+    public void postDMtoAdmin(final String text) {
+        twitterClient.postDM(twitterAccount, text);
+    }
+
+    public void tweet(final String text) {
+        twitterClient.tweet(text);
+    }
+
 }

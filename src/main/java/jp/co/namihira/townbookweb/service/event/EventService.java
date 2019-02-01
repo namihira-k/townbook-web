@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import jp.co.namihira.townbookweb.client.ekispert.EkispertClient;
@@ -56,6 +58,10 @@ public class EventService {
         return result;
     }
 
+    public EventDto getLatest() {
+        final PageRequest pageRequest = PageRequest.of(0, 1, new Sort(Direction.ASC, "startDateTime"));
+        return eventDao.findByStartDateTimeAfter(LocalDateTime.now(), pageRequest).getContent().get(0);
+    }
     
     public Page<EventDto> getEventList(final EventSearchCondition condition, final PageRequest pageRequest) {
         return eventDao.findByCondition(condition, pageRequest);
