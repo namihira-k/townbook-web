@@ -2,6 +2,8 @@ package jp.co.namihira.townbookweb.cron;
 
 import java.time.format.DateTimeFormatter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -15,6 +17,8 @@ import jp.co.namihira.townbookweb.service.twitter.TwitterService;
 @Component
 public class TwitterTask {
 
+    private static final Logger logger = LoggerFactory.getLogger(TwitterTask.class);
+    
     @Autowired
     private EventService eventService;
     
@@ -23,7 +27,7 @@ public class TwitterTask {
     
     @Autowired
     private UrlService urlService;
-    
+
     @Scheduled(cron = "0 30 9,12,15,18,21 * * *")
     public void tweetEvent() {
         final EventDto eventDto = eventService.getLatest();
@@ -39,6 +43,8 @@ public class TwitterTask {
         final String text = new String(sb);
         twitterService.tweet(text);
         twitterService.postDMtoAdmin("Posted : " + text);
+        
+        logger.info("done tweetEvent");
     }
 
 }

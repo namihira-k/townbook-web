@@ -87,9 +87,9 @@ public class SanseidoParser implements ServiceParser {
 			eventDto.setConditions("");
 			eventDto.setContent(title);
 			eventDto.setIsFree(false);
-			
-			String seed = datetimeStr + title;
-			eventDto.setUuid(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
+
+            String seed = eventDto.getStartDateTime() + eventDto.getPlace() + eventDto.getName();
+            eventDto.setUuid(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
 
             EventCategoryDto eventCategoryDto = new EventCategoryDto();
             eventCategoryDto.setId(1);

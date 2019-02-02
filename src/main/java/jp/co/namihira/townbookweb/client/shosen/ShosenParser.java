@@ -66,9 +66,9 @@ public class ShosenParser implements ServiceParser {
 			}
 			
 			event.setIsFree(false);
-			
-			final String seed = datetimeEL.text() + header.text();
-			event.setUuid(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
+
+            final String seed = event.getStartDateTime() + event.getPlace() + event.getName();
+            event.setUuid(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
 
             EventCategoryDto eventCategoryDto = new EventCategoryDto();
             eventCategoryDto.setId(1);

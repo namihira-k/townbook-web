@@ -77,6 +77,7 @@ public class BeanLifeCycle {
     @PostConstruct
     public void initAfterStartup() {
         logger.info("data.init.flag : " + initData);
+                
         if (initData) {
             initEventData(sanseidoClient, sanseidoParser);
             initEventData(towerRecordsClient, towerRecordsParser);
@@ -97,6 +98,7 @@ public class BeanLifeCycle {
         List<Document> docs = client.getEventPages();
         List<EventDto> events = parser.parseEvent(docs);
         eventService.save(events);
+        logger.info("done initEventData : " + events.get(0).getPlace());
     }
 
 }

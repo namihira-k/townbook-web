@@ -2,9 +2,7 @@ package jp.co.namihira.townbookweb.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -63,7 +60,6 @@ public class EventDto extends AbstractDto implements Cloneable {
 
     public String content;
 
-    @Column(unique = true)
     public String uuid;
 
     @Transient
@@ -85,11 +81,6 @@ public class EventDto extends AbstractDto implements Cloneable {
         }
         this.eventCategories.add(category);
         return this;
-    }
-
-    @PrePersist
-    public void autofill() {
-        this.setUuid(UUID.randomUUID().toString());
     }
 
     @Override
