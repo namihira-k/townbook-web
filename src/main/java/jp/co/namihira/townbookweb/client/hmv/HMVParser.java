@@ -97,7 +97,7 @@ public class HMVParser implements ServiceParser {
                 eventDto.setStartDateTime(sdt);
                 eventDto.setEndDateTime(sdt.plusHours(1));
 
-                String seed = sdt + person + title;
+                String seed = eventDto.getStartDateTime() + eventDto.getPlace() + eventDto.getName();
                 eventDto.setUuid(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
                 
                 results.add(eventDto);

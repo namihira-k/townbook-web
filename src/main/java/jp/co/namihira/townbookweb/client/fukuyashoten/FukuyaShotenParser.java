@@ -75,7 +75,7 @@ public class FukuyaShotenParser implements ServiceParser {
 
             eventDto.setEventCategories(CommonUtil.list(EventCategoryEnum.BOOK));
 
-            String seed = datetimeStr + header;
+            String seed = eventDto.getStartDateTime() + eventDto.getPlace() + eventDto.getName();
             eventDto.setUuid(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
 
             EventCategoryDto eventCategoryDto = new EventCategoryDto();

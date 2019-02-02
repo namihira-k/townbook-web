@@ -98,6 +98,7 @@ public class BeanLifeCycle {
         List<Document> docs = client.getEventPages();
         List<EventDto> events = parser.parseEvent(docs);
         eventService.save(events);
+        logger.info("done initEventData : " + events.get(0).getPlace());
     }
 
 }

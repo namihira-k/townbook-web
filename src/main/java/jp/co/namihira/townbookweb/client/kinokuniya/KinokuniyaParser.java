@@ -81,7 +81,7 @@ public class KinokuniyaParser implements ServiceParser {
 
             event.setEventCategories(CommonUtil.list(EventCategoryEnum.BOOK));
 
-            final String seed = headerEL.text();
+            final String seed = event.getStartDateTime() + event.getPlace() + event.getName();
             event.setUuid(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
 
             EventCategoryDto eventCategoryDto = new EventCategoryDto();
