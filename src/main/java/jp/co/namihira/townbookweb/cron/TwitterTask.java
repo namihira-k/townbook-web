@@ -28,7 +28,6 @@ public class TwitterTask {
     @Autowired
     private UrlService urlService;
 
-//    @Scheduled(cron = "0 48 7 * * *")
     @Scheduled(cron = "0 30 9,12,15,18,21 * * *")
     public void tweetEvent() {
         final EventDto eventDto = eventService.getLatest();
