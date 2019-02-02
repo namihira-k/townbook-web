@@ -80,7 +80,7 @@ public class TowerRecordsParser implements ServiceParser {
 			
 			Document detailEL = towerRecordsClient.getPage(url);
 			if (detailEL != null) {
-                Elements contents = detailEL.getElementsByClass("storeInfo-List");
+                Elements contents = detailEL.getElementsByClass("storeInfo-attBox");
                 final List<String> freeKeywords = TowerRecordsConsts.getKeywordsOfFree();
                 Boolean isFree = freeKeywords.parallelStream().anyMatch(f -> contents.text().contains(f));
                 dto.setIsFree(isFree);
