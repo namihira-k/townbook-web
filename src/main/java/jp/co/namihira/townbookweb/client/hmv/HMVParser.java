@@ -21,7 +21,7 @@ import jp.co.namihira.townbookweb.util.CommonUtil;
 
 @Service
 public class HMVParser implements ServiceParser {
-
+    
     @Autowired
     private HMVClient hmvClient;
 
@@ -33,7 +33,7 @@ public class HMVParser implements ServiceParser {
 
         for (Element eventEL : eventELs) {
             EventDto eventDto = new EventDto();
-
+        
             final String person = eventEL.getElementsByTag("dt").first().text();
             final String title = eventEL.getElementsByClass("eventTitle").first().text();
             eventDto.setName(person + " " + title);
@@ -99,7 +99,7 @@ public class HMVParser implements ServiceParser {
 
                 String seed = sdt + person + title;
                 eventDto.setUuid(UUID.nameUUIDFromBytes(seed.getBytes()).toString());
-
+                
                 results.add(eventDto);
 
                 eventDto = eventDto.clone();

@@ -77,6 +77,7 @@ public class BeanLifeCycle {
     @PostConstruct
     public void initAfterStartup() {
         logger.info("data.init.flag : " + initData);
+                
         if (initData) {
             initEventData(sanseidoClient, sanseidoParser);
             initEventData(towerRecordsClient, towerRecordsParser);

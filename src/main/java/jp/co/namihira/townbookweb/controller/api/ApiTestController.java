@@ -8,7 +8,7 @@ public class ApiTestController extends AbstractApiController {
        
     @RequestMapping("/apitest")
     public String get() {
-        return "Greetings from Spring Boot!";
+        return "";
     }
     
 }
