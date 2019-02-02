@@ -9,6 +9,7 @@ public class HMVConsts {
     private static final List<String> KEYWORDS_FREE = CommonUtil.list(
             "観覧フリー",
             "観覧はフリー",
+            "観覧無料",            
             "フリー観覧",
             "観覧は無料",
             "イベントはフリー");
