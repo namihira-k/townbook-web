@@ -29,10 +29,12 @@ public enum HMVShopEnum {
     HAMAMATSU("22", "23479", "HMV イオンモール浜松市野", new String[]{"浜松"}),
     SAKEE("23", "24944", "HMV 栄", new String[]{"栄"}),
     KISOGAWA("23", "24902", "HMV イオンモール木曽川", new String[]{"木曽川"}),
+    OKAZAKI("23", "24851", "HMV イオンモール岡崎", new String[]{"岡崎"}),
     SHINSAIBASHI("27", "25981", "HMV&BOOKS SHINSAIBASHI", new String[]{"SHINSAIBASHI"}),
     ABENO("27", "26062", "HMV SOPT あべのキューズモール", new String[]{"あべの"}),
     NISHINOMIYA("28", "26488", "HMV 阪急西宮ガーデンズ", new String[]{"西宮"}),
     HAKATA("40", "28283", "HMV&BOOKS HAKATA", new String[]{"HAKATA"}),
+    FUKUTSU("40", "28305", "HMV イオンモール福津", new String[]{"福津"}),
     OTHER("13", "22828", "HMV", new String[]{"その他"});
     
     private final String prefectureCode;
