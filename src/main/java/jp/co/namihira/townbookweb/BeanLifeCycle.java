@@ -18,6 +18,8 @@ import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenClient;
 import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenParser;
 import jp.co.namihira.townbookweb.client.hmv.HMVClient;
 import jp.co.namihira.townbookweb.client.hmv.HMVParser;
+import jp.co.namihira.townbookweb.client.honto.HontoClient;
+import jp.co.namihira.townbookweb.client.honto.HontoParser;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaClient;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaParser;
 import jp.co.namihira.townbookweb.client.sanseido.SanseidoClient;
@@ -69,6 +71,11 @@ public class BeanLifeCycle {
     private SanseidoParser sanseidoParser;
 
     @Autowired
+    private HontoClient hontoClent;
+    @Autowired
+    private HontoParser hontoParser;
+    
+    @Autowired
     private TwitterService twitterService;
 
     @Autowired
@@ -79,12 +86,13 @@ public class BeanLifeCycle {
         logger.info("data.init.flag : " + initData);
                 
         if (initData) {
-            initEventData(sanseidoClient, sanseidoParser);
-            initEventData(towerRecordsClient, towerRecordsParser);
-            initEventData(kinokuniyaClient, kinokuniyaParser);
-            initEventData(hmvClient, hmvParser);
-            initEventData(fukuyaShotenClient, fukuyaShotenParser);
-            initEventData(shosenClient, shosenParser);
+            initEventData(hontoClent, hontoParser);            
+//            initEventData(sanseidoClient, sanseidoParser);
+//            initEventData(towerRecordsClient, towerRecordsParser);
+//            initEventData(kinokuniyaClient, kinokuniyaParser);
+//            initEventData(hmvClient, hmvParser);
+//            initEventData(fukuyaShotenClient, fukuyaShotenParser);
+//            initEventData(shosenClient, shosenParser);
             twitterService.postDMtoAdmin("completed initEventData");
         }
     }
