@@ -87,12 +87,12 @@ public class BeanLifeCycle {
                 
         if (initData) {
             initEventData(hontoClent, hontoParser);            
-//            initEventData(sanseidoClient, sanseidoParser);
-//            initEventData(towerRecordsClient, towerRecordsParser);
-//            initEventData(kinokuniyaClient, kinokuniyaParser);
-//            initEventData(hmvClient, hmvParser);
-//            initEventData(fukuyaShotenClient, fukuyaShotenParser);
-//            initEventData(shosenClient, shosenParser);
+            initEventData(sanseidoClient, sanseidoParser);
+            initEventData(towerRecordsClient, towerRecordsParser);
+            initEventData(kinokuniyaClient, kinokuniyaParser);
+            initEventData(hmvClient, hmvParser);
+            initEventData(fukuyaShotenClient, fukuyaShotenParser);
+            initEventData(shosenClient, shosenParser);
             twitterService.postDMtoAdmin("completed initEventData");
         }
     }

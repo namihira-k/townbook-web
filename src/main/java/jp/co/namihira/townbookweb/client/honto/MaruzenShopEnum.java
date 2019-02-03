@@ -13,6 +13,9 @@ public enum MaruzenShopEnum {
 
     MARUNOUCHI("13", "22828", "丸善 丸の内本店", new String[]{"丸の内"}),
     SHINJUKU("13", "22741", "丸善 新宿京王店", new String[]{"新宿"}),
+    NIHONBASHI("13", "22828", "丸善 日本橋店", new String[]{"日本橋"}),
+    NAGOYA("23", "24944", "丸善 名古屋本店", new String[]{"名古屋"}),
+    OKAYAMA("33", "27051", "丸善 岡山シンフォニービル店", new String[]{"岡山"}),
     HAKATA("40", "28283", "丸善 博多店", new String[]{"博多"}),
     OTHER("13", "22828", "丸善", new String[]{"その他"});
     

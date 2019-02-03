@@ -11,6 +11,8 @@ import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenClient;
 import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenParser;
 import jp.co.namihira.townbookweb.client.hmv.HMVClient;
 import jp.co.namihira.townbookweb.client.hmv.HMVParser;
+import jp.co.namihira.townbookweb.client.honto.HontoClient;
+import jp.co.namihira.townbookweb.client.honto.HontoParser;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaClient;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaParser;
 import jp.co.namihira.townbookweb.client.sanseido.SanseidoClient;
@@ -55,6 +57,20 @@ public class EventDevApiController extends AbstractApiController {
 	@Autowired
 	private SanseidoParser sanseidoParser;
 	
+    @Autowired
+    private HontoClient hontoClient;
+    @Autowired
+    private HontoParser hontoParser;
+    
+    @GetMapping("/dev/eventfetch-honto")
+    public String getHontoData() {
+        int id = 100;
+        
+        final List<Document> docs = hontoClient.getEventPages();
+        final List<EventDto> events = hontoParser.parseEvent(docs);
+        return EventSQLBuilder.build(id, events);
+    };    
+    
 	@GetMapping("/dev/eventfetch-sanseido")
 	public String getSanseidoData() {
 		int id = 1100;
