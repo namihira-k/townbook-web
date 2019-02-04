@@ -30,7 +30,7 @@ public class TwitterTask {
 
     @Scheduled(cron = "0 30 9,12,15,18,21 * * *")
     public void tweetEvent() {
-        final EventDto eventDto = eventService.getLatest();
+        final EventDto eventDto = eventService.getLatestFreeEvent();
         final StringBuilder sb = new StringBuilder();
         
         final DateTimeFormatter fm = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

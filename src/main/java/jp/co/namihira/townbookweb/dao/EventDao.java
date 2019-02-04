@@ -25,7 +25,9 @@ public interface EventDao extends PagingAndSortingRepository<EventDto, Integer> 
 
 	public Page<EventDto> findByStartDateTimeAfter(LocalDateTime startDateTime, Pageable page);
 
-	public Page<EventDto> findByPrefectureCodeAndStartDateTimeAfter(String prefectureCode, LocalDateTime startDateTime, Pageable page);
+    public Page<EventDto> findByIsFreeAndStartDateTimeAfter(Boolean isFree, LocalDateTime startDateTime, Pageable page);
+
+    public Page<EventDto> findByPrefectureCodeAndStartDateTimeAfter(String prefectureCode, LocalDateTime startDateTime, Pageable page);
 
 	public Page<EventDto> findByStationCodeAndStartDateTimeAfter(String stationCode, LocalDateTime startDateTime, Pageable page);	
 
