@@ -58,6 +58,11 @@ public class EventService {
         return result;
     }
 
+    public EventDto getLatestFreeEvent() {
+        final PageRequest pageRequest = PageRequest.of(0, 1, new Sort(Direction.ASC, "startDateTime"));
+        return eventDao.findByIsFreeAndStartDateTimeAfter(true, LocalDateTime.now(), pageRequest).getContent().get(0);
+    }    
+    
     public EventDto getLatest() {
         final PageRequest pageRequest = PageRequest.of(0, 1, new Sort(Direction.ASC, "startDateTime"));
         return eventDao.findByStartDateTimeAfter(LocalDateTime.now(), pageRequest).getContent().get(0);
