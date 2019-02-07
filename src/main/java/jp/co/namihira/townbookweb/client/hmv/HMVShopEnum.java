@@ -34,6 +34,7 @@ public enum HMVShopEnum {
     SHINSAIBASHI("27", "25981", "HMV&BOOKS SHINSAIBASHI", new String[]{"SHINSAIBASHI"}),
     ABENO("27", "26062", "HMV SOPT あべのキューズモール", new String[]{"あべの"}),
     NISHINOMIYA("28", "26488", "HMV 阪急西宮ガーデンズ", new String[]{"西宮"}),
+    OKAYAMA("33", "27051", "HMV イオンモール岡山", new String[]{"岡山"}),
     HAKATA("40", "28283", "HMV&BOOKS HAKATA", new String[]{"HAKATA"}),
     FUKUTSU("40", "28305", "HMV イオンモール福津", new String[]{"福津"}),
     OTHER("13", "22828", "HMV", new String[]{"その他"});
