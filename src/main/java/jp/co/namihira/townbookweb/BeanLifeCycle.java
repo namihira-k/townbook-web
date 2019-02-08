@@ -86,7 +86,8 @@ public class BeanLifeCycle {
         logger.info("data.init.flag : " + initData);
                 
         if (initData) {
-            initEventData(hontoClent, hontoParser);            
+            twitterService.postDMtoAdmin("start initEventData");
+            initEventData(hontoClent, hontoParser);
             initEventData(sanseidoClient, sanseidoParser);
             initEventData(towerRecordsClient, towerRecordsParser);
             initEventData(kinokuniyaClient, kinokuniyaParser);
