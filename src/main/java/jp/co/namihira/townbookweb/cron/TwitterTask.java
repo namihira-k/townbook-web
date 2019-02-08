@@ -38,7 +38,9 @@ public class TwitterTask {
           .append(eventDto.getName()).append("\n");
         
         eventDto.setViewUrl(urlService.getBaseUrl() + "/view" + EventInfoController.path + "?uuid=" + eventDto.getUuid());
-        sb.append(eventDto.getViewUrl());
+        sb.append(eventDto.getViewUrl()).append("\n");
+        
+        sb.append("【当日参加可！】【参加無料！】").append("\n");
         
         final String text = new String(sb);
         twitterService.tweet(text);
