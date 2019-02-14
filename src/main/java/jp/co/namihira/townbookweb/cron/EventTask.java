@@ -1,15 +1,12 @@
-package jp.co.namihira.townbookweb;
+package jp.co.namihira.townbookweb.cron;
 
 import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import jp.co.namihira.townbookweb.client.ServiceClient;
@@ -33,13 +30,10 @@ import jp.co.namihira.townbookweb.service.event.EventService;
 import jp.co.namihira.townbookweb.service.twitter.TwitterService;
 
 @Component
-public class BeanLifeCycle {
+public class EventTask {
 
-    private static final Logger logger = LoggerFactory.getLogger(BeanLifeCycle.class);
-
-    @Value("${app.data.init}")
-    private boolean initData = false;
-
+    private static final Logger logger = LoggerFactory.getLogger(EventTask.class);    
+    
     @Autowired
     private TowerRecordsClient towerRecordsClient;
     @Autowired
@@ -80,27 +74,21 @@ public class BeanLifeCycle {
 
     @Autowired
     private EventService eventService;
-
-    @PostConstruct
-    public void initAfterStartup() {
-        logger.info("data.init.flag : " + initData);
+    
+    @Scheduled(cron = "0 0 21 * * *")
+    public void initEventData() {
+        twitterService.postDMtoAdmin("cron start initEventData");
         
-        if (initData) {
-            twitterService.postDMtoAdmin("start initEventData");
-            initEventData(hontoClent, hontoParser);
-            initEventData(sanseidoClient, sanseidoParser);
-            initEventData(towerRecordsClient, towerRecordsParser);
-            initEventData(kinokuniyaClient, kinokuniyaParser);
-            initEventData(hmvClient, hmvParser);
-            initEventData(fukuyaShotenClient, fukuyaShotenParser);
-            initEventData(shosenClient, shosenParser);
-            twitterService.postDMtoAdmin("completed initEventData");
-        }
-    }
-
-    @PreDestroy
-    public void cleanupBeforeExit() {
-        logger.info("cleanupBeforeExit");
+        eventService.deleteAll();        
+        initEventData(hontoClent, hontoParser);
+        initEventData(sanseidoClient, sanseidoParser);
+        initEventData(towerRecordsClient, towerRecordsParser);
+        initEventData(kinokuniyaClient, kinokuniyaParser);
+        initEventData(hmvClient, hmvParser);
+        initEventData(fukuyaShotenClient, fukuyaShotenParser);
+        initEventData(shosenClient, shosenParser);
+        
+        twitterService.postDMtoAdmin("cron completed initEventData");        
     }
 
     private void initEventData(ServiceClient client, ServiceParser parser) {
@@ -109,5 +97,5 @@ public class BeanLifeCycle {
         eventService.save(events);
         logger.info("done initEventData : " + events.get(0).getPlace());
     }
-
+    
 }
