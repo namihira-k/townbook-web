@@ -106,5 +106,9 @@ public class EventService {
         });
         return eventDtos;
     }
+    
+    public void deleteAll() {
+        eventDao.deleteAll();
+    }
 
 }
