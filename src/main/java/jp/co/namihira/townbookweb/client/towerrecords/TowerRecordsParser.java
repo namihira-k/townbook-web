@@ -10,12 +10,9 @@ import java.util.regex.Pattern;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jp.co.namihira.townbookweb.BeanLifeCycle;
 import jp.co.namihira.townbookweb.client.ServiceParser;
 import jp.co.namihira.townbookweb.dto.EventCategoryDto;
 import jp.co.namihira.townbookweb.dto.EventDto;
@@ -24,12 +21,14 @@ import jp.co.namihira.townbookweb.util.CommonUtil;
 @Service
 public class TowerRecordsParser implements ServiceParser {
 
-    private static final Logger logger = LoggerFactory.getLogger(BeanLifeCycle.class);
-    
-	@Autowired
-	private TowerRecordsClient towerRecordsClient;	
-		
-	public List<EventDto> parseEvent(final Document doc) {
+    @Autowired
+    private TowerRecordsClient towerRecordsClient;	
+
+    public List<EventDto> parseEvent(final Document doc) {
+        if (doc == null) {
+            return CommonUtil.list();
+        }
+
 		final List<EventDto> results = CommonUtil.list();
 		
 		Elements tbodies = doc.getElementsByTag("tr");
