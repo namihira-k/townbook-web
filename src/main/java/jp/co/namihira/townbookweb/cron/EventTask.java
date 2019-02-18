@@ -92,10 +92,14 @@ public class EventTask {
     }
 
     private void initEventData(ServiceClient client, ServiceParser parser) {
-        List<Document> docs = client.getEventPages();
-        List<EventDto> events = parser.parseEvent(docs);
-        eventService.save(events);
-        logger.info("done initEventData : " + events.get(0).getPlace());
+        try {
+            List<Document> docs = client.getEventPages();
+            List<EventDto> events = parser.parseEvent(docs);
+            eventService.save(events);
+            logger.info("done initEventData : " + events.get(0).getPlace());            
+        } catch (RuntimeException e) {
+            twitterService.postDMtoAdmin("error initEventData : " + client.getClass().getName());
+        }
     }
     
 }
