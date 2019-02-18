@@ -75,7 +75,7 @@ public class EventTask {
     @Autowired
     private EventService eventService;
     
-    @Scheduled(cron = "0 0 21 * * *")
+    @Scheduled(cron = "0 0 21 * * *")    
     public void initEventData() {
         twitterService.postDMtoAdmin("cron start initEventData");
         
@@ -92,10 +92,14 @@ public class EventTask {
     }
 
     private void initEventData(ServiceClient client, ServiceParser parser) {
-        List<Document> docs = client.getEventPages();
-        List<EventDto> events = parser.parseEvent(docs);
-        eventService.save(events);
-        logger.info("done initEventData : " + events.get(0).getPlace());
+        try {
+            List<Document> docs = client.getEventPages();
+            List<EventDto> events = parser.parseEvent(docs);
+            eventService.save(events);
+            logger.info("done initEventData : " + events.get(0).getPlace());            
+        } catch (RuntimeException e) {
+            twitterService.postDMtoAdmin("error initEventData : " + client.getClass().getName());
+        }
     }
     
 }
