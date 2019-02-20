@@ -75,7 +75,7 @@ public class EventTask {
     @Autowired
     private EventService eventService;
     
-    @Scheduled(cron = "0 0 21 * * *")
+    @Scheduled(cron = "0 50 20 * * *")
     public void initEventData() {
         twitterService.postDMtoAdmin("cron start initEventData");
         

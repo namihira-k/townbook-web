@@ -34,6 +34,7 @@ public class FukuyaShotenParser implements ServiceParser {
             final EventDto eventDto = new EventDto();
             String header = event.getElementsByTag("h3").text();
 
+            FukuyaShotenEnum shop = null;
             Pattern pHeader = Pattern.compile("(.+) \\| (.+)");
             Matcher mHeader = pHeader.matcher(header);
             if (mHeader.find()) {
@@ -41,12 +42,16 @@ public class FukuyaShotenParser implements ServiceParser {
                 eventDto.setName(title);
 
                 final String shopName = mHeader.group(2);
-                FukuyaShotenEnum shop = FukuyaShotenEnum.getShopbyName(shopName);
-                eventDto.setPlace(shop.getName());
-                eventDto.setPrefectureCode(shop.getPrefectureCode());
-                eventDto.setStationCode(shop.getStationCode());
+                shop = FukuyaShotenEnum.getShopbyName(shopName);
+            } else {
+                eventDto.setName(header);
+                shop = FukuyaShotenEnum.OTHER;
             }
 
+            eventDto.setPlace(shop.getName());
+            eventDto.setPrefectureCode(shop.getPrefectureCode());
+            eventDto.setStationCode(shop.getStationCode());
+            
             String datetimeStr = event.getElementsByClass("timest").get(0).text();
             datetimeStr = datetimeStr.replace("（", "(").replace("）", ")").replace("：", ":").replace(" ", "");
             Pattern pTime = Pattern.compile("([0-9]+年[0-9]+月[0-9]+日?)\\(.+\\)([0-9]+:[0-9]+)[^0-9]*");
