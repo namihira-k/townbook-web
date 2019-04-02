@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
+
+<head>
+
+</head>
+
+<body>
+  <div layout:fragment="content">
+    <div class="container">
+      <h4><i class="material-icons small">message</i>検索結果</h4>
+      <div class="progress" v-if="isProcess">
+        <div class="indeterminate"></div>
+      </div>
+      <div class="card-panel red lighten-5" v-if="!events.length">
+        <span>イベント情報はありません</span>
+      </div>
+      <div v-else>
+        <p>{{ totalCount }} 件 見つかりました</p>
+      </div>
+      <div class="row">
+        <div class="col s12 m6" v-for="event in events">
+          <div class="card sticky-action" v-bind:class="{ 'card-hot': isHot(event) }">
+            <div class="card-content activator">
+              <div class="row">
+                <div class="col m11">
+                  <span class="card-title line-break">{{ event.name }}</span>
+                </div>
+                <div class="col m1">
+                  <a class="btn-floating pulse right" v-bind:class="{ 'orange darken-2': isHot(event) }"><i class="material-icons circle-icons">menu</i></a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col m12">
+                  <div v-for="p in prefectures">
+                    <div v-if="p.code == event.prefectureCode">
+                      <div class="chip">{{ p.name }}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col m12">
+                  <div class="chip">{{ event.stationName }}</div>
+                </div>
+                <div class="col m12">
+                  <div class="chip">{{ event.place }}<a v-bind:href="'https://maps.google.co.jp/maps?q=' + encodeURI(event.place)" target=”_blank”> [場所]</a></div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col m6">
+                  <div class="text-small">開始</div>
+                  <div class="chip">{{ event.startDateTime }}</div>
+                </div>
+                <div class="col m6">
+                  <div class="text-small">終了</div>
+                  <div class="chip">{{ event.endDateTime }}</div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col m12">
+                  <div class="chip orange darken-2 white-text" v-if="isToday(event.startDateTime)">本日開催！</div>
+                  <div class="chip orange darken-2 white-text" v-if="event.isFree">当日参加可！</div>
+                  <div class="chip orange darken-2 white-text" v-if="event.isFree">参加無料！</div>
+                </div>
+              </div>
+              <div class="text-small">情報元</div>
+              <a v-bind:href="event.url" target="_blank">{{ event.url }}</a>
+            </div>
+            <div class="card-reveal teal white-text" v-bind:class="{ orange: isHot(event) }">
+              <div class="row">
+                <div class="col s11">
+                  <p class="textarea url-content">{{ event.content }}</p>
+                  <p class="url-content right"><a v-bind:href="event.viewUrl">[シェアするためのページ]</a></p>
+                </div>
+                <div class="col s1">
+                  <span class="card-title"><i class="material-icons">close</i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <infinite-loading @infinite="addEvents">
+        <div slot="no-results"><i class="material-icons">directions_run</i> No event <i class="material-icons">directions_run</i></div>
+        <div slot="no-more"><i class="material-icons">directions_run</i> No more event <i class="material-icons">directions_run</i></div>
+      </infinite-loading>
+      <div>
+      <ins class="ad adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-1908478661707708"
+           data-ad-slot="9337347168"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      </div>
+
+    </div>
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large light-blue lighten-1" v-on:click.prevent="moveSearch"><i class="large material-icons circle-icons">arrow_upward</i></a>
+    </div>
+  </div>
+
+  <div layout:fragment="javascript">
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      var q = /*[[${q}]]*/'';
+      /*]]>*/
+    </script>
+    
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  
+    <script th:src="@{/js/eventsearch/script.js}"></script>
+  </div>
+
+</body>
+
+</html>

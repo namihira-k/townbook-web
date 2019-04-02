@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class EventSearchCondition {
 
+    private String name;
     private List<String> prefectureCodes;
     private List<String> stationCodes;
     private List<EventCategoryEnum> categpries;
