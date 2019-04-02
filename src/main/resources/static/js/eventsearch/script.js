@@ -1,11 +1,15 @@
 new Vue({
   el: '#app',
     
+  mixins: [commonUtil, datetimeUtil],
+  
   data () {
     return {
       events: [],
       q: q,
 
+      prefectures: [],      
+      
       totalCount: 0,
       page: 0,      
       
@@ -14,6 +18,12 @@ new Vue({
   },
   
   mounted () {
+    axios.get('/yorimichi/api/prefectures', {
+            params: {
+              hasEvents: true,
+            }})
+         .then(res => { this.prefectures = res.data.results; });    
+    
     axios.get('/yorimichi/api/eventsearch', {
             params: {
               q: this.q,
@@ -32,8 +42,8 @@ new Vue({
       axios.get('/yorimichi/api/eventsearch', {
               params: {
                 page: this.page,
-                q: this.q,                
-              }
+                q: this.q,
+              },
             })
            .then(res => {
               if (res.data.results.length > 0) {
@@ -44,6 +54,10 @@ new Vue({
                 $state.complete();
               }
       });
+    },
+    
+    isHot(event) {
+      return event.isFree;
     },
   
   },
