@@ -31,6 +31,8 @@ public interface EventDao extends PagingAndSortingRepository<EventDto, Integer> 
 
 	public Page<EventDto> findByStationCodeAndStartDateTimeAfter(String stationCode, LocalDateTime startDateTime, Pageable page);	
 
+    public Page<EventDto> findByNameContainingAndStartDateTimeAfter(String name, LocalDateTime startDateTime, Pageable page);
+
     public default Page<EventDto> findByCondition(EventSearchCondition condition, Pageable page) {
         if (CommonUtil.isNotEmpty(condition.getStationCodes())) {
             return findByStationCodeAndStartDateTimeAfterAndCategory(condition, page);
@@ -38,6 +40,10 @@ public interface EventDao extends PagingAndSortingRepository<EventDto, Integer> 
 
         if (CommonUtil.isNotEmpty(condition.getPrefectureCodes())) {
             return findByPrefectureCodeAndStartDateTimeAfterAndCategory(condition, page);
+        }
+        
+        if (CommonUtil.isNotEmpty(condition.getName())) {
+            return findByNameContainingAndStartDateTimeAfter(condition.getName(), condition.getStartDateTime(), page);
         }
         
         return findByStartDateTimeAfter(condition.getStartDateTime(), page);
