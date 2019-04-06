@@ -1,21 +1,21 @@
 .navbar-fixed { 
-	z-index: 9999;
+  z-index: 9999;
 }
 
 #id-search-form {
-  margin-left: 180px;
-  width: 400px;
+  margin-left: 100px;
+  width: 300px;
 }
 
 .textarea {
-	word-wrap: break-word;	
-	white-space: pre-wrap;
+  word-wrap: break-word;	
+  white-space: pre-wrap;
   display: block;	
 }
 
 .text-small {
-	font-size: 12px;
-	margin: 5px 0px;
+  font-size: 12px;
+  margin: 5px 0px;
 }
 
 .url-content a {
@@ -32,7 +32,7 @@
 }
 
 .ad {
-	margin: 10px;
+  margin: 10px;
 }
 
 hr {
@@ -49,7 +49,7 @@ i {
 .circle-icons {
   display: inline-block;
   position: relative;
-	top: 0px;
+  top: 0px;
 }
 
 .card-operation {
@@ -61,7 +61,7 @@ i {
 }
 
 #app-banner {
-  padding: 100px 0px;	
+  padding: 100px 0px;
 }
 
 footer {
