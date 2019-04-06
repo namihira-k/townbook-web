@@ -6,7 +6,6 @@ import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import jp.co.namihira.townbookweb.client.ServiceClient;
@@ -75,7 +74,7 @@ public class EventTask {
     @Autowired
     private EventService eventService;
     
-    @Scheduled(cron = "0 38 6 * * *")
+//    @Scheduled(cron = "0 38 6 * * *")
     public void initEventData() {
         twitterService.postDMtoAdmin("cron start initEventData");
         
