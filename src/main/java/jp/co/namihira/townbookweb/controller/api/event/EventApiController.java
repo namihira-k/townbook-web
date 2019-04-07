@@ -76,7 +76,7 @@ public class EventApiController extends AbstractApiController {
         if (CommonUtil.isNotEmpty(stationCode)) {
             condition.setStationCodes(CommonUtil.list(stationCode));            
         }
-        condition.setCategpries(category);
+        condition.setCategories(category);
         condition.setStartDateTime(from);
         final Page<EventDto> result = eventService.getEventList(condition, pageRequest);
 
