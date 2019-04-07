@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import jp.co.namihira.townbookweb.consts.EventTypeEnum;
 import jp.co.namihira.townbookweb.controller.api.AbstractApiController;
 import jp.co.namihira.townbookweb.controller.api.AppApiListResponse;
 import jp.co.namihira.townbookweb.controller.view.eventinfo.EventInfoController;
@@ -23,7 +24,6 @@ import jp.co.namihira.townbookweb.service.UrlService;
 import jp.co.namihira.townbookweb.service.event.EventSearchCondition;
 import jp.co.namihira.townbookweb.service.event.EventService;
 import jp.co.namihira.townbookweb.service.station.StationService;
-import jp.co.namihira.townbookweb.util.CommonUtil;
 
 @RestController
 public class EventSearchApiController extends AbstractApiController {
@@ -38,21 +38,20 @@ public class EventSearchApiController extends AbstractApiController {
     
     @Autowired
     private UrlService urlService;
+        
     
     @GetMapping(BASE_PATH)
     public AppApiListResponse get(
             @RequestParam(defaultValue = "") String q,
             @RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "4") Integer size
-    ) {
-        if (CommonUtil.isEmpty(q)) {
-            return new AppApiListResponse(0, CommonUtil.list());
-        }
-        
+            @RequestParam(defaultValue = "4") Integer size,
+            @RequestParam(required = false) List<EventTypeEnum> eventTypes
+    ) {        
         final PageRequest pageRequest = PageRequest.of(page, size, new Sort(Direction.ASC, "startDateTime"));
         final EventSearchCondition condition = new EventSearchCondition();
         condition.setName(q);
-        condition.setStartDateTime(LocalDateTime.now());        
+        condition.setStartDateTime(LocalDateTime.now());
+        condition.setEventTypes(eventTypes);
         
         Page<EventDto> result = eventService.getEventList(condition, pageRequest);
         

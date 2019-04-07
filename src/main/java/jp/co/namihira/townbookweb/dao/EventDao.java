@@ -33,20 +33,12 @@ public interface EventDao extends PagingAndSortingRepository<EventDto, Integer> 
 
     public Page<EventDto> findByNameContainingAndStartDateTimeAfter(String name, LocalDateTime startDateTime, Pageable page);
 
-    public default Page<EventDto> findByCondition(EventSearchCondition condition, Pageable page) {
-        if (CommonUtil.isNotEmpty(condition.getStationCodes())) {
-            return findByStationCodeAndStartDateTimeAfterAndCategory(condition, page);
-        }
-
-        if (CommonUtil.isNotEmpty(condition.getPrefectureCodes())) {
-            return findByPrefectureCodeAndStartDateTimeAfterAndCategory(condition, page);
-        }
-        
+    public default Page<EventDto> findByCondition(EventSearchCondition condition, Pageable page) {                
         if (CommonUtil.isNotEmpty(condition.getName())) {
             return findByNameContainingAndStartDateTimeAfter(condition.getName(), condition.getStartDateTime(), page);
         }
         
-        return findByStartDateTimeAfter(condition.getStartDateTime(), page);
+        return findByConditions(condition, page);
     }
 
     @Query(value = 
@@ -54,23 +46,15 @@ public interface EventDao extends PagingAndSortingRepository<EventDto, Integer> 
         "FROM EventDto e " +
         "JOIN e.eventCategoryDtos ec " +
         "WHERE 1 = 1 " + 
-        "  AND e.prefectureCode IN ( :#{#conditions.prefectureCodes} ) " +
+        "  AND ( COALESCE(:#{#conditions.prefectureCodes}) IS NULL OR e.prefectureCode IN ( :#{#conditions.prefectureCodes} ) ) " +
+        "  AND ( COALESCE(:#{#conditions.stationCodes}) IS NULL OR e.stationCode IN ( :#{#conditions.stationCodes} ) ) " +
+        "  AND ( :#{#conditions.isFree} IS NULL OR e.isFree = :#{#conditions.isFree} ) " +
         "  AND :#{#conditions.startDateTime} <= e.startDateTime " +
-        "  AND ec.eventCategory IN ( :#{#conditions.categpries} )"
+        "  AND ( COALESCE(:#{#conditions.categories}) IS NULL OR ec.eventCategory IN ( :#{#conditions.categories} ) )"
     )
-    public Page<EventDto> findByPrefectureCodeAndStartDateTimeAfterAndCategory(@Param("conditions") EventSearchCondition condition, Pageable page);
-
-    @Query(value = 
-        "SELECT e " +
-        "FROM EventDto e " +
-        "JOIN e.eventCategoryDtos ec " +
-        "WHERE 1 = 1 " + 
-        "  AND e.stationCode IN ( :#{#conditions.stationCodes} ) " +
-        "  AND :#{#conditions.startDateTime} <= e.startDateTime " +
-        "  AND ec.eventCategory IN ( :#{#conditions.categpries} )"
-    )    
-    public Page<EventDto> findByStationCodeAndStartDateTimeAfterAndCategory(@Param("conditions") EventSearchCondition condition, Pageable page);
+    public Page<EventDto> findByConditions(@Param("conditions") EventSearchCondition condition, Pageable page);    
     
+
 	@Query(value = 
 		"SELECT new jp.co.namihira.townbookweb.dto.StationStatsDto(e.stationCode, COUNT(e)) " +
 		"FROM EventDto e " +
