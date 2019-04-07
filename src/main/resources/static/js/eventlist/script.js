@@ -51,6 +51,24 @@ new Vue({
             this.totalCount = res.data.totalCount;
             this.events = res.data.results;
          });
+    
+    M.toast({
+      html: this.datetime,
+      classes: 'rounded orange',
+      displayLength: 60000,
+    });
+    
+    let self = this;
+    setInterval(function () {
+      self.updateTime();
+      
+      M.Toast.dismissAll();     
+      M.toast({
+        html: self.datetime,
+        classes: 'rounded orange',
+        displayLength: 60000,
+      });
+    }, 60000);
   },
   
   updated () {
