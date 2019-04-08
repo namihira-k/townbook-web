@@ -35,7 +35,8 @@ public class FukuyaShotenParser implements ServiceParser {
             String header = event.getElementsByTag("h3").text();
 
             FukuyaShotenEnum shop = null;
-            Pattern pHeader = Pattern.compile("(.+) \\| (.+)");
+            header = header.replace(" ", "").replace("　", "");
+            Pattern pHeader = Pattern.compile("(.+)\\|(.+)");
             Matcher mHeader = pHeader.matcher(header);
             if (mHeader.find()) {
                 final String title = mHeader.group(1);
