@@ -25,7 +25,10 @@ public class EventInfoController extends AbstractViewController {
     	// for twitter card
     	final EventDto event = eventService.find(uuid);
     	model.addAttribute("event", event);
-    	
+
+        model.addAttribute("prefectureCode", event.getPrefectureCode());
+        model.addAttribute("stationCode", event.getStationCode());
+        
         return "eventinfo/body";
     }
     
