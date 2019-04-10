@@ -8,7 +8,11 @@ new Vue({
       uuid: uuid,
       event: null,
       prefectures: [],
-
+      events: [],
+      
+      prefectureCode: prefectureCode,
+      stationCode: stationCode,
+      
       isProcess: true,
     };
   },
@@ -23,6 +27,18 @@ new Vue({
          })
          .then(() => {
            this.isProcess = false;
+         });
+    
+    axios.get('/yorimichi/api/events', {
+            params: {
+              prefectureCode: this.prefectureCode,
+              stationCode: this.stationCode,
+              page: 0,
+              size: 2,
+            },
+         })
+         .then(res => {
+            this.events = res.data.results;
          });
   },
     
