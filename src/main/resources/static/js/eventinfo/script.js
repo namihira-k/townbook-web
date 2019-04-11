@@ -34,11 +34,12 @@ new Vue({
               prefectureCode: this.prefectureCode,
               stationCode: this.stationCode,
               page: 0,
-              size: 2,
+              size: 3,
             },
          })
          .then(res => {
-            this.events = res.data.results;
+            this.events = res.data.results.filter(r => r.uuid !== this.uuid);
+            this.events.length = 2;
          });
   },
     
