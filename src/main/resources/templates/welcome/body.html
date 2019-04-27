@@ -56,55 +56,108 @@
       <hr>
 
       <div class="section">
-        <h5 class="center"><i class="material-icons small">place</i>注目のイベント</h5>
         <div class="row">
-          <div class="col m6 offset-m3 s12" v-for="event in events">
-            <div class="card sticky-action card-hot">
-              <div class="card-content activator">
-                <div class="row">
-                  <div class="col m11">
-                    <span class="card-title line-break center">{{ event.name }}</span>
-                  </div>
-                  <div class="col m1">
-                    <a class="btn-floating pulse right orange darken-2"><i class="material-icons circle-icons">menu</i></a>
-                  </div>
-                </div>
-                <div class="center">
-                  <span v-for="p in prefectures">
-                    <span v-if="p.code == event.prefectureCode">
-                      <span class="chip">{{ p.name }}</span>
-                    </span>
-                  </span>
-                  <span class="chip">{{ event.stationName }}</span>
-                  <span class="chip">{{ event.place }}<a v-bind:href="'https://maps.google.co.jp/maps?q=' + encodeURI(event.place)" target=”_blank”> [場所]</a></span>
-                  <hr>
-                  <div class="chip">開始：{{ event.startDateTime }}</div>
-                  <hr>
+          <div class="col m6 s12">          
+            <h5 class="center"><i class="material-icons small">place</i>注目のイベント</h5>
+            <div v-for="event in events">
+              <div class="card sticky-action card-hot">
+                <div class="card-content activator">
                   <div class="row">
-                    <div class="col m12">
-                      <span class="chip orange darken-2 white-text" v-if="isToday(event.startDateTime)">本日開催！</span>
-                      <span class="chip orange darken-2 white-text" v-if="event.isFree">当日参加可！</span>
-                      <span class="chip orange darken-2 white-text" v-if="event.isFree">参加無料！</span>
+                    <div class="col m11">
+                      <span class="card-title line-break center">{{ event.name }}</span>
+                    </div>
+                    <div class="col m1">
+                      <a class="btn-floating pulse right orange darken-2"><i class="material-icons circle-icons">menu</i></a>
                     </div>
                   </div>
-                  <div class="text-small">情報元</div>
-                  <a v-bind:href="event.url" target="_blank">{{ event.url }}</a>
-                </div>
-              </div>
-              <div class="card-reveal orange white-text">
-                <div class="row">
-                  <div class="col s11">
-                    <p class="textarea url-content">{{ event.content }}</p>
-                    <p class="url-content right"><a v-bind:href="event.viewUrl">[シェアするためのページ]</a></p>
+                  <div class="center">
+                    <span v-for="p in prefectures">
+                      <span v-if="p.code == event.prefectureCode">
+                        <span class="chip">{{ p.name }}</span>
+                      </span>
+                    </span>
+                    <span class="chip">{{ event.stationName }}</span>
+                    <span class="chip">{{ event.place }}<a v-bind:href="'https://maps.google.co.jp/maps?q=' + encodeURI(event.place)" target=”_blank”> [場所]</a></span>
+                    <hr>
+                    <div class="chip">開始：{{ event.startDateTime }}</div>
+                    <hr>
+                    <div class="row">
+                      <div class="col m12">
+                        <span class="chip orange darken-2 white-text" v-if="isToday(event.startDateTime)">本日開催！</span>
+                        <span class="chip orange darken-2 white-text" v-if="event.isFree">当日参加可！</span>
+                        <span class="chip orange darken-2 white-text" v-if="event.isFree">参加無料！</span>
+                      </div>
+                    </div>
+                    <div class="text-small">情報元</div>
+                    <a v-bind:href="event.url" target="_blank">{{ event.url }}</a>
                   </div>
-                  <div class="col s1">
-                    <span class="card-title"><i class="material-icons">close</i></span>
+                </div>
+                <div class="card-reveal orange white-text">
+                  <div class="row">
+                    <div class="col s11">
+                      <p class="textarea url-content">{{ event.content }}</p>
+                      <p class="url-content right"><a v-bind:href="event.viewUrl">[シェアするためのページ]</a></p>
+                    </div>
+                    <div class="col s1">
+                      <span class="card-title"><i class="material-icons">close</i></span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <div class="col m6 s12">
+            <h5 class="center"><i class="material-icons small">face</i>みんなのおすすめ</h5>
+            <div v-for="event in events">
+              <div class="card sticky-action card-hot">
+                <div class="card-content activator">
+                  <div class="row">
+                    <div class="col m11">
+                      <span class="card-title line-break center">{{ event.name }}</span>
+                    </div>
+                    <div class="col m1">
+                      <a class="btn-floating pulse right orange darken-2"><i class="material-icons circle-icons">menu</i></a>
+                    </div>
+                  </div>
+                  <div class="center">
+                    <span v-for="p in prefectures">
+                      <span v-if="p.code == event.prefectureCode">
+                        <span class="chip">{{ p.name }}</span>
+                      </span>
+                    </span>
+                    <span class="chip">{{ event.stationName }}</span>
+                    <span class="chip">{{ event.place }}<a v-bind:href="'https://maps.google.co.jp/maps?q=' + encodeURI(event.place)" target=”_blank”> [場所]</a></span>
+                    <hr>
+                    <div class="chip">開始：{{ event.startDateTime }}</div>
+                    <hr>
+                    <div class="row">
+                      <div class="col m12">
+                        <span class="chip orange darken-2 white-text" v-if="isToday(event.startDateTime)">本日開催！</span>
+                        <span class="chip orange darken-2 white-text" v-if="event.isFree">当日参加可！</span>
+                        <span class="chip orange darken-2 white-text" v-if="event.isFree">参加無料！</span>
+                      </div>
+                    </div>
+                    <div class="text-small">情報元</div>
+                    <a v-bind:href="event.url" target="_blank">{{ event.url }}</a>
+                  </div>
+                </div>
+                <div class="card-reveal orange white-text">
+                  <div class="row">
+                    <div class="col s11">
+                      <p class="textarea url-content">{{ event.content }}</p>
+                      <p class="url-content right"><a v-bind:href="event.viewUrl">[シェアするためのページ]</a></p>
+                    </div>
+                    <div class="col s1">
+                      <span class="card-title"><i class="material-icons">close</i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>        
         </div>
+        
       </div>
 
       <hr>
