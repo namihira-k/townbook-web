@@ -59,8 +59,7 @@ public class EventApiController extends AbstractApiController {
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "4") Integer size)
     {
-        final PageRequest pageRequest = PageRequest.of(page, size, new Sort(Direction.ASC, "recommended"));        
-        final Page<EventDto> events = eventService.getRecommended(pageRequest);
+        final Page<EventDto> events = eventService.getRecommended(page, size);
         
         final List<String> codes = events.stream().map(e -> e.getStationCode()).collect(Collectors.toList());
         final List<StationDto> stations = stationService.getStationsbyCode(codes);        
@@ -140,6 +139,8 @@ public class EventApiController extends AbstractApiController {
         result.setRecommended(LocalDateTime.now());
         eventService.save(result);
 
+        twitterService.postDMtoAdmin("recommend : " + result.getName());
+        
         return result;
     }
     
