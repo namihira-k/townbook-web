@@ -13,21 +13,23 @@ import jp.co.namihira.townbookweb.service.event.EventService;
 @Controller
 public class EventInfoController extends AbstractViewController {
     
-	public static final String path = "/eventinfo";
+    public static final String path = "/eventinfo";
 
-	@Autowired
-	private EventService eventService;
-	
+    @Autowired
+    private EventService eventService;
+
     @GetMapping(path)
     public String get(Model model, @RequestParam(required = false) String uuid) {
-    	model.addAttribute("uuid", uuid);
-    	
-    	// for twitter card
-    	final EventDto event = eventService.find(uuid);
-    	model.addAttribute("event", event);
+        model.addAttribute("uuid", uuid);
+        
+        // for twitter card
+        final EventDto event = eventService.find(uuid);
 
-        model.addAttribute("prefectureCode", event.getPrefectureCode());
-        model.addAttribute("stationCode", event.getStationCode());
+        if (event != null) {
+            model.addAttribute("event", event);
+            model.addAttribute("prefectureCode", event.getPrefectureCode());
+            model.addAttribute("stationCode", event.getStationCode());            
+        }
         
         return "eventinfo/body";
     }
