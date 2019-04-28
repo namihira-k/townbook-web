@@ -59,7 +59,7 @@
               <div class="chip orange darken-2 white-text" v-if="event.isFree">参加無料！</div>
             </div>
           </div>
-          <div class="row">				
+          <div class="row">
             <div class="col s12">
               <div class="text-small">詳細</div>
               <blockquote class="textarea">{{ event.content }}</blockquote>
@@ -67,14 +67,25 @@
               <div class="textarea url-content">{{ event.url }}</div>
             </div>
           </div>
-          <div class="row">       
+          <div class="row">
+            <div class="col s12">
+              <div v-if="!isRecommended">
+                <button class="waves-effect waves-light btn-small pulse" v-on:click.once="recommend">みんなにおすすめする</button>
+              </div>
+              <div v-else>
+                <button class="waves-effect waves-light btn-small disabled">おすすめしました</button>
+              </div>
+              <div class="text-small grey-text">「おすすめする」とホーム画面にこのイベント情報が表示されます</div>
+            </div>
+          </div>
+          <div class="row">
             <div class="col s12">
               <a class="waves-effect waves-light btn-small modal-trigger" href="#modalShareText">テキストでシェアする</a>
               <div class="text-small grey-text right">{{ event.uuid }}</div>
             </div>
           </div>
-				</div>
-			</div>
+        </div>
+      </div>
       
       <div class="section">
         <h5><i class="material-icons">loyalty</i>おすすめのイベント</h5>

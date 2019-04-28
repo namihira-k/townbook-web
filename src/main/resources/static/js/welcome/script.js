@@ -10,6 +10,8 @@ new Vue({
       
       prefectures: [],
       events: [],
+      
+      recommendedEvents: [],
     };
   },
 

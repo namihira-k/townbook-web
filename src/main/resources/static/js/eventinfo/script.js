@@ -14,6 +14,7 @@ new Vue({
       stationCode: stationCode,
       
       isProcess: true,
+      isRecommended: false,
     };
   },
     
@@ -48,6 +49,14 @@ new Vue({
   },
   
   methods: {
+    recommend () {
+      var path = '/yorimichi/api/events/' + uuid + '/recommend';
+      axios.post(path, {})
+           .then(() => {
+              this.isRecommended = true;
+           });
+    },
+    
     format () {
       $('.url-content').linkify({
         target: '_blank',
@@ -55,6 +64,10 @@ new Vue({
     },
         
     isHot(event) {
+      if (!event) {
+        return;
+      }
+      
       return event.isFree || this.isToday(event.startDateTime);
     },
      
