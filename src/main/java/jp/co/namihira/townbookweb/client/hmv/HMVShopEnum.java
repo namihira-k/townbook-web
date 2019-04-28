@@ -18,6 +18,7 @@ public enum HMVShopEnum {
     OMIYA("11", "21987", "HMV 大宮アルシェ", new String[]{"大宮"}),
     YONO("11", "22025", "HMV イオンモール与野", new String[]{"与野"}),
     URAWA("11", "29355", "HMV イオンモール浦和美園", new String[]{"浦和"}),
+    HANYU("11", "22103", "HMV イオンモール羽生", new String[]{"羽生"}), 
     KASHIWANOHA("12", "29404", "HMV ららぽーと柏の葉", new String[]{"柏の葉"}),
     IKEBUKURO("13", "22513", "HMV エソラ池袋", new String[]{"池袋"}),
     SHIBUYA("13", "22715", "HMV&BOOKS SHIBUYA", new String[]{"SHIBUYA"}),
