@@ -60,12 +60,18 @@ public class EventApiController extends AbstractApiController {
             @RequestParam(defaultValue = "4") Integer size)
     {
         final PageRequest pageRequest = PageRequest.of(page, size, new Sort(Direction.ASC, "recommended"));        
+        final Page<EventDto> events = eventService.getRecommended(pageRequest);
         
-        final Page<EventDto> result = eventService.getEventList(null, pageRequest);
+        final List<String> codes = events.stream().map(e -> e.getStationCode()).collect(Collectors.toList());
+        final List<StationDto> stations = stationService.getStationsbyCode(codes);        
+        events.stream().forEach(event -> {
+            Optional<StationDto> dto = StationService.getByCode(event.getStationCode(), stations);
+            dto.ifPresent(d -> event.setStationName(d.getName()));
+            event.setViewUrl(urlService.getContextPath() + "/view" + EventInfoController.path + "?uuid=" + event.getUuid());
+        });
         
-        return new AppApiListResponse(result.getTotalElements(), result.getContent());
+        return new AppApiListResponse(events.getTotalElements(), events.getContent());
     }
-    
     
     @GetMapping(BASE_PATH)
     public AppApiListResponse getList(
@@ -74,7 +80,8 @@ public class EventApiController extends AbstractApiController {
             @RequestParam(defaultValue = "") String prefectureCode,
             @RequestParam(defaultValue = "") String stationCode,
             @RequestParam(required = false) List<EventCategoryEnum> category,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate) {
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate)
+    {
         if (fromDate == null) {
             fromDate = LocalDate.now();
         }

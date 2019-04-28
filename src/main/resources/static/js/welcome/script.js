@@ -11,10 +11,24 @@ new Vue({
       prefectures: [],
       events: [],
       
-      recommendedEvents: [],
+      recommendEvents: [],
     };
   },
 
+  computed: {
+      hotEvent: function() {
+        return this.events[0];
+      },
+      
+      recommendEvent: function() {
+        if (this.recommendEvents.length > 0) {
+          return this.recommendEvents[0];
+        } else {
+          return this.events[1];
+        }
+      },
+  },
+  
   mounted () {
     axios.get('/yorimichi/api/prefectures', {
             params: {
@@ -30,7 +44,7 @@ new Vue({
     
     axios.get('/yorimichi/api/eventsearch', {
             params: {
-              size: 1,
+              size: 2,
               eventTypes: ['FREE'],
             },
             paramsSerializer: function(params) {
@@ -41,6 +55,14 @@ new Vue({
             this.events = res.data.results;
          });
     
+    axios.get('/yorimichi/api/events/recommended', {
+              params: {
+                size: 1,
+              }
+          })
+         .then(res => {
+             this.recommendEvents = res.data.results;
+         });    
   },
   
   methods: {

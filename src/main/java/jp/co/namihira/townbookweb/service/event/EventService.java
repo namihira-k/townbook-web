@@ -69,7 +69,7 @@ public class EventService {
     }
     
     public Page<EventDto> getRecommended(final PageRequest pageRequest) {
-        return eventDao.findByStartDateTimeAfter(LocalDateTime.now(), pageRequest);
+        return eventDao.findByRecommendedIsNotNullAndStartDateTimeAfter(LocalDateTime.now(), pageRequest);
     }
     
     
