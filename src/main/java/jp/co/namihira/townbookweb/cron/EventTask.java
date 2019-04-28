@@ -74,7 +74,7 @@ public class EventTask {
     @Autowired
     private EventService eventService;
     
-//    @Scheduled(cron = "0 11 22 * * *")
+//    @Scheduled(cron = "0 33 17 * * *")
 //    @Scheduled(cron = "0 0 6 * * 6")
     public void initEventData() {
         logger.info("called initEventData");

@@ -87,6 +87,7 @@ public class BeanLifeCycle {
         
         if (initData) {
             twitterService.postDMtoAdmin("start initEventData");
+            
             initEventData(hontoClent, hontoParser);
             initEventData(sanseidoClient, sanseidoParser);
             initEventData(towerRecordsClient, towerRecordsParser);
@@ -94,6 +95,7 @@ public class BeanLifeCycle {
             initEventData(hmvClient, hmvParser);
             initEventData(fukuyaShotenClient, fukuyaShotenParser);
             initEventData(shosenClient, shosenParser);
+            
             twitterService.postDMtoAdmin("completed initEventData");
         }
     }
