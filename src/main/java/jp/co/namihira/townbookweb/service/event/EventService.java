@@ -68,6 +68,11 @@ public class EventService {
         return eventDao.findByStartDateTimeAfter(LocalDateTime.now(), pageRequest).getContent().get(0);
     }
     
+    public Page<EventDto> getRecommended(final PageRequest pageRequest) {
+        return eventDao.findByStartDateTimeAfter(LocalDateTime.now(), pageRequest);
+    }
+    
+    
     public Page<EventDto> getEventList(final EventSearchCondition condition, final PageRequest pageRequest) {
         return eventDao.findByCondition(condition, pageRequest);
     }

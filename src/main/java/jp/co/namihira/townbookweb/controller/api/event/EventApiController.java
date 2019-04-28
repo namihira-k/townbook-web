@@ -54,6 +54,19 @@ public class EventApiController extends AbstractApiController {
         return eventService.save(eventDto);
     }
 
+    @GetMapping(BASE_PATH + "/recommended")
+    public AppApiListResponse getRecommended(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "4") Integer size)
+    {
+        final PageRequest pageRequest = PageRequest.of(page, size, new Sort(Direction.ASC, "recommended"));        
+        
+        final Page<EventDto> result = eventService.getEventList(null, pageRequest);
+        
+        return new AppApiListResponse(result.getTotalElements(), result.getContent());
+    }
+    
+    
     @GetMapping(BASE_PATH)
     public AppApiListResponse getList(
             @RequestParam(defaultValue = "0") Integer page,
@@ -110,4 +123,18 @@ public class EventApiController extends AbstractApiController {
         return result;
     }
 
+    @PostMapping(BASE_PATH + "/{uuid}/recommend")
+    public EventDto recommended(@PathVariable String uuid) {
+        final EventDto result = eventService.find(uuid);
+        if (result == null) {
+            return null;
+        }
+
+        result.setRecommended(LocalDateTime.now());
+        eventService.save(result);
+
+        return result;
+    }
+    
+    
 }

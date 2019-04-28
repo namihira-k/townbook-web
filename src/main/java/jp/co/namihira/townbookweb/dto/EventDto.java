@@ -51,7 +51,10 @@ public class EventDto extends AbstractDto implements Cloneable {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     public LocalDateTime endDateTime;
-
+    
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    public LocalDateTime recommended;
+    
     public String conditions;
 
     public Boolean isFree = false;
