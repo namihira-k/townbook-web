@@ -67,11 +67,11 @@ public class EventService {
         final PageRequest pageRequest = PageRequest.of(0, 1, new Sort(Direction.ASC, "startDateTime"));
         return eventDao.findByStartDateTimeAfter(LocalDateTime.now(), pageRequest).getContent().get(0);
     }
-    
-    public Page<EventDto> getRecommended(final PageRequest pageRequest) {
+
+    public Page<EventDto> getRecommended(final int page, final int size) {
+        final PageRequest pageRequest = PageRequest.of(page, size, new Sort(Direction.DESC, "recommended"));
         return eventDao.findByRecommendedIsNotNullAndStartDateTimeAfter(LocalDateTime.now(), pageRequest);
     }
-    
     
     public Page<EventDto> getEventList(final EventSearchCondition condition, final PageRequest pageRequest) {
         return eventDao.findByCondition(condition, pageRequest);
