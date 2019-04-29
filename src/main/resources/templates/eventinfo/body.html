@@ -175,16 +175,17 @@
            data-full-width-responsive="true"></ins>
       
 		</div>
-		
 	  <div id="modalShareText" class="modal">
 	    <div class="modal-content" v-if="event">
 	      <h6> <i class="material-icons">share</i>テキストをコピーしてシェアしてください</h6>
+        <a class="btn waves-effect waves-teal white black-text " data-clipboard-target="#id-event-text" v-on:click="isCopied = true"><i class="material-icons">content_copy</i>コピーする</a>
+        <p v-show="isCopied">コピーしました</p>
 	      <div class="card-panel">
-	        <p>【{{ event.startDateTime }}、{{ event.place }}】<br>{{ event.name }}<br>{{ event.viewUrl }}</p>
+	        <p id="id-event-text">【{{ event.startDateTime }}、{{ event.place }}】<br>{{ event.name }}<br>{{ event.viewUrl }}</p>
         </div>
 	    </div>
 	    <div class="modal-footer">
-	      <a href="#!" class="modal-close waves-effect waves-green btn-flat"><i class="material-icons">close</i></a>
+	      <a href="#!" class="modal-close btn-flat" v-on:click="isCopied = false"><i class="material-icons">close</i></a>
 	    </div>
 	  </div>
 		
