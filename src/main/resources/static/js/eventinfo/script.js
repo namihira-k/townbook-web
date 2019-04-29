@@ -52,10 +52,12 @@ new Vue({
   
   methods: {
     recommend () {
+      this.isProcess = true;
       var path = '/yorimichi/api/events/' + uuid + '/recommend';
       axios.post(path, {})
            .then(() => {
               this.isRecommended = true;
+              this.isProcess = false;
            });
     },
     
