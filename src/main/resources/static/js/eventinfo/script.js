@@ -15,6 +15,7 @@ new Vue({
       
       isProcess: true,
       isRecommended: false,
+      isCopied: false,
     };
   },
     
