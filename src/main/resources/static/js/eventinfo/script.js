@@ -40,7 +40,9 @@ new Vue({
          })
          .then(res => {
             this.events = res.data.results.filter(r => r.uuid !== this.uuid);
-            this.events.length = 2;
+            if (3 <= this.events.length) {
+              this.events.length = 2;
+            }
          });
   },
     
