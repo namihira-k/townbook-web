@@ -57,9 +57,22 @@
 
       <div class="section">
         <div class="row">
-          <div class="col m6 s12" v-if="hotEvent">          
+          <div class="col m6 s12">
             <h5 class="center"><i class="material-icons small">place</i>注目のイベント</h5>
-            <div class="card sticky-action card-hot">
+            <div class="center" v-if="!hotEvent">
+              <div class="preloader-wrapper active">
+                <div class="spinner-layer spinner-green-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>            
+            </div>
+            <div class="card sticky-action card-hot" v-else>
               <div class="card-content activator">
                 <div class="row">
                   <div class="col m11">
@@ -102,10 +115,22 @@
               </div>
             </div>
           </div>
-          
-          <div class="col m6 s12" v-if="recommendEvent">
+          <div class="col m6 s12">
             <h5 class="center"><i class="material-icons small">face</i>みんなのおすすめ</h5>
-            <div class="card sticky-action card-hot">
+            <div class="center" v-if="!recommendEvent">
+              <div class="preloader-wrapper active">
+                <div class="spinner-layer spinner-green-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>            
+            </div>
+            <div class="card sticky-action card-hot" v-else>
               <div class="card-content activator">
                 <div class="row">
                   <div class="col m11">
@@ -157,7 +182,20 @@
       <hr>
       <div id="event-info" class="section">
         <h5 class="center"><i class="material-icons small">bubble_chart</i>今日と明日のイベント</h5>
-        <div class="row">
+        <div class="center" v-if="!stationStats.length">
+          <div class="preloader-wrapper active">
+            <div class="spinner-layer spinner-green-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>        
+        </div>
+        <div class="row" v-else>
           <div class="col l4 m6 s12">
             <div class="row">
               <h6 class="center">東京のイベント</h6>
@@ -252,9 +290,8 @@
         <div class="center">
           <a th:href="@{/view/eventlist}" class="btn-large waves-effect waves-light">その他のイベントを探す</a>
            <p>全 {{ eventStats.totalCount }} イベント</p>
-        </div>
+        </div>          
       </div>
-   
     </div>
   </div>
 
