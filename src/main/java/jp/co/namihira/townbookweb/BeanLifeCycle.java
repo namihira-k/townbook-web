@@ -103,6 +103,7 @@ public class BeanLifeCycle {
     @PreDestroy
     public void cleanupBeforeExit() {
         logger.info("cleanupBeforeExit");
+        twitterService.postDMtoAdmin("townbook is DOWN !");
     }
 
     private void initEventData(ServiceClient client, ServiceParser parser) {

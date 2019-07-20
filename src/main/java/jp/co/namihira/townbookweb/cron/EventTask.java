@@ -6,6 +6,7 @@ import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import jp.co.namihira.townbookweb.client.ServiceClient;
@@ -81,7 +82,7 @@ public class EventTask {
     @Autowired
     private EventService eventService;
     
-//    @Scheduled(cron = "0 56 12 * * *")
+    @Scheduled(cron = "0 0 21 * * *")
     public void initEventData() {
         final String msg = "initEventData";
         
@@ -106,7 +107,7 @@ public class EventTask {
         logEnd(msg);
     }
 
-//    @Scheduled(cron = "0 58 12 * * *")
+    @Scheduled(cron = "0 5 21 * * *")
     public void initTowerRecordsEventData() {
         final String msg = "TowerRecords";
         
@@ -118,7 +119,7 @@ public class EventTask {
         logEnd(msg);
     }
     
-//    @Scheduled(cron = "0 0 13 * * *")
+    @Scheduled(cron = "0 10 21 * * *")
     public void initHmvEventData() {
         final String msg = "HMV";
         
