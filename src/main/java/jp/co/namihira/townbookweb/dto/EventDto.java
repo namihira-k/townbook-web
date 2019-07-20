@@ -3,6 +3,7 @@ package jp.co.namihira.townbookweb.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -61,6 +62,7 @@ public class EventDto extends AbstractDto implements Cloneable {
 
     public String url;
 
+    @Column(length = 1024)
     public String content;
 
     public String uuid;
