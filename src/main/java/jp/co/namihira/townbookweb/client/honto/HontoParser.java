@@ -38,11 +38,13 @@ public class HontoParser implements ServiceParser {
 
             final String shopName = contentEL.getElementsByClass("stMarginB05").first().text();
             if (shopName.contains(MaruzenShopEnum.SHOP_NAME)) {
+                eventDto.setOrgCode(MaruzenShopEnum.ORG_CODE);
                 final MaruzenShopEnum shop = MaruzenShopEnum.getShopbyName(shopName);
                 eventDto.setPlace(shop.getName());
                 eventDto.setPrefectureCode(shop.getPrefectureCode());
                 eventDto.setStationCode(shop.getStationCode());
             } else if (shopName.contains(JunkudoShopEnum.SHOP_NAME)) {
+                eventDto.setOrgCode(JunkudoShopEnum.ORG_CODE);
                 final JunkudoShopEnum shop = JunkudoShopEnum.getShopbyName(shopName);
                 eventDto.setPlace(shop.getName());
                 eventDto.setPrefectureCode(shop.getPrefectureCode());

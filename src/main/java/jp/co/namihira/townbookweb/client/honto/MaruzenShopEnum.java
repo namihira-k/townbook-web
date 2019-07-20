@@ -24,6 +24,7 @@ public enum MaruzenShopEnum {
     private final String name;
     private final String[] identifier;
     
+    public static final String ORG_CODE = "maruzen";
     public static final String SHOP_NAME = "丸善";
 
     public static MaruzenShopEnum getShopbyName(final String name) {

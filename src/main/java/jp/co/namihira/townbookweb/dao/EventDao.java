@@ -79,5 +79,5 @@ public interface EventDao extends PagingAndSortingRepository<EventDto, Integer> 
 	)
 	public List<PrefectureDto> findPrefectures(@Param("from") LocalDateTime from);
 
-	
+    public void deleteByOrgCodeIn(List<String> OrgCodes);
 }

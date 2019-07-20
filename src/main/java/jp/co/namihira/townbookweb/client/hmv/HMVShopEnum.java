@@ -50,6 +50,8 @@ public enum HMVShopEnum {
     private final String name;
     private final String[] identifier;
 
+    public static final String ORG_CODE = "hmv";
+    
     public static HMVShopEnum getShopbyName(final String name) {
         Optional<HMVShopEnum> result = Stream.of(HMVShopEnum.values())
                                              .filter(shop -> CommonUtil.contains(name, shop.getIdentifier()))

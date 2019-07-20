@@ -31,6 +31,7 @@ public class KinokuniyaParser implements ServiceParser {
 
         for (Element eventEL : eventELs) {
             final EventDto event = new EventDto();
+            event.setOrgCode(KinokuniyaEnum.ORG_CODE);
 
             final Element contentEL = eventEL.getElementsByClass("listUnitCap").first();
             event.setContent(contentEL.text());
