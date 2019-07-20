@@ -38,6 +38,8 @@ public class EventDto extends AbstractDto implements Cloneable {
 
     public String name;
 
+    public String orgCode;
+    
     public String place;
 
     public String prefectureCode;

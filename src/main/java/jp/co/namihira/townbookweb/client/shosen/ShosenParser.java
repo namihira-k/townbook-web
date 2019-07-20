@@ -26,6 +26,7 @@ public class ShosenParser implements ServiceParser {
 		
 		for (Element eventEL : eventELs) {
 			final EventDto event = new EventDto();
+            event.setOrgCode(ShosenEnum.ORG_CODE);
 			
 			final Element datetimeEL = eventEL.getElementsByClass("date").first();
 			final String datetimeStr = datetimeEL.text().replace("：", ":").replace("時", ":00");

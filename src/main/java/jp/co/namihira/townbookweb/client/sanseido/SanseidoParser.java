@@ -34,7 +34,8 @@ public class SanseidoParser implements ServiceParser {
 		
 		for (Element eventEL : eventELs) {
 			final EventDto eventDto = new EventDto();
-			
+            eventDto.setOrgCode(SanseidoShopEnum.ORG_CODE);
+
 			final Element headerEL = eventEL.getElementsByClass("news_txt").first();
 			final String title = headerEL.getElementsByTag("a").first().text();
 			eventDto.setName(title);			

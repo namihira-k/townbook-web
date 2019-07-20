@@ -32,6 +32,8 @@ public class FukuyaShotenParser implements ServiceParser {
 
         for (Element event : events) {
             final EventDto eventDto = new EventDto();
+            eventDto.setOrgCode(FukuyaShotenEnum.ORG_CODE);
+            
             String header = event.getElementsByTag("h3").text();
 
             FukuyaShotenEnum shop = null;

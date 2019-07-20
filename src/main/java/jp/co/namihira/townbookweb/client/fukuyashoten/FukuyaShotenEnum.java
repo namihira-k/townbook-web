@@ -19,6 +19,8 @@ public enum FukuyaShotenEnum {
 	private final String stationCode;
     private final String name;
     private final String[] identifier;
+
+    public static final String ORG_CODE = "fukuyaShoten";
     
     public static FukuyaShotenEnum getShopbyName(final String name) {
     	Optional<FukuyaShotenEnum> result = Stream.of(FukuyaShotenEnum.values())

@@ -33,6 +33,8 @@ public class HMVParser implements ServiceParser {
 
         for (Element eventEL : eventELs) {
             EventDto eventDto = new EventDto();
+            
+            eventDto.setOrgCode(HMVShopEnum.ORG_CODE);
         
             final String person = eventEL.getElementsByTag("dt").first().text();
             final String title = eventEL.getElementsByClass("eventTitle").first().text();

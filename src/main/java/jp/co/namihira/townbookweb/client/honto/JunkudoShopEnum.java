@@ -25,6 +25,7 @@ public enum JunkudoShopEnum {
     private final String name;
     private final String[] identifier;
 
+    public static final String ORG_CODE = "junkudo";
     public static final String SHOP_NAME = "ジュンク堂書店";
     
     public static JunkudoShopEnum getShopbyName(final String name) {

@@ -30,6 +30,8 @@ public enum KinokuniyaEnum {
 	private final String stationCode;
     private final String name;
     private final String[] identifier;
+
+    public static final String ORG_CODE = "kinokuniya";    
     
 	private static final List<String> KEYWORDS_FREE = CommonUtil.list(
 			"観覧はフリー",

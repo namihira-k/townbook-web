@@ -19,6 +19,8 @@ public enum ShosenEnum {
 	private final String stationCode;
     private final String name;
     private final String[] identifier;
+
+    public static final String ORG_CODE = "shosen";
     
     public static ShosenEnum getShopbyName(final String name) {
     	Optional<ShosenEnum> result = Stream.of(ShosenEnum.values())

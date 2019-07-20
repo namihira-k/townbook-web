@@ -22,7 +22,9 @@ public enum SanseidoShopEnum {
 	private final String stationCode;
     private final String name;
     private final String[] identifier;
-	
+
+    public static final String ORG_CODE = "sanseido";
+    
     public static SanseidoShopEnum getShopbyName(final String name) {
     	Optional<SanseidoShopEnum> result = Stream.of(SanseidoShopEnum.values())
     			                                  .filter(shop -> CommonUtil.contains(name, shop.getIdentifier()))

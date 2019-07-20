@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.namihira.townbookweb.client.ekispert.EkispertClient;
 import jp.co.namihira.townbookweb.client.ekispert.Point;
@@ -24,6 +25,7 @@ import jp.co.namihira.townbookweb.service.station.StationService;
 import jp.co.namihira.townbookweb.util.CommonUtil;
 
 @Service
+@Transactional
 public class EventService {
 
     @Autowired
@@ -116,4 +118,8 @@ public class EventService {
         eventDao.deleteAll();
     }
 
+    public void deleteByOrgCode(final String orgCode) {
+        eventDao.deleteByOrgCodeIn(CommonUtil.list(orgCode));
+    }
+    
 }

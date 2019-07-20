@@ -34,7 +34,9 @@ public enum TowerRecordsShopEnum {
 	private final String prefectureCode;
 	private final String stationCode;
     private final String name;
-	
+
+    public static final String ORG_CODE = "towerRecords";
+    
     public static TowerRecordsShopEnum getShopbyName(final String name) {
     	Optional<TowerRecordsShopEnum> result = Stream.of(TowerRecordsShopEnum.values())
     			                                      .filter(shop -> shop.getName().contains(name))

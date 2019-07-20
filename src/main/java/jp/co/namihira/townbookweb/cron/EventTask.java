@@ -11,19 +11,26 @@ import org.springframework.stereotype.Component;
 import jp.co.namihira.townbookweb.client.ServiceClient;
 import jp.co.namihira.townbookweb.client.ServiceParser;
 import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenClient;
+import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenEnum;
 import jp.co.namihira.townbookweb.client.fukuyashoten.FukuyaShotenParser;
 import jp.co.namihira.townbookweb.client.hmv.HMVClient;
 import jp.co.namihira.townbookweb.client.hmv.HMVParser;
+import jp.co.namihira.townbookweb.client.hmv.HMVShopEnum;
 import jp.co.namihira.townbookweb.client.honto.HontoClient;
 import jp.co.namihira.townbookweb.client.honto.HontoParser;
+import jp.co.namihira.townbookweb.client.honto.JunkudoShopEnum;
+import jp.co.namihira.townbookweb.client.honto.MaruzenShopEnum;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaClient;
+import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaEnum;
 import jp.co.namihira.townbookweb.client.kinokuniya.KinokuniyaParser;
 import jp.co.namihira.townbookweb.client.sanseido.SanseidoClient;
 import jp.co.namihira.townbookweb.client.sanseido.SanseidoParser;
+import jp.co.namihira.townbookweb.client.sanseido.SanseidoShopEnum;
 import jp.co.namihira.townbookweb.client.shosen.ShosenClient;
 import jp.co.namihira.townbookweb.client.shosen.ShosenParser;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsClient;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsParser;
+import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsShopEnum;
 import jp.co.namihira.townbookweb.dto.EventDto;
 import jp.co.namihira.townbookweb.service.event.EventService;
 import jp.co.namihira.townbookweb.service.twitter.TwitterService;
@@ -74,24 +81,56 @@ public class EventTask {
     @Autowired
     private EventService eventService;
     
-//    @Scheduled(cron = "0 33 17 * * *")
-//    @Scheduled(cron = "0 0 6 * * 6")
+//    @Scheduled(cron = "0 56 12 * * *")
     public void initEventData() {
-        logger.info("called initEventData");
-        twitterService.postDMtoAdmin("cron start initEventData");
+        final String msg = "initEventData";
         
-        eventService.deleteAll();        
+        logStart(msg);
+        
+        eventService.deleteByOrgCode(JunkudoShopEnum.ORG_CODE);
+        eventService.deleteByOrgCode(MaruzenShopEnum.ORG_CODE);
         initEventData(hontoClent, hontoParser);
+
+        eventService.deleteByOrgCode(SanseidoShopEnum.ORG_CODE);        
         initEventData(sanseidoClient, sanseidoParser);
-        initEventData(towerRecordsClient, towerRecordsParser);
+
+        eventService.deleteByOrgCode(KinokuniyaEnum.ORG_CODE);        
         initEventData(kinokuniyaClient, kinokuniyaParser);
-        initEventData(hmvClient, hmvParser);
+
+        eventService.deleteByOrgCode(FukuyaShotenEnum.ORG_CODE);        
         initEventData(fukuyaShotenClient, fukuyaShotenParser);
+
+        eventService.deleteByOrgCode(SanseidoShopEnum.ORG_CODE);        
         initEventData(shosenClient, shosenParser);
         
-        twitterService.postDMtoAdmin("cron completed initEventData");        
+        logEnd(msg);
     }
 
+//    @Scheduled(cron = "0 58 12 * * *")
+    public void initTowerRecordsEventData() {
+        final String msg = "TowerRecords";
+        
+        logStart(msg);
+        
+        eventService.deleteByOrgCode(TowerRecordsShopEnum.ORG_CODE);
+        initEventData(towerRecordsClient, towerRecordsParser);
+        
+        logEnd(msg);
+    }
+    
+//    @Scheduled(cron = "0 0 13 * * *")
+    public void initHmvEventData() {
+        final String msg = "HMV";
+        
+        logStart(msg);
+        
+        eventService.deleteByOrgCode(HMVShopEnum.ORG_CODE);
+        initEventData(hmvClient, hmvParser);
+        
+        logEnd(msg);
+    }
+    
+    
     private void initEventData(ServiceClient client, ServiceParser parser) {
         try {
             List<Document> docs = client.getEventPages();
@@ -103,4 +142,15 @@ public class EventTask {
         }
     }
     
+    private void logStart(final String msg) {
+        logger.info("cron start : " + msg);
+        twitterService.postDMtoAdmin("cron start : " + msg);
+    }
+    
+    private void logEnd(final String msg) {
+        logger.info("cron end : " + msg);
+        twitterService.postDMtoAdmin("cron end : " + msg);
+    }
+
+        
 }

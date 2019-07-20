@@ -35,6 +35,8 @@ public class TowerRecordsParser implements ServiceParser {
 			
 		for (int i = 1; i < tbodies.size(); i++) {
 			final EventDto dto = new EventDto();
+            dto.setOrgCode(TowerRecordsShopEnum.ORG_CODE);
+			
 			Elements infos = tbodies.get(i).getElementsByTag("td");
 
 			Element eventEL = infos.get(2).getElementsByTag("a").first();
