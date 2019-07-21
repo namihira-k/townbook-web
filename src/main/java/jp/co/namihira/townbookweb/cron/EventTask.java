@@ -28,6 +28,7 @@ import jp.co.namihira.townbookweb.client.sanseido.SanseidoClient;
 import jp.co.namihira.townbookweb.client.sanseido.SanseidoParser;
 import jp.co.namihira.townbookweb.client.sanseido.SanseidoShopEnum;
 import jp.co.namihira.townbookweb.client.shosen.ShosenClient;
+import jp.co.namihira.townbookweb.client.shosen.ShosenEnum;
 import jp.co.namihira.townbookweb.client.shosen.ShosenParser;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsClient;
 import jp.co.namihira.townbookweb.client.towerrecords.TowerRecordsParser;
@@ -101,7 +102,7 @@ public class EventTask {
         eventService.deleteByOrgCode(FukuyaShotenEnum.ORG_CODE);        
         initEventData(fukuyaShotenClient, fukuyaShotenParser);
 
-        eventService.deleteByOrgCode(SanseidoShopEnum.ORG_CODE);        
+        eventService.deleteByOrgCode(ShosenEnum.ORG_CODE);        
         initEventData(shosenClient, shosenParser);
         
         logEnd(msg);
