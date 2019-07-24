@@ -14,6 +14,7 @@ public enum JunkudoShopEnum {
     MINAMIFUNABASHI("12", "22457", "ジュンク堂書店 南船橋店", new String[]{"南船橋"}),
     IKEBUKURO("13", "22513", "ジュンク堂書店 池袋本店", new String[]{"池袋"}),
     KICHIJOJI("13", "22637", "ジュンク堂書店 吉祥寺店", new String[]{"吉祥寺"}),
+    KOFU("19", "23408", "ジュンク堂書店 岡島甲府店", new String[] {"甲府"}),
     OSAKA("27", "29160", "ジュンク堂書店 大阪本店", new String[]{"大阪"}),
     AKASHI("28", "26377", "ジュンク堂書店 明石店", new String[]{"明石"}),
     FUKUOKA("40", "28236", "ジュンク堂書店 福岡店", new String[]{"福岡"}),
