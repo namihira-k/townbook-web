@@ -20,10 +20,10 @@ new Vue({
   },
     
   mounted () {
-    axios.get('/yorimichi/api/prefectures')
+    axios.get('/api/prefectures')
          .then(res => { this.prefectures = res.data.results; });    
 
-    axios.get('/yorimichi/api/events/' + this.uuid)
+    axios.get('/api/events/' + this.uuid)
          .then(res => {
            this.event = res.data;
          })
@@ -31,7 +31,7 @@ new Vue({
            this.isProcess = false;
          });
     
-    axios.get('/yorimichi/api/events', {
+    axios.get('/api/events', {
             params: {
               prefectureCode: this.prefectureCode,
               stationCode: this.stationCode,
@@ -54,7 +54,7 @@ new Vue({
   methods: {
     recommend () {
       this.isProcess = true;
-      var path = '/yorimichi/api/events/' + uuid + '/recommend';
+      var path = '/api/events/' + uuid + '/recommend';
       axios.post(path, {})
            .then(() => {
               this.isRecommended = true;

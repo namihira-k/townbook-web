@@ -14,7 +14,7 @@ new Vue({
 		};
   },
   mounted () {
-  	axios.get('/yorimichi/api/prefectures')
+  	axios.get('/api/prefectures')
          .then(res => { this.prefectures = res.data.results; });    
   },
   methods: {

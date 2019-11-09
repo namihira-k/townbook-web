@@ -14,7 +14,7 @@ new Vue({
   methods: {
     post () {
       this.isProcess = true;
-      axios.post('/yorimichi/api/eventrequests', this.event)
+      axios.post('/api/eventrequests', this.event)
            .then(() => {
               this.isProcess = false;
               this.isDone = true;

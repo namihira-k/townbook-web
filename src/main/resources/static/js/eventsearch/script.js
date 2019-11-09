@@ -18,13 +18,13 @@ new Vue({
   },
   
   mounted () {
-    axios.get('/yorimichi/api/prefectures', {
+    axios.get('/api/prefectures', {
             params: {
               hasEvents: true,
             }})
          .then(res => { this.prefectures = res.data.results; });    
     
-    axios.get('/yorimichi/api/eventsearch', {
+    axios.get('/api/eventsearch', {
             params: {
               q: this.q,
             },
@@ -39,7 +39,7 @@ new Vue({
 
     addEvents ($state) {
       this.page += 1;
-      axios.get('/yorimichi/api/eventsearch', {
+      axios.get('/api/eventsearch', {
               params: {
                 page: this.page,
                 q: this.q,

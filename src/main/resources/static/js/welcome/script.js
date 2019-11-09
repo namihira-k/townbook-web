@@ -30,19 +30,19 @@ new Vue({
   },
   
   mounted () {
-    axios.get('/yorimichi/api/prefectures', {
+    axios.get('/api/prefectures', {
             params: {
               hasEvents: true,
             }})
          .then(res => { this.prefectures = res.data.results; });    
     
-    axios.get('/yorimichi/api/stats/station')
+    axios.get('/api/stats/station')
          .then(res => { this.stationStats = res.data.results; });
 
-    axios.get('/yorimichi/api/stats/event')
+    axios.get('/api/stats/event')
          .then(res => { this.eventStats = res.data; });
     
-    axios.get('/yorimichi/api/eventsearch', {
+    axios.get('/api/eventsearch', {
             params: {
               size: 2,
               eventTypes: ['FREE'],
@@ -55,7 +55,7 @@ new Vue({
             this.events = res.data.results;
          });
     
-    axios.get('/yorimichi/api/events/recommended', {
+    axios.get('/api/events/recommended', {
               params: {
                 size: 1,
               }
