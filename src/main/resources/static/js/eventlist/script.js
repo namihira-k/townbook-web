@@ -25,19 +25,19 @@ new Vue({
   },
   
   mounted () {
-    axios.get('/yorimichi/api/prefectures', {
+    axios.get('/api/prefectures', {
             params: {
               hasEvents: true,
             }})
          .then(res => { this.prefectures = res.data.results; });    
 
-    axios.get('/yorimichi/api/stations', {
+    axios.get('/api/stations', {
             params: {
               prefectureCode: this.prefectureCode
             }})
          .then(res => { this.stations = res.data.results; });  	
 
-    axios.get('/yorimichi/api/events', {
+    axios.get('/api/events', {
             params: {
               prefectureCode: this.prefectureCode,
               stationCode: this.stationCode,
@@ -98,7 +98,7 @@ new Vue({
     },
 
     getStations () {
-      axios.get('/yorimichi/api/stations', {
+      axios.get('/api/stations', {
         params: {
           prefectureCode: this.prefectureCode
         }
@@ -110,7 +110,7 @@ new Vue({
 
       this.page = 0;
       this.fromDate = M.Datepicker.getInstance($('#startDate')).el.value;    	
-      axios.get('/yorimichi/api/events', {
+      axios.get('/api/events', {
               params: {
                 page: this.page,
                 prefectureCode: this.prefectureCode,
@@ -132,7 +132,7 @@ new Vue({
     
     addEvents ($state) {
       this.page += 1;
-      axios.get('/yorimichi/api/events', {
+      axios.get('/api/events', {
               params: {
                 page: this.page,
                 prefectureCode: this.prefectureCode,
