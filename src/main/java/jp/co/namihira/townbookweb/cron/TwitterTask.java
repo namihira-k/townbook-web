@@ -37,7 +37,7 @@ public class TwitterTask {
         sb.append("【").append(eventDto.getStartDateTime().format(fm)).append("、").append(eventDto.getPlace()).append("】").append("\n")
           .append(eventDto.getName()).append("\n");
         
-        eventDto.setViewUrl(urlService.getBaseUrl() + "/view" + EventInfoController.path + "?uuid=" + eventDto.getUuid());
+        eventDto.setViewUrl(urlService.getBaseUrl() + "view" + EventInfoController.path + "?uuid=" + eventDto.getUuid());
         sb.append(eventDto.getViewUrl()).append("\n");
         
         sb.append("【当日参加可！】【参加無料！】").append("\n");
