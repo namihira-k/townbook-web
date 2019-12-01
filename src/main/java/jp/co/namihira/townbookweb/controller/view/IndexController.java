@@ -16,7 +16,7 @@ public class IndexController {
 	
     @GetMapping
     public String get() {
-    	return "redirect:" + urlService.getBaseUrl() + "/view/welcome";
+    	return "redirect:" + urlService.getBaseUrl() + "view/welcome";
     }
 	
 }
