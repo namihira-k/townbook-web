@@ -38,7 +38,6 @@ public class EventSearchApiController extends AbstractApiController {
     
     @Autowired
     private UrlService urlService;
-        
     
     @GetMapping(BASE_PATH)
     public AppApiListResponse get(
@@ -63,7 +62,7 @@ public class EventSearchApiController extends AbstractApiController {
             Optional<StationDto> dto = StationService.getByCode(event.getStationCode(), stations);
             dto.ifPresent(d -> event.setStationName(d.getName()));
 
-            event.setViewUrl(urlService.getContextPath() + "/view" + EventInfoController.path + "?uuid=" + event.getUuid());
+            event.setViewUrl(urlService.getBaseUrl() + "/view" + EventInfoController.path + "?uuid=" + event.getUuid());
         });
 
         return new AppApiListResponse(result.getTotalElements(), events);
